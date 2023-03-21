@@ -1,5 +1,7 @@
 import Link from "next/link"
-import { Heading } from './common/chakraui/ChakraUI'
+import { Heading, Center } from './common/chakraui/ChakraUI'
+import HomeMenu from "./components/HomeMenu"
+import HomeContent from "./components/HomeContent"
 
 export const metadata = {
   title: 'Home',
@@ -10,7 +12,7 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <Heading color='red'>Home</Heading>
+      <HomeContent />
     </>
 
   )

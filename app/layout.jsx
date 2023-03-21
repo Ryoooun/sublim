@@ -1,18 +1,20 @@
-'use client'
-import { CacheProvider } from "@chakra-ui/next-js"
+import CProvider from './common/cache/CProvider'
 import Provider from './common/chakraui/Provider'
-import Header from "./HeaderMenu"
+import Menu from './components/Menu'
+import HomeMenu from './components/HomeMenu';
 
 export default function RootLayout({children}){
+  const isAuth = false; // auth で物理的にページを切り替える。
   return (
     <html lang="ja">
       <head />
       <body>
-        <CacheProvider>
+        <CProvider>
           <Provider>
-            <Header />
-            {children}</Provider>
-        </CacheProvider>
+            {isAuth ? <Menu /> : <HomeMenu />}
+            {children}
+          </Provider>
+        </CProvider>
       </body>
     </html>
   )
