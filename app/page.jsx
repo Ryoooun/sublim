@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Heading, Center } from './common/chakraui/ChakraUI'
+import { Heading, Center} from './common/chakraui/ChakraUI'
 import HomeMenu from "./components/HomeMenu"
 import HomeContent from "./components/HomeContent"
 
