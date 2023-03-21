@@ -18,7 +18,7 @@ export default function Home() {
     } else {
       setIsPcType(true)
     }
-  },[])
+  })
   return (
     <>
       {isPcType ?
