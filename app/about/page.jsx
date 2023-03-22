@@ -1,17 +1,10 @@
-
-import { Heading } from '../common/chakraui/ChakraUI'
+import AboutRoot from "./components/AboutRoot";
 
 export const metadata = {
-  title: 'About',
-  description: 'Welcome to my APP'
-}
-
+  title: "SUBLIMについて",
+  description: "SUBLIMの思想や機能についての概要です。",
+};
 
 export default function Home() {
-  return (
-    <>
-      <Heading color='blue'>About</Heading>
-    </>
-
-  )
-};
+  return <AboutRoot />;
+}

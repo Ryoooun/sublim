@@ -30,7 +30,7 @@ export default function HomeContent() {
         <CardBody mt='-5'>
           <Stack spacing='5'>
             <Box>
-              <Text color='gray.600'><Text as='span' fontWeight="light" >SUBLIM</Text>は、学習を単語で管理します。学習内容を記録するためのマークダウンエディターを備えた、少しパワフルでクセのある単語帳です。</Text>
+              <Text color='gray.600'><Text as='span' fontWeight="light" >SUBLIM</Text>は、学習を単語で管理します。学習内容を記録するためのテキストエディターを備えた、少しパワフルでクセのある単語帳です。</Text>
             </Box>
           </Stack>
         </CardBody>
@@ -61,7 +61,7 @@ export default function HomeContent() {
           <Stack spacing='5'>
             <Box>
               <Text color='gray.600'>学習内容を他のユーザーに共有することができます。一方で、個人的な学習はプライベートにすることもできます。<br />単語だけでなく、単語帳を元にワードクラウドを生成し、共有することができます。
-                <br />ユーザーそれぞれが学習した内容が結びつく環境で、他者の知見と自己の学習を比較して再評価し、新たな学習へと簡単に循環させることができます。
+                <br />ユーザーそれぞれが学習した内容が結びつく環境で、他者の知見と自己の学習を比較して再評価し、新たな学習の循環へ導きます。
               </Text>
             </Box>
           </Stack>

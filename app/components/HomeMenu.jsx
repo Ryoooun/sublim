@@ -22,11 +22,11 @@ export default function HomeMenu(params) {
     <>
       {isPcType ?
         <div>
-          <h1>これはパソコン</h1>
+          <h1>これはパソコン用のindexヘッドコンテンツ</h1>
         </div>
       :
         <div>
-          <h1>これはモバイル</h1>
+          <h1>これはモバイル用indexヘッドコンテンツ</h1>
         </div>
       }
     </>
