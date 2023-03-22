@@ -17,11 +17,11 @@ export default function AboutContent(props, ref) {
   const h3 = useRef(null);
 
   return (
-    <Flex mt="5vh" gap="3">
+    <Flex mt="12" gap="3">
       <SideMenu refs={{ top, h2, h3 }} />
       <Box w="75vw">
         <Box
-          mb="10"
+          mb="12"
           w="75vw"
           h="95vh"
           overflowY="scroll"
@@ -32,7 +32,7 @@ export default function AboutContent(props, ref) {
             w="full"
             scrollSnapAlign="center"
             scrollSnapStop="always">
-            <Heading>SUBLIMについて</Heading>
+            <Heading p="2">SUBLIMについて</Heading>
           </Box>
           <Box
             ref={h2}
@@ -40,7 +40,7 @@ export default function AboutContent(props, ref) {
             w="full"
             scrollSnapAlign="center"
             scrollSnapStop="always">
-            <Heading>学習を学習する</Heading>
+            <Heading p="2">学習を学習する</Heading>
           </Box>
           <Box
             ref={h3}
@@ -48,7 +48,7 @@ export default function AboutContent(props, ref) {
             w="full"
             scrollSnapAlign="center"
             scrollSnapStop="always">
-            <Heading>SUBLIMの卒業</Heading>
+            <Heading p="2">SUBLIMの卒業</Heading>
           </Box>
         </Box>
       </Box>

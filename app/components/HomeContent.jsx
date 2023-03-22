@@ -22,7 +22,7 @@ export default function HomeContent() {
   return (
     <>
       <Center boxSizing="border-box">
-        <Heading letterSpacing="0.5rem" fontWeight="thin" mt="10">
+        <Heading letterSpacing="0.5rem" fontWeight="thin" mt="12">
           SUBLIM
         </Heading>
       </Center>

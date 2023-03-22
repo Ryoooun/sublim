@@ -5,7 +5,7 @@ import { Flex, Box, Link } from "../common/chakraui/ChakraUI";
 
 export default function HomeMenu(params) {
   const [isPcType, setIsPcType] = useState(true);
-  const [currentPage, setCurrentPage] = useState(location.pathname);
+  const [currentPage, setCurrentPage] = useState(null);
   useEffect(() => {
     const mobileTypeList = ["iPhone", "iPod", "iPad", "Android"];
     const machineType = navigator.userAgent;
@@ -23,7 +23,9 @@ export default function HomeMenu(params) {
   const handleLinkClick = (page) => {
     setCurrentPage(page);
   };
-
+  useEffect(() => {
+    setCurrentPage(location.pathname); //Homeのボタンから遷移した場合は更新されない。
+  }, []);
   const LinkMenu = () => {
     const menuContents = [
       { id: 0, title: "Home", path: "/" },
@@ -34,13 +36,14 @@ export default function HomeMenu(params) {
       <>
         {menuContents.map((content) => (
           <Link
-            _hover={{ textDecoration: "none", backgroundColor: "whatsapp.200" }}
+            _hover={{ textDecoration: "none", backgroundColor: "whatsapp.400" }}
             key={content.id}
+            p="2"
             fontSize={["xl", "2xl"]}
             as={NextLink}
             href={content.path}
             onClick={() => handleLinkClick(content.path)}
-            bg={currentPage === content.path && "whatsapp.200"}>
+            bg={currentPage === content.path && "whatsapp.400"}>
             {content.title}
           </Link>
         ))}
@@ -49,7 +52,7 @@ export default function HomeMenu(params) {
   };
 
   return (
-    <Flex pos="fixed" bg="whatsapp.500" w="100vw" h="5vh" zIndex="10" gap="15">
+    <Flex pos="fixed" bg="whatsapp.500" w="100vw" h="12" zIndex="10">
       <LinkMenu />
       <h1>これは{isPcType ? "PC" : "Mobile"}</h1>
     </Flex>
