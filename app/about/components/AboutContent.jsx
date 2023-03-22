@@ -17,19 +17,18 @@ export default function AboutContent(props, ref) {
   const h3 = useRef(null);
 
   return (
-    <Flex>
+    <Flex mt="5vh" gap="3">
       <SideMenu refs={{ top, h2, h3 }} />
       <Box w="75vw">
         <Box
           mb="10"
           w="75vw"
-          h="100vh"
+          h="95vh"
           overflowY="scroll"
           sx={{ scrollSnapType: "y mandatory" }}>
           <Box
             ref={top}
-            h="100vh"
-            bg="red.200"
+            h="95vh"
             w="full"
             scrollSnapAlign="center"
             scrollSnapStop="always">
@@ -37,8 +36,7 @@ export default function AboutContent(props, ref) {
           </Box>
           <Box
             ref={h2}
-            h="100vh"
-            bg="blue.200"
+            h="95vh"
             w="full"
             scrollSnapAlign="center"
             scrollSnapStop="always">
@@ -46,8 +44,7 @@ export default function AboutContent(props, ref) {
           </Box>
           <Box
             ref={h3}
-            h="100vh"
-            bg="green.200"
+            h="95vh"
             w="full"
             scrollSnapAlign="center"
             scrollSnapStop="always">

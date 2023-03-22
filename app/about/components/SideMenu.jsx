@@ -14,14 +14,18 @@ export default function SideMenu({ refs }) {
     });
   };
   return (
-    <Box w="25vw" h="100vh" bg="green.300">
-      <Text p="2" bg="gray.200" onClick={() => scrollToHeading(refs.top)}>
+    <Box w="25vw" h="100vh" shadow="base">
+      <Text
+        fontSize={["sm", "md", "lg", "xl"]}
+        p="2"
+        bg="gray.100"
+        onClick={() => scrollToHeading(refs.top)}>
         SUBLIMについて
       </Text>
-      <Text p="2" bg="gray.200" onClick={() => scrollToHeading(refs.h2)}>
+      <Text p="2" bg="gray.100" onClick={() => scrollToHeading(refs.h2)}>
         学習を学習する
       </Text>
-      <Text p="2" bg="gray.200" onClick={() => scrollToHeading(refs.h3)}>
+      <Text p="2" bg="gray.100" onClick={() => scrollToHeading(refs.h3)}>
         SUBLIMの卒業
       </Text>
     </Box>
