@@ -1,31 +1,27 @@
 "use client";
 import NextLink from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { Flex, Box, Link } from "../common/chakraui/ChakraUI";
+import { useUserAgentStore } from "../store/userAgent";
 
 export default function HomeMenu(params) {
-  const [isPcType, setIsPcType] = useState(true);
   const [currentPage, setCurrentPage] = useState(null);
-  useEffect(() => {
-    const mobileTypeList = ["iPhone", "iPod", "iPad", "Android"];
-    const machineType = navigator.userAgent;
-    const mobileTypeCheck = mobileTypeList.filter((item) => {
-      return machineType.search(item) != -1;
-    });
+  // const [isPcType, setIsPcType] = useState(true);
+  // useEffect(() => {
+  //   const mobileTypeList = ["iPhone", "iPod", "iPad", "Android"];
+  //   const machineType = navigator.userAgent;
+  //   const mobileTypeCheck = mobileTypeList.filter((item) => {
+  //     return machineType.search(item) != -1;
+  //   });
 
-    if (mobileTypeCheck.length > 0) {
-      setIsPcType(false);
-    } else {
-      setIsPcType(true);
-    }
-  });
+  //   if (mobileTypeCheck.length > 0) {
+  //     setIsPcType(false);
+  //   } else {
+  //     setIsPcType(true);
+  //   }
+  // });
+  const isPC = useUserAgentStore((state) => state.isPC);
 
-  const handleLinkClick = (page) => {
-    setCurrentPage(page);
-  };
-  useEffect(() => {
-    setCurrentPage(location.pathname); //Homeのボタンから遷移した場合は更新されない。
-  }, []);
   const LinkMenu = () => {
     const menuContents = [
       { id: 0, title: "Home", path: "/" },
@@ -51,10 +47,18 @@ export default function HomeMenu(params) {
     );
   };
 
+  const Message = () => {
+    if (isPC) {
+      return <h1>pc</h1>;
+    } else {
+      return <h1>sm</h1>;
+    }
+  };
+
   return (
     <Flex pos="fixed" bg="whatsapp.500" w="100vw" h="12" zIndex="10">
       <LinkMenu />
-      <h1>これは{isPcType ? "PC" : "Mobile"}</h1>
+      <Message />
     </Flex>
   );
 }
