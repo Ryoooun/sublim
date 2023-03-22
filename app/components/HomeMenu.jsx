@@ -6,21 +6,11 @@ import { useUserAgentStore } from "../store/userAgent";
 
 export default function HomeMenu(params) {
   const [currentPage, setCurrentPage] = useState(null);
-  // const [isPcType, setIsPcType] = useState(true);
-  // useEffect(() => {
-  //   const mobileTypeList = ["iPhone", "iPod", "iPad", "Android"];
-  //   const machineType = navigator.userAgent;
-  //   const mobileTypeCheck = mobileTypeList.filter((item) => {
-  //     return machineType.search(item) != -1;
-  //   });
-
-  //   if (mobileTypeCheck.length > 0) {
-  //     setIsPcType(false);
-  //   } else {
-  //     setIsPcType(true);
-  //   }
-  // });
   const isPC = useUserAgentStore((state) => state.isPC);
+
+  const handleLinkClick = (path) => {
+    setCurrentPage(path);
+  };
 
   const LinkMenu = () => {
     const menuContents = [
@@ -35,6 +25,8 @@ export default function HomeMenu(params) {
             _hover={{ textDecoration: "none", backgroundColor: "whatsapp.400" }}
             key={content.id}
             p="2"
+            color="white"
+            fontWeight="semibold"
             fontSize={["xl", "2xl"]}
             as={NextLink}
             href={content.path}
@@ -47,18 +39,9 @@ export default function HomeMenu(params) {
     );
   };
 
-  const Message = () => {
-    if (isPC) {
-      return <h1>pc</h1>;
-    } else {
-      return <h1>sm</h1>;
-    }
-  };
-
   return (
     <Flex pos="fixed" bg="whatsapp.500" w="100vw" h="12" zIndex="10">
       <LinkMenu />
-      <Message />
     </Flex>
   );
 }
