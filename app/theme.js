@@ -1,10 +1,10 @@
 import { extendTheme } from "./common/chakraui/ChakraUI";
 
 const config = {
-  initialColorMode: 'system',
-  useSystemColorMode: 'false',
-}
+  initialColorMode: "system",
+  useSystemColorMode: "true",
+};
 
-const theme = extendTheme({ config })
+const theme = extendTheme({ config });
 
-export default theme
+export default theme;

@@ -1,0 +1,35 @@
+html {
+  background: rgb(255, 255, 255);
+  color: #000000;
+}
+
+.count {
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 25vw;
+  z-index: 10;
+  view-transition-name: count;
+}
+
+/* Custom transition */
+@keyframes rotate-out {
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes rotate-in {
+  from {
+    transform: rotate(-90deg);
+  }
+}
+
+html::view-transition-old(count),
+html::view-transition-new(count) {
+  animation-duration: 200ms;
+  animation-name: -ua-view-transition-fade-in, rotate-in;
+}
+
+html::view-transition-old(count) {
+  animation-name: -ua-view-transition-fade-out, rotate-out;
+}

@@ -2,16 +2,15 @@
 
 import CProvider from "./common/cache/CProvider";
 import Provider from "./common/chakraui/Provider";
-import Menu from "./components/Menu";
 import HomeMenu from "./components/HomeMenu";
-import { useURLStore } from "./store/urlOrigin";
-
 import { useEffect } from "react";
+import { useURLStore } from "./store/urlOrigin";
 import { useUserAgentStore } from "./store/userAgent";
 
 export default function RootLayout({ children }) {
   const setOriginUrl = useURLStore((state) => state.setOriginUrl);
   const checkIsPcType = useUserAgentStore((state) => state.checkIsPcType);
+
   useEffect(() => {
     const mobileTypeList = ["iPhone", "iPod", "iPad", "Android"];
     const machineType = navigator.userAgent;
@@ -37,7 +36,11 @@ export default function RootLayout({ children }) {
       <body>
         <CProvider>
           <Provider>
-            {isAuth ? <Menu /> : <HomeMenu />}
+            {isAuth ? (
+              <h2>ユーザーダッシュボードページにリダイレクトする</h2>
+            ) : (
+              <HomeMenu />
+            )}
             {children}
           </Provider>
         </CProvider>

@@ -1,17 +1,26 @@
 "use client";
 
-import useSWR from "swr";
-import { useURLStore } from "../store/urlOrigin";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
+import { useState } from "react";
+import { flushSync } from "react-dom";
+import { transitionHelper } from "./utils";
+import "./styles.css";
 export default function page() {
-  const originUrl = useURLStore((state) => state.originUrl);
-  const { data, error } = useSWR(`${originUrl}/api/hello`, fetcher);
-  console.log(data);
+  const [count, setCount] = useState(0);
+
+  const onIncrementClick = () => {
+    transitionHelper({
+      updateDOM() {
+        flushSync(() => {
+          setCount(count + 1);
+        });
+      },
+    });
+  };
+
   return (
     <div>
-      <h1 style={{ fontSize: "100px" }}>Hello</h1>
+      <div className="count">{count}</div>
+      <button onClick={onIncrementClick}>Increment</button>
     </div>
   );
 }
