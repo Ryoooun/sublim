@@ -5,7 +5,7 @@ import { flushSync } from "react-dom";
 import { transitionHelper } from "./utils";
 import "./styles.css";
 export default function page() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const onIncrementClick = () => {
     transitionHelper({
