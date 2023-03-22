@@ -1,4 +1,4 @@
-import HomeContent from "./components/HomeContent";
+import HomeContent from "./template/HomeContent";
 
 export const metadata = {
   title: "Sublim:学習の循環をサポートするパワフルでお節介な単語帳",

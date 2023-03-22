@@ -1,7 +1,8 @@
 "use client";
 import NextLink from "next/link";
 import { useState } from "react";
-import { Flex, Box, Link } from "../common/chakraui/ChakraUI";
+import { Flex, Link, Icon } from "../common/chakraui/ChakraUI";
+import AppIcon from "../atoms/AppIcon";
 import { useUserAgentStore } from "../store/userAgent";
 
 export default function HomeMenu(params) {
@@ -41,6 +42,7 @@ export default function HomeMenu(params) {
 
   return (
     <Flex pos="fixed" bg="whatsapp.500" w="100vw" h="12" zIndex="10">
+      <Icon as={AppIcon} boxSize="200px" />
       <LinkMenu />
     </Flex>
   );

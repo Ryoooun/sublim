@@ -2,7 +2,7 @@
 
 import CProvider from "./common/cache/CProvider";
 import Provider from "./common/chakraui/Provider";
-import HomeMenu from "./components/HomeMenu";
+import HomeMenu from "./template/HomeMenu";
 import { useEffect } from "react";
 import { useURLStore } from "./store/urlOrigin";
 import { useUserAgentStore } from "./store/userAgent";
