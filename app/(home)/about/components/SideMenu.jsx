@@ -4,7 +4,7 @@ import {
   Link,
   Button,
   Text,
-} from "../../common/chakraui/ChakraUI";
+} from "../../../common/chakraui/ChakraUI";
 
 export default function SideMenu({ refs }) {
   const scrollToHeading = (r) => {

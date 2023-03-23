@@ -1,6 +1,6 @@
 import AboutContent from "./AboutContent";
 import SideMenu from "./SideMenu";
-import { Box } from "../../common/chakraui/ChakraUI";
+import { Box } from "../../../common/chakraui/ChakraUI";
 
 export default function AboutRoot() {
   return (

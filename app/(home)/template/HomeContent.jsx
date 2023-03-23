@@ -14,7 +14,7 @@ import {
   Divider,
   Icon,
   Link,
-} from "../common/chakraui/ChakraUI";
+} from "../../common/chakraui/ChakraUI";
 import HeroLogo from "../organisms/HeroLogo";
 import DescriptionBanner from "../organisms/DescriptionBanner";
 import HomeStackCard from "./HomeStackCard";

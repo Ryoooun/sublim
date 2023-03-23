@@ -1,13 +1,13 @@
 "use client";
 
 import NextLink from "next/link";
-import { Flex, Link, Icon, Box } from "../common/chakraui/ChakraUI";
+import { Flex, Link, Icon, Box } from "../../common/chakraui/ChakraUI";
 
 import AppIcon from "../atoms/AppIcon";
 import LinkMenu from "../organisms/LinkMenu";
 import HeaderLoginContent from "../organisms/HeaderLoginContent";
 
-export default function HomeMenu(params) {
+export default function HomeMenu({ currentPage, handleLinkClick }) {
   return (
     <Flex pos="fixed" shadow="md" w="full" h="10" zIndex="10">
       <Box
@@ -21,7 +21,7 @@ export default function HomeMenu(params) {
       <Link as={NextLink} href="/">
         <Icon as={AppIcon} boxSize="8" my="1" mx="3" />
       </Link>
-      <LinkMenu />
+      <LinkMenu currentPage={currentPage} handleLinkClick={handleLinkClick} />
       <Flex pos="absolute" right="2" gap="2" alignItems="center">
         <HeaderLoginContent />
       </Flex>

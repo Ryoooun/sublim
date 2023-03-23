@@ -8,7 +8,7 @@ import {
   Button,
   Flex,
   Text,
-} from "../../common/chakraui/ChakraUI";
+} from "../../../common/chakraui/ChakraUI";
 import { useRef } from "react";
 
 export default function AboutContent(props, ref) {

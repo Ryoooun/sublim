@@ -1,4 +1,4 @@
-import { Box, Heading, Button } from "../common/chakraui/ChakraUI";
+import { Box, Heading, Button } from "../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
 
 export default function AboutLink(params) {

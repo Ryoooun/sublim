@@ -1,4 +1,4 @@
-import { FiBook, FiSearch, ImLoop2 } from "../common/icon/homeMenuIcons";
+import { FiBook, FiSearch, ImLoop2 } from "../../common/icon/homeMenuIcons";
 import DescriptionCard from "../organisms/DescriptionCard";
 
 const contents = [

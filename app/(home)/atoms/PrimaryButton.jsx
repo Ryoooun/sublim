@@ -1,6 +1,5 @@
-import { color } from "framer-motion";
-import { Button, Icon } from "../common/chakraui/ChakraUI";
-import { useMediaQuery } from "../common/chakraui/ChakraUI";
+import { Button, Icon } from "../../common/chakraui/ChakraUI";
+import { useMediaQuery } from "../../common/chakraui/ChakraUI";
 
 export default function PrimaryButton({ title, bg, icon, onClick, color }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)", {

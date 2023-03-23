@@ -6,19 +6,15 @@ import {
   MenuItem,
   Icon,
   Box,
-} from "../common/chakraui/ChakraUI";
+} from "../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
 
 import { useState } from "react";
-import { useMediaQuery } from "../common/chakraui/ChakraUI";
+import { useMediaQuery } from "../../common/chakraui/ChakraUI";
 
 import { HiMenu } from "@react-icons/all-files/hi/HiMenu";
 
-export default function LinkMenu() {
-  const [currentPage, setCurrentPage] = useState(null);
-  const handleLinkClick = (path) => {
-    setCurrentPage(path);
-  };
+export default function LinkMenu({ currentPage, handleLinkClick }) {
   const menuContents = [
     { id: 0, title: "Home", path: "/" },
     { id: 1, title: "About", path: "/about" },

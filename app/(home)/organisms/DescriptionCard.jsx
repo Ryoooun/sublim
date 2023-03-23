@@ -7,7 +7,7 @@ import {
   Box,
   Icon,
   Text,
-} from "../common/chakraui/ChakraUI";
+} from "../../common/chakraui/ChakraUI";
 
 export default function DescriptionCard({ content }) {
   const { icon, header, body } = { ...content };

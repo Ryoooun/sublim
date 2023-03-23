@@ -1,4 +1,4 @@
-import { Heading } from "../common/chakraui/ChakraUI";
+import { Heading } from "../../common/chakraui/ChakraUI";
 
 // logoをスタイリングする。
 export default function Logo({

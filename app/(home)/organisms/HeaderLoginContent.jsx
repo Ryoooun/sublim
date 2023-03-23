@@ -1,12 +1,12 @@
 "use client";
 
-import { Avatar, Text } from "../common/chakraui/ChakraUI";
+import { Avatar, Text } from "../../common/chakraui/ChakraUI";
 import PrimaryButton from "../atoms/PrimaryButton";
 
 import { RiLoginCircleLine } from "@react-icons/all-files/ri/RiLoginCircleLine";
 import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
 
-import useAuthWithPopup from "../hooks/useAuthWithPopup";
+import useAuthWithPopup from "../../hooks/useAuthWithPopup";
 
 export default function HeaderLoginContent(params) {
   const [handleSignInWithPopup, isAuth, user] = useAuthWithPopup();

@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import sublim from "../../public/sublim_lottie.json";
+import sublim from "../../../public/sublim_lottie.json";
 
 import { useState } from "react";
 import { flushSync } from "react-dom";
