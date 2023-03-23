@@ -18,7 +18,7 @@ const AppIcon = (props) => {
         cy={158.49}
         r={137.134}
         style={{
-          fill: "#00834e",
+          fill: "#00834ec0",
         }}
         transform="matrix(.9334 0 0 .9334 -111.763 -19.934)"
       />

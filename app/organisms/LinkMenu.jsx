@@ -5,6 +5,7 @@ import {
   MenuList,
   MenuItem,
   Icon,
+  Box,
 } from "../common/chakraui/ChakraUI";
 import NextLink from "next/link";
 
@@ -13,7 +14,7 @@ import { useMediaQuery } from "../common/chakraui/ChakraUI";
 
 import { HiMenu } from "@react-icons/all-files/hi/HiMenu";
 
-export default function LinkMenu(params) {
+export default function LinkMenu() {
   const [currentPage, setCurrentPage] = useState(null);
   const handleLinkClick = (path) => {
     setCurrentPage(path);
@@ -31,19 +32,22 @@ export default function LinkMenu(params) {
       <>
         {menuContents.map((content, count) => (
           <Link
-            _hover={{ textDecoration: "none", backgroundColor: "brand.700" }}
+            _hover={{
+              textDecoration: "none",
+              backgroundColor: "brand.500",
+              color: "white",
+            }}
             key={content.id}
-            py="2"
+            py="1"
             px="5"
             ml="-0.5"
-            color="white"
+            color={currentPage === content.path && "brand.800"}
             fontWeight="thin"
-            fontFamily="mono"
             fontSize={["xl", "2xl"]}
             as={NextLink}
             href={content.path}
             onClick={() => handleLinkClick(content.path)}
-            bg={currentPage === content.path && "brand.700"}
+            bg={currentPage === content.path && "brand.500"}
             roundedRight="2xl"
             roundedLeft="lg"
             boxShadow="lg"
@@ -57,7 +61,7 @@ export default function LinkMenu(params) {
     return (
       <Menu>
         <MenuButton>
-          <Icon as={HiMenu} boxSize="10" mt="2" color="brand.600" />
+          <Icon as={HiMenu} boxSize="8" mt="1" color="blackAlpha.600" />
         </MenuButton>
         <MenuList>
           <MenuItem>

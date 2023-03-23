@@ -13,7 +13,8 @@ export default function DescriptionCard({ content }) {
   const { icon, header, body } = { ...content };
 
   return (
-    <Card w={{ base: "95%", md: "75%" }}>
+    <Card w={{ base: "95%", md: "75%" }} bg="blackAlpha.50" shadow="xs">
+      <Box></Box>
       <CardHeader roundedTop="lg">
         <Flex>
           <Icon
