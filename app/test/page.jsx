@@ -1,5 +1,8 @@
 "use client";
 
+import Lottie from "lottie-react";
+import sublim from "../../public/sublim_lottie.json";
+
 import { useState } from "react";
 import { flushSync } from "react-dom";
 import { transitionHelper } from "./utils";
@@ -19,8 +22,9 @@ export default function page() {
 
   return (
     <div>
-      <div className="count">{count}</div>
-      <button onClick={onIncrementClick}>Increment</button>
+      {/* <div className="count">{count}</div>
+      <button onClick={onIncrementClick}>Increment</button> */}
+      <Lottie animationData={sublim} />
     </div>
   );
 }

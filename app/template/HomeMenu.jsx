@@ -6,14 +6,14 @@ import AppIcon from "../atoms/AppIcon";
 import PrimaryButton from "../atoms/PrimaryButton";
 import LinkMenu from "../organisms/LinkMenu";
 
-import { useMediaQuery } from "../common/chakraui/ChakraUI";
-import { useState } from "react";
-import { useUserAgentStore } from "../store/userAgent";
-
 import { RiLoginCircleLine } from "@react-icons/all-files/ri/RiLoginCircleLine";
 import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
 
+import useAuthWithPopup from "../hooks/useAuthWithPopup";
+
 export default function HomeMenu(params) {
+  const [handleSignInWithPopup, isAuth] = useAuthWithPopup();
+
   return (
     <Flex pos="fixed" bg="brand.300" w="full" h="12" zIndex="10">
       <Link as={NextLink} href="/">
@@ -21,11 +21,12 @@ export default function HomeMenu(params) {
       </Link>
       <LinkMenu />
       <Box pos="absolute" right="2">
+        <h1>{isAuth.toString()}</h1>
         <PrimaryButton
           title="Log in"
           colorScheme="telegram"
           icon={RiLoginCircleLine}
-          onClick={() => alert("login")}
+          onClick={() => handleSignInWithPopup()}
         />
         <PrimaryButton
           title="Sing up"

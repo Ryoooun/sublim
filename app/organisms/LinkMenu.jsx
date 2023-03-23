@@ -66,7 +66,7 @@ export default function LinkMenu(params) {
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link as={NextLink} href="/Test">
+            <Link as={NextLink} href="/test">
               Test
             </Link>
           </MenuItem>
