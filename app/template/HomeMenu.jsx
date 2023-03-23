@@ -25,11 +25,13 @@ export default function HomeMenu(params) {
           title="Log in"
           colorScheme="telegram"
           icon={RiLoginCircleLine}
+          onClick={() => alert("login")}
         />
         <PrimaryButton
           title="Sing up"
           colorScheme="telegram"
           icon={AiOutlineUserAdd}
+          onClick={() => alert("sign up")}
         />
       </Box>
     </Flex>
