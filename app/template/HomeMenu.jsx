@@ -1,49 +1,37 @@
 "use client";
 import NextLink from "next/link";
-import { useState } from "react";
-import { Flex, Link, Icon } from "../common/chakraui/ChakraUI";
+import { Flex, Link, Icon, Box } from "../common/chakraui/ChakraUI";
+
 import AppIcon from "../atoms/AppIcon";
+import PrimaryButton from "../atoms/PrimaryButton";
+import LinkMenu from "../organisms/LinkMenu";
+
+import { useMediaQuery } from "../common/chakraui/ChakraUI";
+import { useState } from "react";
 import { useUserAgentStore } from "../store/userAgent";
 
+import { RiLoginCircleLine } from "@react-icons/all-files/ri/RiLoginCircleLine";
+import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
+
 export default function HomeMenu(params) {
-  const [currentPage, setCurrentPage] = useState(null);
-  const isPC = useUserAgentStore((state) => state.isPC);
-
-  const handleLinkClick = (path) => {
-    setCurrentPage(path);
-  };
-
-  const LinkMenu = () => {
-    const menuContents = [
-      { id: 0, title: "Home", path: "/" },
-      { id: 1, title: "About", path: "/about" },
-      { id: 2, title: "Test", path: "/test" },
-    ];
-    return (
-      <>
-        {menuContents.map((content) => (
-          <Link
-            _hover={{ textDecoration: "none", backgroundColor: "whatsapp.400" }}
-            key={content.id}
-            p="2"
-            color="white"
-            fontWeight="semibold"
-            fontSize={["xl", "2xl"]}
-            as={NextLink}
-            href={content.path}
-            onClick={() => handleLinkClick(content.path)}
-            bg={currentPage === content.path && "whatsapp.400"}>
-            {content.title}
-          </Link>
-        ))}
-      </>
-    );
-  };
-
   return (
-    <Flex pos="fixed" bg="whatsapp.500" w="100vw" h="12" zIndex="10">
-      <Icon as={AppIcon} boxSize="200px" />
+    <Flex pos="fixed" bg="brand.300" w="full" h="12" zIndex="10">
+      <Link as={NextLink} href="/">
+        <Icon as={AppIcon} boxSize="10" mt="1" mx="2" />
+      </Link>
       <LinkMenu />
+      <Box pos="absolute" right="2">
+        <PrimaryButton
+          title="Log in"
+          colorScheme="telegram"
+          icon={RiLoginCircleLine}
+        />
+        <PrimaryButton
+          title="Sing up"
+          colorScheme="telegram"
+          icon={AiOutlineUserAdd}
+        />
+      </Box>
     </Flex>
   );
 }
