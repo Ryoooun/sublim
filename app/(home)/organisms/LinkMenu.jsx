@@ -9,7 +9,6 @@ import {
 } from "../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
 
-import { useState } from "react";
 import { useMediaQuery } from "../../common/chakraui/ChakraUI";
 
 import { HiMenu } from "@react-icons/all-files/hi/HiMenu";
@@ -60,13 +59,19 @@ export default function LinkMenu({ currentPage, handleLinkClick }) {
           <Icon as={HiMenu} boxSize="8" mt="1" color="blackAlpha.600" />
         </MenuButton>
         <MenuList>
-          <MenuItem>
-            <Link as={NextLink} href="/about">
+          <MenuItem fontSize="xl">
+            <Link
+              as={NextLink}
+              href="/about"
+              _hover={{ textDecoration: "none" }}>
               Sublimについて
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link as={NextLink} href="/test">
+            <Link
+              as={NextLink}
+              href="/test"
+              _hover={{ textDecoration: "none" }}>
               Test
             </Link>
           </MenuItem>

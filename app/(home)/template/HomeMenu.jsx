@@ -1,5 +1,3 @@
-"use client";
-
 import NextLink from "next/link";
 import { Flex, Link, Icon, Box } from "../../common/chakraui/ChakraUI";
 
@@ -9,7 +7,14 @@ import HeaderLoginContent from "../organisms/HeaderLoginContent";
 
 export default function HomeMenu({ currentPage, handleLinkClick }) {
   return (
-    <Flex pos="fixed" shadow="md" w="full" h="10" zIndex="10">
+    <Flex
+      pos="fixed"
+      shadow="md"
+      w="full"
+      h="10"
+      zIndex="10"
+      backdropFilter="auto"
+      backdropBlur="1px">
       <Box
         bg="blackAlpha.800"
         w="full"

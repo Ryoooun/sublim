@@ -13,7 +13,7 @@ import {
   textDecoration,
   Text,
   Image,
-} from "../../common/chakraui/ChakraUI";
+} from "../../../../common/chakraui/ChakraUI";
 import { BsPlusSquare } from "@react-icons/all-files/bs/BsPlusSquare";
 import { BsNewspaper } from "@react-icons/all-files/bs/BsNewspaper";
 import { RiDoorOpenLine } from "@react-icons/all-files/ri/RiDoorOpenLine";

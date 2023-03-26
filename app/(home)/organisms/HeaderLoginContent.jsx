@@ -2,6 +2,7 @@
 
 import { Avatar, Text } from "../../common/chakraui/ChakraUI";
 import PrimaryButton from "../atoms/PrimaryButton";
+import AvatarMenu from "../molecules/AvatarMenu";
 
 import { RiLoginCircleLine } from "@react-icons/all-files/ri/RiLoginCircleLine";
 import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
@@ -13,7 +14,7 @@ export default function HeaderLoginContent(params) {
   return (
     <>
       {user ? (
-        <Avatar size="md" mt="1" name={user.displayName} src={user.photoURL} />
+        <AvatarMenu name={user.displayName} src={user.photoURL} />
       ) : (
         null ?? (
           <>
