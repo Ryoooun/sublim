@@ -1,4 +1,4 @@
-import { auth, GoogleProvider } from "@/auth/firebase";
+import { auth, GoogleProvider } from "@/app/auth/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
