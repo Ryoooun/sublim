@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 
-const AppIcon = (props) => {
+const AppIcon = React.memo((props) => {
   return (
     <svg
       viewBox="0 0 256 256"
@@ -32,6 +32,6 @@ const AppIcon = (props) => {
       />
     </svg>
   );
-};
+});
 
 export default AppIcon;

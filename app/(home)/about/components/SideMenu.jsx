@@ -1,10 +1,4 @@
-import {
-  Box,
-  VStack,
-  Link,
-  Button,
-  Text,
-} from "../../../common/chakraui/ChakraUI";
+import { Box, Text } from "../../../common/chakraui/ChakraUI";
 
 export default function SideMenu({ refs }) {
   const scrollToHeading = (r) => {

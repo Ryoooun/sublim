@@ -1,17 +1,10 @@
 "use client";
 import SideMenu from "./SideMenu";
-import {
-  Heading,
-  VStack,
-  Box,
-  Link,
-  Button,
-  Flex,
-  Text,
-} from "../../../common/chakraui/ChakraUI";
+import { Heading, Box, Flex } from "../../../common/chakraui/ChakraUI";
 import { useRef } from "react";
+import React from "react";
 
-export default function AboutContent(props, ref) {
+export default React.memo(function AboutContent(props, ref) {
   const top = useRef(null);
   const h2 = useRef(null);
   const h3 = useRef(null);
@@ -54,4 +47,4 @@ export default function AboutContent(props, ref) {
       </Box>
     </Flex>
   );
-}
+});

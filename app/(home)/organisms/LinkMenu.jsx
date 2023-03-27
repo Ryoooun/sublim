@@ -10,10 +10,10 @@ import {
 import NextLink from "next/link";
 
 import { useMediaQuery } from "../../common/chakraui/ChakraUI";
-
+import React from "react";
 import { HiMenu } from "@react-icons/all-files/hi/HiMenu";
 
-export default function LinkMenu({ currentPage, handleLinkClick }) {
+export default React.memo(function LinkMenu({ currentPage, handleLinkClick }) {
   const menuContents = [
     { id: 0, title: "Home", path: "/" },
     { id: 1, title: "About", path: "/about" },
@@ -79,4 +79,4 @@ export default function LinkMenu({ currentPage, handleLinkClick }) {
       </Menu>
     );
   }
-}
+});

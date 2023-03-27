@@ -1,14 +1,14 @@
 import { auth, GoogleProvider } from "@/auth/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useIsAuth } from "../store/auth";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export default function useAuthWithPopup() {
   const setIsAuth = useIsAuth((state) => state.setIsAuth);
   const isAuth = useIsAuth((state) => state.isAuth);
   const [user, setUser] = useState(null);
 
-  const handleSignWithPopup = () => {
+  const handleSignWithPopup = useCallback(() => {
     signInWithPopup(auth, GoogleProvider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -27,6 +27,6 @@ export default function useAuthWithPopup() {
         const credential = GoogleAuthProvider.credentialFromError(error);
         setIsAuth(false);
       });
-  };
+  }, []);
   return [handleSignWithPopup, isAuth, user];
 }

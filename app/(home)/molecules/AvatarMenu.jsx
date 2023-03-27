@@ -9,8 +9,9 @@ import {
   MenuList,
   Link,
 } from "../../common/chakraui/ChakraUI";
+import React from "react";
 
-export default function AvatarMenu({ name, src }) {
+export default React.memo(function AvatarMenu({ name, src }) {
   return (
     <Menu>
       <MenuButton>
@@ -30,4 +31,4 @@ export default function AvatarMenu({ name, src }) {
       </MenuList>
     </Menu>
   );
-}
+});

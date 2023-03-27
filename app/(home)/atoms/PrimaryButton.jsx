@@ -1,7 +1,8 @@
 import { Button, Icon } from "../../common/chakraui/ChakraUI";
 import { useMediaQuery } from "../../common/chakraui/ChakraUI";
+import React from "react";
 
-export default function PrimaryButton({ title, bg, icon, onClick, color }) {
+export default React.memo(function PrimaryButton({ title, icon, onClick }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)", {
     ssr: true,
     fallback: false,
@@ -23,4 +24,4 @@ export default function PrimaryButton({ title, bg, icon, onClick, color }) {
       {isLargerThen50em ? `${title}` : <Icon as={icon} boxSize="7" />}
     </Button>
   );
-}
+});

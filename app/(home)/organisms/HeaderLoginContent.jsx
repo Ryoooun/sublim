@@ -1,6 +1,7 @@
 "use client";
 
-import { Avatar, Text } from "../../common/chakraui/ChakraUI";
+import React from "react";
+
 import PrimaryButton from "../atoms/PrimaryButton";
 import AvatarMenu from "../molecules/AvatarMenu";
 
@@ -9,7 +10,7 @@ import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
 
 import useAuthWithPopup from "../../hooks/useAuthWithPopup";
 
-export default function HeaderLoginContent(params) {
+export default React.memo(function HeaderLoginContent(params) {
   const [handleSignInWithPopup, isAuth, user] = useAuthWithPopup();
   return (
     <>
@@ -35,4 +36,4 @@ export default function HeaderLoginContent(params) {
       )}
     </>
   );
-}
+});

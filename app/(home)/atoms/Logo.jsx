@@ -1,7 +1,7 @@
 import { Heading } from "../../common/chakraui/ChakraUI";
-
+import React from "react";
 // logoをスタイリングする。
-export default function Logo({
+export default React.memo(function Logo({
   logo = "SUBLIM",
   letterSpacing = "0.5rem",
   fontWeight = "thin",
@@ -12,4 +12,4 @@ export default function Logo({
       {logo}
     </Heading>
   );
-}
+});

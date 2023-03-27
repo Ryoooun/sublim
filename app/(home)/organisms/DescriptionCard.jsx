@@ -8,8 +8,8 @@ import {
   Icon,
   Text,
 } from "../../common/chakraui/ChakraUI";
-
-export default function DescriptionCard({ content }) {
+import React from "react";
+export default React.memo(function DescriptionCard({ content }) {
   const { icon, header, body } = { ...content };
 
   return (
@@ -46,4 +46,4 @@ export default function DescriptionCard({ content }) {
       </CardBody>
     </Card>
   );
-}
+});

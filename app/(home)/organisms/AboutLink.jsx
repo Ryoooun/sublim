@@ -1,7 +1,8 @@
 import { Box, Heading, Button } from "../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
+import React from "react";
 
-export default function AboutLink(params) {
+export default React.memo(function AboutLink(params) {
   return (
     <Box textAlign="center">
       <Heading>「学ぶこと」を学ぶ。</Heading>
@@ -18,4 +19,4 @@ export default function AboutLink(params) {
       </Button>
     </Box>
   );
-}
+});
