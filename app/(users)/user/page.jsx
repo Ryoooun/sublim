@@ -11,7 +11,12 @@ export default function page(params) {
 
   const LoginUser = () => {
     if (user) {
-      return <p>こんにちは!{`${user.displayName}`}さん</p>;
+      return (
+        <>
+          <p>こんにちは!{`${user.displayName}`}さん</p>
+          <p>{user.uid}</p>
+        </>
+      );
     } else {
       <p>こんにちは!ゲストさん</p>;
     }

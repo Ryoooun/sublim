@@ -1,4 +1,4 @@
-import { auth, GoogleProvider } from "@/auth/firebase";
+import { auth, GoogleProvider } from "@/app/auth/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
@@ -7,7 +7,6 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 export default function useAuthWithPopup() {
-  const setIsAuth = useIsAuth((state) => state.setIsAuth);
   const isAuth = useIsAuth((state) => state.isAuth);
   const [token, setToken] = useState(null);
   const user = useUser((state) => state.user);
@@ -23,7 +22,7 @@ export default function useAuthWithPopup() {
         useIsAuth.setState({ isAuth: true }, true);
         useUser.setState({ user: user }, true);
         console.log("success!");
-        router.push(`/user/${user.displayName}`);
+        router.push(`/user`);
       })
       .catch((error) => {
         const errorCode = error.code;

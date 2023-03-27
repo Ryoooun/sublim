@@ -1,16 +1,8 @@
 "use client";
 import NextLink from "next/link";
 import NextImage from "next/image";
-import {
-  Text,
-  Button,
-  Flex,
-  Heading,
-  Box,
-  Icon,
-} from "./common/chakraui/ChakraUI";
-import { useMediaQuery } from "./common/chakraui/ChakraUI";
-import NotFoundSvg from "./(users)/user/components/atoms/NotFoundSvg";
+import { Text, Button, Flex, Heading, Box } from "../common/chakraui/ChakraUI";
+import NotFoundSvg from "../(users)/user/components/atoms/NotFoundSvg";
 
 export default function NotFound() {
   return (
