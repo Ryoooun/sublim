@@ -1,12 +1,17 @@
 import { auth, GoogleProvider } from "@/auth/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useIsAuth } from "../store/auth";
+import { useUser } from "../store/user";
+
 import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 export default function useAuthWithPopup() {
   const setIsAuth = useIsAuth((state) => state.setIsAuth);
   const isAuth = useIsAuth((state) => state.isAuth);
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const user = useUser((state) => state.user);
+  const router = useRouter();
 
   const handleSignWithPopup = useCallback(() => {
     signInWithPopup(auth, GoogleProvider)
@@ -14,19 +19,22 @@ export default function useAuthWithPopup() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-
-        setUser(user);
-        setIsAuth(true);
+        setToken(token);
+        useIsAuth.setState({ isAuth: true }, true);
+        useUser.setState({ user: user }, true);
         console.log("success!");
-        console.log(auth);
+        router.push(`/user/${user.displayName}`);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        setIsAuth(false);
+        console.error(error);
+        useIsAuth.setState({ isAuth: false }, true);
+        useUser.setState({ user: null }, true);
+        console.log(error);
+        router.push("/");
       });
   }, []);
-  return [handleSignWithPopup, isAuth, user];
+  return [handleSignWithPopup, isAuth, user, token];
 }

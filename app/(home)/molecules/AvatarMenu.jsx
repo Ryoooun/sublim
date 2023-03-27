@@ -1,4 +1,5 @@
 "use client";
+import { useLogout } from "@/app/hooks/useLogout";
 
 import NextLink from "next/link";
 import {
@@ -11,7 +12,7 @@ import {
 } from "../../common/chakraui/ChakraUI";
 import React from "react";
 
-export default React.memo(function AvatarMenu({ name, src }) {
+export default React.memo(function AvatarMenu({ name, src, logout }) {
   return (
     <Menu>
       <MenuButton>
@@ -23,11 +24,7 @@ export default React.memo(function AvatarMenu({ name, src }) {
             {name}のトップページ
           </Link>
         </MenuItem>
-        <MenuItem>
-          <Link as={NextLink} href="/user" _hover={{ textDecoration: "none" }}>
-            設定
-          </Link>
-        </MenuItem>
+        <MenuItem onClick={logout}>ログアウト</MenuItem>
       </MenuList>
     </Menu>
   );
