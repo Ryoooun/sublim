@@ -13,13 +13,13 @@ export const useLogout = () => {
         console.log("Sign-out successful.");
         useIsAuth.setState({ isAuth: false }, true);
         useUser.setState({ user: null }, true);
-        router.push("/");
+        router.replace("/");
       })
       .catch((err) => {
         console.log(err.message);
         useIsAuth.setState({ isAuth: false }, true);
         useUser.setState({ user: null }, true);
-        router.push("/");
+        router.replace("/");
       });
   };
   return logout;
