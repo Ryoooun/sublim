@@ -1,6 +1,4 @@
 "use client";
-import { useLogout } from "@/app/hooks/useLogout";
-
 import NextLink from "next/link";
 import {
   Avatar,

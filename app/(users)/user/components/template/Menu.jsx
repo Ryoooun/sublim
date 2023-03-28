@@ -15,7 +15,7 @@ import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
 
 import DashBoardAvatar from "../atoms/DashBoardAvatar";
 
-import { useLogout } from "@/app/hooks/useLogout";
+import { useLogout } from "../../../../hooks/useLogout";
 import { useUser } from "@/app/hooks/useUser";
 
 export default function Menu() {
