@@ -10,14 +10,13 @@ import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
 
 import useAuthWithPopup from "../../hooks/useAuthWithPopup";
 import { useUser } from "@/app/store/user";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+
 import { useLogout } from "@/app/hooks/useLogout";
 
 export default React.memo(function HeaderLoginContent(params) {
-  const [handleSignInWithPopup, isAuth, user] = useAuthWithPopup();
-  const router = useRouter();
+  const handleSignInWithPopup = useAuthWithPopup();
   const logout = useLogout();
+  const user = useUser((state) => state.user);
 
   return (
     <>

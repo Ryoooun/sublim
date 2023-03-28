@@ -8,13 +8,13 @@ export const useUser = () => {
 
     if (user !== null) {
       const email = user.email;
-      const accessToken = user.accessToken;
+      const uid = user.uid;
       const userName = user.displayName;
       const photoURL = user.photoURL;
       const userInfo = {
         userName,
         email,
-        accessToken,
+        uid,
         photoURL,
       };
 

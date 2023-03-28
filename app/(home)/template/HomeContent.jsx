@@ -7,7 +7,7 @@ import AboutLink from "../organisms/AboutLink";
 import useAuthWithPopup from "@/app/hooks/useAuthWithPopup";
 
 export default function HomeContent() {
-  const [handleSignWithPopup] = useAuthWithPopup();
+  const handleSignWithPopup = useAuthWithPopup();
   return (
     <>
       <HeroLogo logo="SUBLIM" />
