@@ -3,6 +3,8 @@ import { initializeApp } from "firebase/app";
 // Authentication JS SDK
 // Google認証ポップアップの設定
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+// Firesoreの初期化
+import { getFirestore } from "firebase/firestore";
 
 // webアプリのFirebase設定
 const firebaseConfig = {
@@ -19,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 
 // 認証の設定
 const auth = getAuth(app);
-
+const db = getFirestore(app);
 const GoogleProvider = new GoogleAuthProvider();
 
-export { auth, GoogleProvider };
+export { auth, GoogleProvider, db };
