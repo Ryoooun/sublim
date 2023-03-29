@@ -1,11 +1,10 @@
-import { getAuth } from "firebase/auth";
+import { auth } from "../auth/firebase";
 import { notFound } from "next/navigation";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
 
 export const useUserHook = () => {
   try {
-    const auth = getAuth();
     const user = auth.currentUser;
 
     if (user !== null) {

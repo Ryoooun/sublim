@@ -18,7 +18,6 @@ const firebaseConfig = {
 
 // Firebaseの初期化
 const app = initializeApp(firebaseConfig);
-
 // 認証の設定
 const auth = getAuth(app);
 const db = getFirestore(app);
