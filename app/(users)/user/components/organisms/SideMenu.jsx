@@ -38,7 +38,7 @@ const variants = {
 };
 
 export const SideMenu = ({ logout, user, children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
 
   return (
@@ -90,7 +90,12 @@ export const SideMenu = ({ logout, user, children }) => {
             </VStack>
           </Flex>
         </motion.nav>
-        <Box h="100vh" pl="20" overflow="hidden" whiteSpace="nowrap">
+        <Box
+          h="100vh"
+          w="100vw"
+          overflow="hidden"
+          whiteSpace="nowrap"
+          pl={isOpen ? "1rem" : "5rem"}>
           {children}
         </Box>
       </Flex>
