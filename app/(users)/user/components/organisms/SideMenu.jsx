@@ -9,9 +9,11 @@ import {
   VStack,
   Divider,
   Link,
+  useMediaQuery,
 } from "../../../../common/chakraui/ChakraUI";
 import DashBoardAvatar from "../atoms/DashBoardAvatar";
 import { NextLink } from "next/link";
+
 const variants = {
   open: {
     opacity: 1,
@@ -37,6 +39,7 @@ const variants = {
 
 export const SideMenu = ({ logout, user, children }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
 
   return (
     <>
@@ -61,15 +64,17 @@ export const SideMenu = ({ logout, user, children }) => {
             backdropBlur="2px">
             {user ? <DashBoardAvatar src={user?.photoURL} /> : null}
             <VStack display="flex" alignItems="flex-start" direction="column">
-              <Heading
-                fontSize={{ sm: "xl", lg: "2xl" }}
-                p="2"
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap">
-                {user ? `${user?.userName}` : "ゲスト"}
-              </Heading>
-              <Divider />
+              {isLargerThen50em && (
+                <Heading
+                  fontSize="2xl"
+                  p="2"
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  whiteSpace="nowrap">
+                  {user ? `${user?.userName}` : "ゲスト"}
+                </Heading>
+              )}
+              <Divider pt="2" />
               <Link
                 as={NextLink}
                 href="/user/top"
