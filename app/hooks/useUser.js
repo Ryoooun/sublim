@@ -1,7 +1,9 @@
 import { getAuth } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
+import { useIsAuth } from "../store/auth";
+import { useUser } from "../store/user";
 
-export const useUser = () => {
+export const useUserHook = () => {
   try {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -24,7 +26,8 @@ export const useUser = () => {
     }
   } catch (err) {
     console.log(err);
-    const router = useRouter();
-    router.push("/");
+    useIsAuth.setState({ isAuth: false }, true);
+    useUser.setState({ user: null }, true);
+    notFound();
   }
 };

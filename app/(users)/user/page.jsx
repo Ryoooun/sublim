@@ -26,7 +26,6 @@ export default function page(params) {
     <>
       <h1>User page</h1>
       <LoginUser />
-      <Button onClick={logout}>Log out</Button>
     </>
   );
 }

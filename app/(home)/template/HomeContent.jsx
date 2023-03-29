@@ -6,8 +6,11 @@ import HomeStackCard from "./HomeStackCard";
 import AboutLink from "../organisms/AboutLink";
 import useAuthWithPopup from "@/app/hooks/useAuthWithPopup";
 
+import useAuthSetPersistence from "@/app/hooks/useAuthSetPersistence";
+
 export default function HomeContent() {
-  const handleSignWithPopup = useAuthWithPopup();
+  const handleLogin = useAuthSetPersistence();
+
   return (
     <>
       <HeroLogo logo="SUBLIM" />
@@ -22,7 +25,7 @@ export default function HomeContent() {
             bg="brand.400"
             color="brand.900"
             _hover={{ bg: "brand.200", color: "brand.500" }}
-            onClick={handleSignWithPopup}>
+            onClick={handleLogin}>
             学習を始める
           </Button>
         </Box>
