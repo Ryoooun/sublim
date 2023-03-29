@@ -19,8 +19,6 @@ const firebaseConfig = {
 // Firebaseの初期化
 const app = initializeApp(firebaseConfig);
 // 認証の設定
-const auth = getAuth(app);
-const db = getFirestore(app);
-const GoogleProvider = new GoogleAuthProvider();
-
-export { auth, GoogleProvider, db };
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const GoogleProvider = new GoogleAuthProvider();
