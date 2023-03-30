@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useMediaQuery } from "../../../../common/chakraui/ChakraUI";
 
 const HamburgerIcon = React.memo(
-  ({ isOpen, toggle, isLargerThen50rem, ref }) => {
+  ({ isOpen, toggle, isLargerThen50em, ref }) => {
     const lineStyle = {
       fill: "none",
       transition: "stroke-dasharray 400ms, stroke-dashoffset 400ms",
@@ -17,7 +17,7 @@ const HamburgerIcon = React.memo(
         ref={ref}
         className="ham hamRotate ham8"
         viewBox="0 0 100 100"
-        width={isLargerThen50rem ? 50 : 50}
+        width={isLargerThen50em ? 50 : 50}
         onClick={toggle}
         cursor="pointer"
         style={

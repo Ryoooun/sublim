@@ -35,7 +35,7 @@ export default function page(params) {
     <Box
       w={isLargerThen50em ? "93vw" : "100vw"}
       bg="white"
-      px={isLargerThen50em ? "10" : "5"}
+      px={isLargerThen50em ? "4rem" : "5"}
       py={isLargerThen50em ? "0" : "10"}>
       <LoginUser />
       {Array(10)

@@ -1,4 +1,4 @@
-import { SideMenu } from "../organisms/SideMenu";
+import { SideMenu } from "./SideMenu";
 
 import { Box } from "@/app/common/chakraui/ChakraUI";
 import { useLogout } from "../../../../hooks/useLogout";
@@ -9,7 +9,7 @@ export default function Menu({ children }) {
   const logout = useLogout();
 
   return (
-    <Box bg="#F2EEEB" overflow="hidden">
+    <Box bg="#f5f6f6" overflow="hidden">
       <SideMenu logout={logout} user={user}>
         {children}
       </SideMenu>
