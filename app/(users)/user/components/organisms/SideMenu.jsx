@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useSideMenuIsOpen } from "@/app/store/sidemenuIsOpen";
 import { usePathname } from "next/navigation";
-
+import "./scroll.css";
 import {
   Button,
   Box,
   Heading,
   Flex,
+  Center,
   VStack,
   Divider,
   useMediaQuery,
@@ -45,8 +46,7 @@ const isLargerThen50remVariants = {
     width: "72px",
     height: "65px",
     borderRadius: "50%",
-    backgroundColor: "#3fcb72",
-    color: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(0,0,0,0.08)",
     transition: {
       type: "spring",
       stiffness: 200,
@@ -73,10 +73,18 @@ const isSmallerThen50remVariants = {
 
 const variantsPage = {
   open: {
-    x: "12rem",
+    x: "100vw",
+    transition: {
+      type: "spring",
+      stiffness: 100,
+    },
   },
   closed: {
     x: "0",
+    transition: {
+      type: "spring",
+      stiffness: 400,
+    },
   },
 };
 
@@ -133,8 +141,7 @@ export const SideMenu = ({ logout, user, children }) => {
     if (isLargerThen50em) {
       return (
         <Box
-          display="flex"
-          flexDirection="column"
+          className="scrollbar"
           m={isLargerThen50em ? "5" : "0"}
           h={isLargerThen50em ? "95vh" : "100vh"}
           w="100vw"
@@ -144,32 +151,25 @@ export const SideMenu = ({ logout, user, children }) => {
           boxSizing="border-box"
           borderRadius={isLargerThen50em ? "1rem" : "0"}
           boxShadow="2xl"
-          pl={
-            isOpen
-              ? isLargerThen50em // isOpen == true && isLarger ?
-                ? "2rem"
-                : "1rem"
-              : isLargerThen50em // isOpen == false && isLarger ?
-              ? "2rem"
-              : "0"
-          }
-          py="10"
-          px="5">
+          py="5"
+          sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
           {children}
         </Box>
       );
     } else {
       return (
         <motion.div
+          className="scrollbar"
           animate={isOpen ? "open" : "closed"}
           variants={variantsPage}
           style={{
             backgroundColor: "white",
             width: "100vw",
             height: "100vh",
-            padding: "3rem 2rem 0rem 2rem",
             overflowY: "scroll",
             overflowX: "hidden",
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
           }}>
           {children}
         </motion.div>
@@ -220,7 +220,7 @@ export const SideMenu = ({ logout, user, children }) => {
               <Divider mt="2" />
               <Button
                 mt="2"
-                w={isLargerThen50em ? "90%" : "70%"}
+                w="10rem"
                 fontSize={isLargerThen50em ? "xl" : "md"}
                 leftIcon={<RiLogoutBoxLine />}
                 onClick={logout}
