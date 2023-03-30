@@ -1,19 +1,21 @@
 import * as React from "react";
 import { useState } from "react";
+import { useMediaQuery } from "../../../../common/chakraui/ChakraUI";
 
-const HamburgerIcon = ({ isOpen, toggle }) => {
+const HamburgerIcon = React.memo(({ isOpen, toggle, isLargerThen50rem }) => {
   const lineStyle = {
     fill: "none",
     transition: "stroke-dasharray 400ms, stroke-dashoffset 400ms",
-    stroke: "#5c5c5c",
+    stroke: `${isOpen ? "#5c5c5c" : "#5c5c5caa"}`,
     strokeWidth: "5.5",
     strokeLinecap: "round",
   };
+
   return (
     <svg
       className="ham hamRotate ham8"
       viewBox="0 0 100 100"
-      width={80}
+      width={isLargerThen50rem ? 70 : 50}
       onClick={toggle}
       cursor="pointer"
       style={
@@ -39,7 +41,7 @@ const HamburgerIcon = ({ isOpen, toggle }) => {
               msUserSelect: "none",
               userSelect: "none",
               position: "absolute",
-              backgroundColor: "#3fcb72",
+              backgroundColor: "#0000",
               borderRadius: "3rem",
               marginTop: "0.1rem",
             }
@@ -99,6 +101,6 @@ const HamburgerIcon = ({ isOpen, toggle }) => {
       />
     </svg>
   );
-};
+});
 
 export default HamburgerIcon;

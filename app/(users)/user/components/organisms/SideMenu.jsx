@@ -20,11 +20,34 @@ import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
 import { RiMapLine } from "@react-icons/all-files/ri/RiMapLine";
 
-const variants = {
+const isLargerThen50remVariants = {
   open: {
     opacity: 1,
     x: 0,
-    y: "10%",
+    y: "9%",
+    width: "350px",
+    height: "90vh",
+    boxShadow: "0px 0px  rgba(0, 0, 0, 0.16)",
+    backgroundColor: "#3fcb72",
+    borderRadius: "1rem",
+  },
+  closed: {
+    opacity: 1,
+    x: "5%",
+    y: "90%",
+    width: "68px",
+    height: "65px",
+    borderRadius: "50%",
+    backgroundColor: "#3fcb72",
+    color: "rgba(0,0,0,0)",
+  },
+};
+
+const isSmallerThen50remVariants = {
+  open: {
+    opacity: 1,
+    x: 0,
+    y: "7%",
     width: "20rem",
     height: "90vh",
     boxShadow: "0px 0px  rgba(0, 0, 0, 0.16)",
@@ -33,12 +56,11 @@ const variants = {
   },
   closed: {
     opacity: 1,
-    x: "13%",
+    x: "12%",
     y: "120%",
-    width: "4rem",
-    height: "4rem",
-    borderRadius: "2rem",
-    backgroundColor: "#3fcb72",
+    width: "0",
+    height: "0",
+    backgroundColor: "#fff",
     color: "rgba(0,0,0,0)",
   },
 };
@@ -64,8 +86,8 @@ const linksTop = [
   },
   {
     id: 3,
-    title: "Arts",
-    path: "/user/arts",
+    title: "Map",
+    path: "/user/map",
     icon: RiMapLine,
   },
 ];
@@ -91,11 +113,19 @@ export const SideMenu = ({ logout, user, children }) => {
   };
   return (
     <>
-      <HamburgerIcon isOpen={isOpen} toggle={toggle} />
+      <HamburgerIcon
+        isOpen={isOpen}
+        toggle={toggle}
+        isLargerThen50rem={isLargerThen50em}
+      />
       <Flex>
         <motion.nav
           animate={isOpen ? "open" : "closed"}
-          variants={variants}
+          variants={
+            isLargerThen50em
+              ? isLargerThen50remVariants
+              : isSmallerThen50remVariants
+          }
           style={{
             whiteSpace: "nowrap",
             overflow: "hidden",
@@ -143,9 +173,17 @@ export const SideMenu = ({ logout, user, children }) => {
         <Box
           h="100vh"
           w="100vw"
-          overflow="hidden"
-          whiteSpace="nowrap"
-          pl={isOpen ? "1rem" : "5rem"}
+          overflowX="hidden"
+          overflowY="scroll"
+          pl={
+            isOpen
+              ? isLargerThen50em // isOpen == true && isLarger ?
+                ? "2rem"
+                : "1rem"
+              : isLargerThen50em // isOpen == false && isLarger ?
+              ? "2rem"
+              : "0"
+          }
           py="10">
           {children}
         </Box>
