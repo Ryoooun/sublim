@@ -22,7 +22,7 @@ export default function useAuthSetPersistence() {
         useIsAuth.setState({ isAuth: true }, true);
         useUser.setState({ user: user }, true);
         console.log("success!");
-        router.push(`/user`);
+        router.push(`/user/${user.uid}`);
       })
       .catch((error) => {
         const errorCode = error.code;

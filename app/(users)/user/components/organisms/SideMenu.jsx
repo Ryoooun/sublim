@@ -1,5 +1,9 @@
+"use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import { useSideMenuIsOpen } from "@/app/store/sidemenuIsOpen";
+import { usePathname } from "next/navigation";
+
 import {
   Button,
   Box,
@@ -8,9 +12,10 @@ import {
   VStack,
   Divider,
   useMediaQuery,
+  useOutsideClick,
 } from "../../../../common/chakraui/ChakraUI";
-import DashBoardAvatar from "../atoms/DashBoardAvatar";
 
+import DashBoardAvatar from "../atoms/DashBoardAvatar";
 import HamburgerIcon from "../atoms/HamburgerIcon";
 import LinkList from "../molecules/LinkList";
 
@@ -24,22 +29,28 @@ const isLargerThen50remVariants = {
   open: {
     opacity: 1,
     x: 0,
-    y: "9%",
+    y: "50px",
     width: "350px",
     height: "90vh",
-    boxShadow: "0px 0px  rgba(0, 0, 0, 0.16)",
-    backgroundColor: "#3fcb72",
     borderRadius: "1rem",
+    transition: {
+      type: "spring",
+      stiffness: 100,
+    },
   },
   closed: {
     opacity: 1,
-    x: "5%",
-    y: "90%",
-    width: "68px",
+    x: 10,
+    y: 50,
+    width: "72px",
     height: "65px",
     borderRadius: "50%",
     backgroundColor: "#3fcb72",
     color: "rgba(0,0,0,0)",
+    transition: {
+      type: "spring",
+      stiffness: 200,
+    },
   },
 };
 
@@ -47,75 +58,130 @@ const isSmallerThen50remVariants = {
   open: {
     opacity: 1,
     x: 0,
-    y: "7%",
+    y: 50,
     width: "20rem",
     height: "90vh",
-    boxShadow: "0px 0px  rgba(0, 0, 0, 0.16)",
-    backgroundColor: "#3fcb72",
-    borderRadius: "1rem",
   },
   closed: {
     opacity: 1,
-    x: "12%",
-    y: "120%",
+    x: 0,
+    y: 50,
     width: "0",
-    height: "0",
-    backgroundColor: "#fff",
     color: "rgba(0,0,0,0)",
   },
 };
 
-const linksTop = [
-  {
-    id: 0,
-    title: "Top",
-    path: "/user/top",
-    icon: RiHome2Fill,
+const variantsPage = {
+  open: {
+    x: "12rem",
   },
-  {
-    id: 1,
-    title: "Trend",
-    path: "/user/trend",
-    icon: RiSearchLine,
+  closed: {
+    x: "0",
   },
-  {
-    id: 2,
-    title: "Words",
-    path: "/user/words",
-    icon: MdModeEdit,
-  },
-  {
-    id: 3,
-    title: "Map",
-    path: "/user/map",
-    icon: RiMapLine,
-  },
-];
-
-const linksBottom = [
-  {
-    id: 0,
-    title: "How to use",
-    path: "/user/usage",
-  },
-  {
-    id: 1,
-    title: "このアプリについて",
-    path: "/user/about",
-  },
-];
+};
 
 export const SideMenu = ({ logout, user, children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const linksTop = [
+    {
+      id: 0,
+      title: "Dashboard",
+      path: `/user/${user?.uid}`,
+      icon: RiHome2Fill,
+    },
+    {
+      id: 1,
+      title: "Trend",
+      path: `/user/${user?.uid}/trend`,
+      icon: RiSearchLine,
+    },
+    {
+      id: 2,
+      title: "Words",
+      path: `/user/${user?.uid}/words`,
+      icon: MdModeEdit,
+    },
+    {
+      id: 3,
+      title: "Map",
+      path: `/user/${user?.uid}/map`,
+      icon: RiMapLine,
+    },
+  ];
+
+  const linksBottom = [
+    {
+      id: 0,
+      title: "How to use",
+      path: "/user/usage",
+    },
+    {
+      id: 1,
+      title: "このアプリについて",
+      path: "/user/about",
+    },
+  ];
+  const isOpen = useSideMenuIsOpen((state) => state.isOpen);
+  const toggleOpen = useSideMenuIsOpen((state) => state.toggleOpen);
+
+  // const [isOpen, setIsOpen] = useState(true);
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
-  const toggle = () => {
-    setIsOpen((isOpen) => !isOpen);
+  // const toggle = () => {
+  //   setIsOpen((isOpen) => !isOpen);
+  // };
+
+  const Page = ({ children }) => {
+    if (isLargerThen50em) {
+      return (
+        <Box
+          display="flex"
+          flexDirection="column"
+          m={isLargerThen50em ? "5" : "0"}
+          h={isLargerThen50em ? "95vh" : "100vh"}
+          w="100vw"
+          overflowX="hidden"
+          overflowY="scroll"
+          bg="white"
+          boxSizing="border-box"
+          borderRadius={isLargerThen50em ? "1rem" : "0"}
+          boxShadow="2xl"
+          pl={
+            isOpen
+              ? isLargerThen50em // isOpen == true && isLarger ?
+                ? "2rem"
+                : "1rem"
+              : isLargerThen50em // isOpen == false && isLarger ?
+              ? "2rem"
+              : "0"
+          }
+          py="10"
+          px="5">
+          {children}
+        </Box>
+      );
+    } else {
+      return (
+        <motion.div
+          animate={isOpen ? "open" : "closed"}
+          variants={variantsPage}
+          style={{
+            backgroundColor: "white",
+            width: "100vw",
+            height: "100vh",
+            padding: "3rem 2rem 0rem 2rem",
+            overflowY: "scroll",
+            overflowX: "hidden",
+          }}>
+          {children}
+        </motion.div>
+      );
+    }
   };
+
   return (
     <>
       <HamburgerIcon
         isOpen={isOpen}
-        toggle={toggle}
+        toggle={toggleOpen}
         isLargerThen50rem={isLargerThen50em}
       />
       <Flex>
@@ -129,64 +195,48 @@ export const SideMenu = ({ logout, user, children }) => {
           style={{
             whiteSpace: "nowrap",
             overflow: "hidden",
+            textOverflow: "ellipsis",
             margin: "0",
             padding: "0",
-            backdropFilter: "auto",
-            backdropBlur: "2px",
           }}>
-          <Flex
-            direction="column"
-            justifyContent="flex-end"
-            p="2"
-            backdropFilter="auto"
-            backdropBlur="2px">
+          <Flex direction="column" justifyContent="flex-end" p="2">
             {user ? <DashBoardAvatar src={user?.photoURL} /> : null}
             <VStack display="flex" alignItems="flex-start" direction="column">
               {isLargerThen50em && (
-                <Heading
-                  fontSize="2xl"
-                  p="2"
-                  textOverflow="ellipsis"
-                  overflow="hidden"
-                  whiteSpace="nowrap">
-                  {user ? `${user?.userName}` : "ゲスト"}
+                <Heading color="blackAlpha.700" fontSize="2xl" p="2">
+                  {user?.userName !== undefined
+                    ? `${user?.userName.slice(0, 17)}`
+                    : "Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Martyr Patricio Clito Ruíz y Picasso".slice(
+                        0,
+                        17
+                      )}
                 </Heading>
               )}
               <Divider mt="2" />
-              <LinkList lists={linksTop} />
+              <LinkList
+                lists={linksTop}
+                fontSize={isLargerThen50em ? "2xl" : "md"}
+              />
               <Divider mt="2" />
               <Button
                 mt="2"
-                w="full"
-                fontSize="xl"
+                w={isLargerThen50em ? "90%" : "70%"}
+                fontSize={isLargerThen50em ? "xl" : "md"}
                 leftIcon={<RiLogoutBoxLine />}
                 onClick={logout}
-                bg="brand.300"
-                color="gray.700"
+                bg="brand.100"
+                color="gray.500"
                 _hover={{ bg: "brand.600", color: "white" }}>
                 Logout
               </Button>
-              <LinkList lists={linksBottom} fontSize="md" />
+              <LinkList
+                lists={linksBottom}
+                fontSize={isLargerThen50em ? "md" : "sm"}
+              />
             </VStack>
           </Flex>
         </motion.nav>
-        <Box
-          h="100vh"
-          w="100vw"
-          overflowX="hidden"
-          overflowY="scroll"
-          pl={
-            isOpen
-              ? isLargerThen50em // isOpen == true && isLarger ?
-                ? "2rem"
-                : "1rem"
-              : isLargerThen50em // isOpen == false && isLarger ?
-              ? "2rem"
-              : "0"
-          }
-          py="10">
-          {children}
-        </Box>
+        <Page>{children}</Page>
       </Flex>
     </>
   );
