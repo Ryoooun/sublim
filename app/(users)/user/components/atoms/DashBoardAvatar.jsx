@@ -1,6 +1,9 @@
-import { Avatar } from "../../../../common/chakraui/ChakraUI";
+import { Avatar } from "@/app/common/chakraui/ChakraUI";
+import React from "react";
 
-export default function DashBoardAvatar(src) {
+const DashBoardAvatar = (src) => {
   const srcUrl = src.src;
   return <Avatar src={srcUrl} />;
-}
+};
+
+export default DashBoardAvatar;

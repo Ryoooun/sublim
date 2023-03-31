@@ -1,6 +1,7 @@
 import { Heading } from "@/app/common/chakraui/ChakraUI";
+import React from "react";
 
-export default function UserNameHeading({ isLargerThen50em, user }) {
+export default React.memo(function UserNameHeading({ isLargerThen50em, user }) {
   return (
     <>
       {isLargerThen50em && (
@@ -15,4 +16,4 @@ export default function UserNameHeading({ isLargerThen50em, user }) {
       )}
     </>
   );
-}
+});

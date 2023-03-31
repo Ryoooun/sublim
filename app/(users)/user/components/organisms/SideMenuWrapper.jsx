@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import React from "react";
 
 const isLargerThen50emVariants = {
   open: {
@@ -45,7 +46,7 @@ const isSmallerThen50remVariants = {
   },
 };
 
-export default function SideMenuWrapper({
+export default React.memo(function SideMenuWrapper({
   isOpen,
   isLargerThen50em,
   children,
@@ -66,4 +67,4 @@ export default function SideMenuWrapper({
       {children}
     </motion.nav>
   );
-}
+});

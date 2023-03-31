@@ -1,10 +1,8 @@
 "use client";
 
-import { useLogout } from "@/app/hooks/useLogout";
+import React from "react";
 
 import {
-  Button,
-  Flex,
   Card,
   CardBody,
   CardHeader,
@@ -13,9 +11,8 @@ import {
   useMediaQuery,
   Box,
 } from "@/app/common/chakraui/ChakraUI";
-import { useUserHook } from "@/app/hooks/useUser";
 
-export default function PageContentWrapper(qiitaItems) {
+export default React.memo(function PageContentWrapper(qiitaItems) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const posts = qiitaItems?.qiitaItems;
   console.log(posts);
@@ -41,4 +38,4 @@ export default function PageContentWrapper(qiitaItems) {
       })}
     </Box>
   );
-}
+});

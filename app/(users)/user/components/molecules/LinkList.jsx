@@ -1,6 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import React from "react";
 
 import { Icon, Link, Heading } from "../../../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
@@ -10,7 +9,11 @@ import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
 import { RiMapLine } from "@react-icons/all-files/ri/RiMapLine";
 
-export default function LinkList({ fontSize = "2xl", user, toggleOpen }) {
+export default React.memo(function LinkList({
+  fontSize = "2xl",
+  user,
+  toggleOpen,
+}) {
   const linksTop = [
     {
       id: 0,
@@ -38,18 +41,6 @@ export default function LinkList({ fontSize = "2xl", user, toggleOpen }) {
     },
   ];
 
-  const linksBottom = [
-    {
-      id: 0,
-      title: "How to use",
-      path: "/user/usage",
-    },
-    {
-      id: 1,
-      title: "このアプリについて",
-      path: "/user/about",
-    },
-  ];
   return (
     <>
       {linksTop.map((list) => {
@@ -72,4 +63,4 @@ export default function LinkList({ fontSize = "2xl", user, toggleOpen }) {
       })}
     </>
   );
-}
+});

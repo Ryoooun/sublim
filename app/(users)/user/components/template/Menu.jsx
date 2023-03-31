@@ -3,8 +3,8 @@ import { SideMenu } from "./SideMenu";
 import { Box } from "@/app/common/chakraui/ChakraUI";
 import { useLogout } from "../../../../hooks/useLogout";
 import { useUserHook } from "@/app/hooks/useUser";
-
-export default function Menu({ children }) {
+import React, { useCallback } from "react";
+export default React.memo(function Menu({ children }) {
   const user = useUserHook();
   const logout = useLogout();
 
@@ -15,4 +15,4 @@ export default function Menu({ children }) {
       </SideMenu>
     </Box>
   );
-}
+});

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Box } from "@/app/common/chakraui/ChakraUI";
 import "./scroll.css";
+import React from "react";
+
 const variantsPage = {
   open: {
     x: "100vw",
@@ -18,7 +20,11 @@ const variantsPage = {
   },
 };
 
-export default function PageWrapper({ isLargerThen50em, isOpen, children }) {
+export default React.memo(function PageWrapper({
+  isLargerThen50em,
+  isOpen,
+  children,
+}) {
   const LargerThen50rem = ({ children }) => {
     return (
       <Box
@@ -63,4 +69,4 @@ export default function PageWrapper({ isLargerThen50em, isOpen, children }) {
   } else {
     return <SmallerThen50rem>{children}</SmallerThen50rem>;
   }
-}
+});

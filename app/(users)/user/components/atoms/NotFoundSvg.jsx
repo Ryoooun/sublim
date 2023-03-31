@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const NotFoundSvg = (props) => {
+const NotFoundSvg = React.memo((props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -92,6 +92,6 @@ const NotFoundSvg = (props) => {
       />
     </svg>
   );
-};
+});
 
 export default NotFoundSvg;
