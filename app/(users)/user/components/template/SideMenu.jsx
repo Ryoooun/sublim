@@ -16,6 +16,7 @@ import LinkList from "../molecules/LinkList";
 import SideMenuWrapper from "../organisms/SideMenuWrapper";
 import PageWrapper from "../organisms/PageWrapper";
 import UserNameHeading from "../molecules/UserNameHeading";
+import ReadmoreIcon from "../atoms/ReadmoreIcon";
 
 export const SideMenu = ({ logout, user, children }) => {
   const isOpen = useSideMenuIsOpen((state) => state.isOpen);

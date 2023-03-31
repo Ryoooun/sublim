@@ -30,7 +30,7 @@ export default function PageWrapper({ isLargerThen50em, isOpen, children }) {
         bg="white"
         boxSizing="border-box"
         borderRadius="1rem"
-        boxShadow="2xl"
+        boxShadow="lg"
         py="5"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
         {children}

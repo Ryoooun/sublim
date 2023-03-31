@@ -33,7 +33,7 @@ const isSmallerThen50remVariants = {
     opacity: 1,
     x: 0,
     y: 50,
-    width: "20rem",
+    width: "30rem",
     height: "90vh",
   },
   closed: {
