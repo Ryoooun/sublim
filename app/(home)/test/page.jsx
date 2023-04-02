@@ -1,30 +1,41 @@
-"use client";
+import { load } from "cheerio";
+import axios from "axios";
+import { parse } from "node-html-parser";
 
-import Lottie from "lottie-react";
-import sublim from "../../../public/lottie/sublim_lottie.json";
+async function getData() {
+  console.time("pase");
+  const url = "https://blog.kapiecii.com/posts/";
+  const res1 = await axios.get(url);
+  const data1 = await res1.data;
+  const result = await parse(data1);
+  console.timeEnd("pase");
 
-import { useState } from "react";
-import { flushSync } from "react-dom";
-import { transitionHelper } from "./utils";
-import "./styles.css";
-export default function page() {
-  const [count, setCount] = useState(1);
+  console.time("c");
+  const res = await fetch(url).catch((err) => console.error(err));
+  const html = await res.text();
+  const $ = await load(html);
+  const data = [];
+  $(".post-item", html).each((item, element) => {
+    const title = $(element)
+      .find("a")
+      .text()
+      .replace(/(\r\n|\n|\r|)/gm, "")
+      .trim();
+    data.push(title);
+  });
+  console.timeEnd("c");
+  return data;
+}
 
-  const onIncrementClick = () => {
-    transitionHelper({
-      updateDOM() {
-        flushSync(() => {
-          setCount(count + 1);
-        });
-      },
-    });
-  };
-
+export default async function page() {
+  const data = await getData();
+  // console.log(data);
   return (
     <div>
-      {/* <div className="count">{count}</div>
-      <button onClick={onIncrementClick}>Increment</button> */}
-      <Lottie animationData={sublim} />
+      hello
+      {/* {data.map((d, i) => (
+        <li key={i}>{d}</li>
+      ))} */}
     </div>
   );
 }
