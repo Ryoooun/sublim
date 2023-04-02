@@ -1,6 +1,5 @@
 import { load } from "cheerio";
 import axios from "axios";
-import { parse } from "node-html-parser";
 
 async function getData() {
   console.time("pase");
