@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-// import { JSDOM } from "jsdom";
+import { load } from "cheerio";
+
 import Image from "next/image";
 
 export default async function getData() {
@@ -13,63 +14,46 @@ export default async function getData() {
     next: {
       revalidate: 60 * 60 * 3,
     },
-  });
-  return res.json();
-  // const ogpUrls = [];
-  // for (let i = 0; i < qiitaItems.length; i++) {
-  //   const { url } = qiitaItems[i];
-  //   const res = await fetch(url);
-  //   const text = await res.json();
-  //   const el = new DOMParser().parseFromString(text, "text/html");
-  //   const headEls = el.head.children;
-  //   Array.from(headEls).map((v) => {
-  //     const prop = v.getAttribute("property");
-  //     if (!prop) return;
-  //     if (prop === "og.image") {
-  //       ogpUrls.push(v.getAttribute("content") ?? "");
-  //     }
-  //   });
+  }).catch((err) => console.error(err));
+  const postsArray = await res.json();
+  const postsDetailArray = await Promise.all(
+    postsArray.map(async (post) => {
+      const tags = post.tags.map((tag) => tag?.name);
+      const url = post.url;
+      const res = await fetch(url).catch((err) => console.log(err));
+      const text = await res.text();
+      const $ = await load(text);
+      const ogImageUrl = $("meta[property=og:image]").attr().content;
+      const ogSiteName = $("meta[property=og:site_name]").attr().content;
+
+      return {
+        id: post.id,
+        title: post.title,
+        url: post.url,
+        created_at: post[`created_at`],
+        tags: tags,
+        count: {
+          page_views_count: post.page_views_count,
+          reactions_count: post.reactions_count,
+          comments: post.comments_count,
+          likes: post.likes_count,
+          stocks: post.stocks_count,
+        },
+        ogData: {
+          ogImageUrl,
+          ogSiteName,
+        },
+      };
+    })
+  );
+  return postsDetailArray;
+  // for (let i = 0; i < postsDetailArray.length; i++) {
+  //   const { url } = postsDetailArray[i];
+  //   const res = await fetch(url).catch((err) => console.log(err));
+  //   const text = await res.text();
+  //   const $ = await load(text);
+  //   const ogImageUrl = $("meta[property=og:image]").attr().content;
+  //   const ogSiteName = $("meta[property=og:site_name]").attr().content;
+  //   postsDetailArray.ogData = { ogImageUrl, ogSiteName };
   // }
-
-  // const parsedQiitaItems = qiitaItems.map(
-  //   (
-  //     {
-  //       coediting,
-  //       comments_count,
-  //       created_at,
-  //       id,
-  //       likes_count,
-  //       page_views_count,
-  //       tags,
-  //       title,
-  //       updated_at,
-  //       url,
-  //       reactions_count,
-  //       private: _private,
-  //     },
-  //     i
-  //   ) => {
-  //     const parsedItem = {
-  //       coediting,
-  //       comments_count,
-  //       created_at,
-  //       id,
-  //       likes_count,
-  //       ogpImageUrl: ogpUrls[i],
-  //       page_views_count,
-  //       private: _private,
-  //       reactions_count,
-  //       tags,
-  //       title,
-  //       updated_at,
-  //       url,
-  //     };
-  //     return parsedItem;
-  //   }
-  // );
-  // const generatedAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
-
-  // return {
-  //   props: { generatedAt, qiitaItems },
-  // };
 }

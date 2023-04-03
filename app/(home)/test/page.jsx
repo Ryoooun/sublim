@@ -2,13 +2,7 @@ import { load } from "cheerio";
 import axios from "axios";
 
 async function getData() {
-  console.time("pase");
   const url = "https://blog.kapiecii.com/posts/";
-  const res1 = await axios.get(url);
-  const data1 = await res1.data;
-  const result = await parse(data1);
-  console.timeEnd("pase");
-
   console.time("c");
   const res = await fetch(url).catch((err) => console.error(err));
   const html = await res.text();
@@ -24,17 +18,30 @@ async function getData() {
   });
   console.timeEnd("c");
   return data;
+
+  // const data = await axios.get(url).then((res) => res.data);
+  // const $ = await load(data);
+  // const result = [];
+  // $(".post-item", data).each((item, element) => {
+  //   const title = $(element)
+  //     .find("a")
+  //     .text()
+  //     .replace(/(\r\n|\n|\r|)/gm, "")
+  //     .trim();
+  //   result.push(title);
+  // });
+
+  // console.timeEnd("c");
+  // return result;
 }
 
 export default async function page() {
   const data = await getData();
-  // console.log(data);
   return (
-    <div>
-      hello
-      {/* {data.map((d, i) => (
+    <ul>
+      {data.map((d, i) => (
         <li key={i}>{d}</li>
-      ))} */}
-    </div>
+      ))}
+    </ul>
   );
 }

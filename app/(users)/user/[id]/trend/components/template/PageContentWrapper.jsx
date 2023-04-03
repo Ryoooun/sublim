@@ -15,7 +15,6 @@ import {
 export default React.memo(function PageContentWrapper(qiitaItems) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const posts = qiitaItems?.qiitaItems;
-  console.log(posts);
   return (
     <Box
       w={isLargerThen50em ? "93vw" : "100vw"}
@@ -26,12 +25,13 @@ export default React.memo(function PageContentWrapper(qiitaItems) {
         return (
           <Card key={posts.id} mb="2">
             <CardHeader>
-              <Heading>{post.title}</Heading>
+              <a href={post.url} target="_blank">
+                <img src={post.ogData.ogImageUrl} alt="" />
+              </a>
               <Divider w="full" />
             </CardHeader>
             <CardBody>
-              <p>{post.title}</p>
-              <p>{post.url}</p>
+              <Heading fontSize="lg">{post.title}</Heading>
             </CardBody>
           </Card>
         );
