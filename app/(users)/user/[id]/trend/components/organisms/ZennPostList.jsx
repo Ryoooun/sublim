@@ -12,6 +12,7 @@ import {
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { memo } from "react";
+import { ZennPost } from "./ZennPost";
 
 import "../../../../components/organisms/scroll.css";
 

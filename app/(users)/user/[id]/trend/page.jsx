@@ -1,13 +1,15 @@
 import getData from "./components/template/QiitaPost";
+import { ZennPost } from "./components/organisms/ZennPost";
+import { DevPost } from "./components/organisms/DevPost";
+
 import PageContentWrapper from "./components/template/PageContentWrapper";
 
 export default async function page(params) {
   const qiitaItems = await getData();
-  const zennJson = await fetch("http://localhost:3000/api/zenn");
-  const zennItems = await zennJson.json();
-
-  const devPosts = await fetch("http://localhost:3000/api/dev.to");
-  const devToItems = await devPosts.json();
+  const zennItemsJson = await ZennPost();
+  const zennItems = await zennItemsJson.json();
+  const devToItemsJson = await DevPost();
+  const devToItems = await devToItemsJson.json();
 
   return (
     <>
