@@ -2,21 +2,22 @@ import dayjs from "dayjs";
 import { load } from "cheerio";
 
 export default async function getData() {
+  console.time("Qiita");
   const apiUrl = process.env.NEXT_PUBLIC_QIITA_API_URL;
 
-  const limitDate = JSON.stringify(dayjs().subtract(10, "day")["$d"])
+  const limitDate = JSON.stringify(dayjs().subtract(1, "week")["$d"])
     .split("T")[0]
     .replace('"', "");
-  const stocks = "20";
-
+  const stocks = "30";
+  const par_page = "30";
   const res = await fetch(
-    `${apiUrl}?page=1&per_page=50&query=created%3A%3E${limitDate}+stocks%3A%3E${stocks}`,
+    `${apiUrl}?page=1&per_page=${par_page}&query=created%3A%3E${limitDate}+stocks%3A%3E${stocks}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_QIITA_API_TOKEN}`,
       },
       next: {
-        revalidate: 60 * 60 * 12,
+        revalidate: 86400,
       },
     }
   ).catch((err) => console.error(err));
@@ -59,5 +60,6 @@ export default async function getData() {
       };
     })
   );
+  console.timeEnd("Qiita");
   return postsDetailArray;
 }

@@ -20,8 +20,14 @@ import {
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import QiitaPostList from "../organisms/QiitaPostList";
+import ZennPostList from "../organisms/ZennPostList";
+import DevPostList from "../organisms/DevPostList";
 
-export default React.memo(function PageContentWrapper({ qiitaItems }) {
+export default React.memo(function PageContentWrapper({
+  qiitaItems,
+  zennItems,
+  devToItems,
+}) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   return (
     <Box
@@ -34,6 +40,10 @@ export default React.memo(function PageContentWrapper({ qiitaItems }) {
       <VStack gap="4">
         <Heading>Qiita Recent Trend</Heading>
         <QiitaPostList qiitaItems={qiitaItems} />
+        <Heading>Zenn Recent Trend</Heading>
+        <ZennPostList zennItems={zennItems} />
+        <Heading>Dev Recent Trend</Heading>
+        <DevPostList devToItems={devToItems} />
       </VStack>
     </Box>
   );

@@ -1,8 +1,4 @@
 import {
-  SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
   Avatar,
   Text,
   Heading,
@@ -11,16 +7,12 @@ import {
   Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import React, { useMemo, useState } from "react";
+import { memo } from "react";
 
-import { motion } from "framer-motion";
 import "../../../../components/organisms/scroll.css";
 
-export default React.memo(function QiitaPostList({ qiitaItems }) {
+export default memo(function ZennPostList({ devToItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
-  const [isOpen, setIsOpen] = useState(false);
-
-  const posts = [...qiitaItems];
 
   return (
     <Box w="full" h="full">
@@ -31,7 +23,7 @@ export default React.memo(function QiitaPostList({ qiitaItems }) {
         className="scrollbar"
         scrollSnapType="x proximity"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-        {posts.map((post) => {
+        {devToItems.map((post) => {
           return (
             <Box
               className="Card"
@@ -54,13 +46,13 @@ export default React.memo(function QiitaPostList({ qiitaItems }) {
               <Box whiteSpace="normal">
                 <Heading>Keyword</Heading>
                 <Avatar
-                  name={post.user.id}
-                  src={post.user.profile_image_url}
+                  name={post.user.username}
+                  src={post.user.profile_image}
                   size="md"
                 />
                 <Text
                   fontSize="sm"
-                  fontFamily="mono">{`@${post.user.id}`}</Text>
+                  fontFamily="mono">{`@${post.user.username}`}</Text>
                 <a href={post.url} target="_blank">
                   <Heading fontSize="md" _hover={{ color: "brand.700" }}>
                     {post.title}
@@ -69,7 +61,7 @@ export default React.memo(function QiitaPostList({ qiitaItems }) {
                 <Divider w="full" mt="3" />
                 <Box mt="3" maxH="4rem">
                   <Flex direction="row" flexWrap="wrap" gap="1">
-                    {post.tags.map((tag, i) => (
+                    {post.tag_list.map((tag, i) => (
                       <Box
                         fontSize="xs"
                         px="0.2rem"
