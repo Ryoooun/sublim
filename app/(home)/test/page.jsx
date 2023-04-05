@@ -6,7 +6,7 @@ import { Button, Box, Center } from "@/app/common/chakraui/ChakraUI";
 import { motion, AnimatePresence, useAnimate, delay } from "framer-motion";
 import { useState } from "react";
 import useSWR from "swr";
-import { parseWord } from "@/app/lib/js/parseToWord";
+
 const spring = {
   type: "spring",
   stiffness: "800",
@@ -37,10 +37,10 @@ const switch_ = css`
 export default function page(params) {
   const [toggle, setToggle] = useState(false);
 
-  const fetcher = (...args) => parseWord(...args);
+  const fetcher = (url) => fetch(url).then((res) => res.json());
   const Result = () => {
     const { data, error, isLoading } = useSWR(
-      "https://qiita.com/naruto/items/fdb61bc743395f8d8faf",
+      `/api/parse?url=https://qiita.com/nohanaga/items/430b59209b02c298ef2a`,
       fetcher
     );
 
@@ -59,7 +59,7 @@ export default function page(params) {
 
     return (
       <div>
-        <h1>hello</h1>
+        <h1>hello{data}</h1>
       </div>
     );
   };
