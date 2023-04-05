@@ -54,7 +54,7 @@ export async function GET(request) {
   //   return array;
   // });
 
-  const p = path.resolve(require.resolve("kuromoji"), "../../dict");
+  const p = process.cwd();
   return NextResponse.json({ data: "hello", path: p, url });
   // const path = process.cwd();
   // return NextResponse.json({ data: path });
