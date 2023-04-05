@@ -59,7 +59,7 @@ export default function page(params) {
 
     return (
       <div>
-        <h1>hello{data}</h1>
+        <h1>hello{data.path}</h1>
       </div>
     );
   };
