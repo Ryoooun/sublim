@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { load } from "cheerio";
 import kuromoji from "kuromoji";
-import termextract from "../../lib/js/termextract-kuromojijs";
-import { resolve } from "styled-jsx/css";
+import termextract from "@/app/lib/js/termextract-kuromojijs";
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get("url");
