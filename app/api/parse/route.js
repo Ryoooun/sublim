@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { load } from "cheerio";
-import kuromoji from "@/node_modules/kuromoji";
+import kuromoji from "kuromoji";
 import termextract from "@/app/lib/js/termextract-kuromojijs";
 
 import module from "node:module";
