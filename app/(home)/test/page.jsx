@@ -3,8 +3,10 @@
 import { css } from "@emotion/react";
 
 import { Button, Box, Center } from "@/app/common/chakraui/ChakraUI";
-import { motion, AnimatePresence, useAnimate } from "framer-motion";
+import { motion, AnimatePresence, useAnimate, delay } from "framer-motion";
 import { useState } from "react";
+import useSWR from "swr";
+import { parseWord } from "@/app/lib/js/parseToWord";
 
 const spring = {
   type: "spring",
@@ -35,6 +37,32 @@ const switch_ = css`
 
 export default function page(params) {
   const [toggle, setToggle] = useState(false);
+  const fetcher = (...args) => parseWord(...args);
+  const Result = () => {
+    const { data, error, isLoading } = useSWR(
+      "https://qiita.com/naruto/items/fdb61bc743395f8d8faf",
+      fetcher
+    );
+
+    if (error)
+      return (
+        <div>
+          <h1>failed to load</h1>
+        </div>
+      );
+    if (isLoading)
+      return (
+        <div>
+          <h1>loading...</h1>
+        </div>
+      );
+
+    return (
+      <div>
+        <h1>hello</h1>
+      </div>
+    );
+  };
 
   return (
     <Center>
@@ -51,6 +79,7 @@ export default function page(params) {
           top="20">
           Toggle
         </Button>
+        <Result />
         <div
           css={switch_}
           data-ison={toggle}
