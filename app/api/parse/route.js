@@ -56,7 +56,7 @@ export async function GET(request) {
 
   const d = __dirname;
   const f = __filename;
-  return NextResponse.json({ data: "hello", p, f, url });
+  return NextResponse.json({ data: "hello", d, f, url });
   // const path = process.cwd();
   // return NextResponse.json({ data: path });
 }
