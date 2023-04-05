@@ -23,7 +23,7 @@ export async function GET(request) {
     return new Promise((resolve, reject) => {
       kuromoji
         .builder({
-          dicPath: "/public/dict",
+          dicPath: "./public/dict",
         })
         .build((err, tokenizer) => {
           if (err) {
