@@ -54,8 +54,9 @@ export async function GET(request) {
   //   return array;
   // });
 
-  const p = process.cwd();
-  return NextResponse.json({ data: "hello", path: p, url });
+  const d = __dirname;
+  const f = __filename;
+  return NextResponse.json({ data: "hello", p, f, url });
   // const path = process.cwd();
   // return NextResponse.json({ data: path });
 }
