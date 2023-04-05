@@ -18,7 +18,7 @@ export async function GET(request) {
   const kuro = () => {
     return new Promise((resolve, reject) => {
       kuromoji
-        .builder({ dicPath: "./node_modules/kuromoji/dict" })
+        .builder({ dicPath: "@/node_modules/kuromoji/dict" })
         .build((err, tokenizer) => {
           if (err) {
             reject(err);
