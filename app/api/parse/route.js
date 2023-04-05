@@ -3,7 +3,8 @@ import { load } from "cheerio";
 import kuromoji from "@/node_modules/kuromoji";
 import termextract from "@/app/lib/js/termextract-kuromojijs";
 
-import path from "path";
+import module from "node:module";
+import path from "node:path";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -16,11 +17,14 @@ export async function GET(request) {
     return await $("p").text();
   };
 
+  const require = module.createRequire(import.meta.url);
   const strings = await getData(url);
   const kuro = () => {
     return new Promise((resolve, reject) => {
       kuromoji
-        .builder({ dicPath: "@/node_modules/kuromoji/dict" })
+        .builder({
+          dicPath: path.resolve(require.resolve("kuromoji"), "../../dict"),
+        })
         .build((err, tokenizer) => {
           if (err) {
             reject(err);
