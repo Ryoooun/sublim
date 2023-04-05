@@ -8,6 +8,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  compress: false,
   // webpack: (config) => {
   //   config.plugins = [
   //     ...config.plugins,
