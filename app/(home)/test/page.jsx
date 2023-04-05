@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { Button, Box, Center } from "@/app/common/chakraui/ChakraUI";
 import { motion, AnimatePresence, useAnimate } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const spring = {
   type: "spring",

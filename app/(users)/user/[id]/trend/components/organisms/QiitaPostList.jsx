@@ -11,7 +11,7 @@ import {
   Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { motion } from "framer-motion";
 import "../../../../components/organisms/scroll.css";
@@ -19,8 +19,6 @@ import "../../../../components/organisms/scroll.css";
 export default React.memo(function QiitaPostList({ qiitaItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [isOpen, setIsOpen] = useState(false);
-
-  const posts = [...qiitaItems];
 
   return (
     <Box w="full" h="full">
@@ -31,7 +29,7 @@ export default React.memo(function QiitaPostList({ qiitaItems }) {
         className="scrollbar"
         scrollSnapType="x proximity"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-        {posts.map((post) => {
+        {qiitaItems.map((post) => {
           return (
             <Box
               className="Card"
@@ -68,7 +66,12 @@ export default React.memo(function QiitaPostList({ qiitaItems }) {
                 </a>
                 <Divider w="full" mt="3" />
                 <Box mt="3" maxH="4rem">
-                  <Flex direction="row" flexWrap="wrap" gap="1">
+                  <Flex
+                    direction="row"
+                    flexWrap="wrap"
+                    gap="1"
+                    overflow="auto"
+                    whiteSpace="nowrap">
                     {post.tags.map((tag, i) => (
                       <Box
                         fontSize="xs"

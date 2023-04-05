@@ -1,21 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 
 import {
-  Icon,
-  Image,
-  Card,
-  CardBody,
-  CardHeader,
   Heading,
-  Divider,
   Box,
-  Flex,
-  Grid,
-  SimpleGrid,
-  Avatar,
-  Text,
   VStack,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
@@ -34,7 +23,7 @@ export default React.memo(function PageContentWrapper({
       overflow="hidden"
       w={isLargerThen50em ? "93vw" : "100vw"}
       bg="white"
-      px={isLargerThen50em ? "4rem" : "5"}
+      // px={isLargerThen50em ? "4rem" : "5"}
       py={isLargerThen50em ? "0" : "10"}
       pb="0">
       <VStack gap="4">
