@@ -7,7 +7,6 @@ import { motion, AnimatePresence, useAnimate, delay } from "framer-motion";
 import { useState } from "react";
 import useSWR from "swr";
 import { parseWord } from "@/app/lib/js/parseToWord";
-
 const spring = {
   type: "spring",
   stiffness: "800",
@@ -37,6 +36,7 @@ const switch_ = css`
 
 export default function page(params) {
   const [toggle, setToggle] = useState(false);
+
   const fetcher = (...args) => parseWord(...args);
   const Result = () => {
     const { data, error, isLoading } = useSWR(
