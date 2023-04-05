@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { load } from "cheerio";
 import kuromoji from "kuromoji";
 import termextract from "@/app/lib/js/termextract-kuromojijs";
-
+import { cwd, env } from "node:process";
 import module from "node:module";
 import path from "node:path";
 
@@ -23,7 +23,7 @@ export async function GET(request) {
     return new Promise((resolve, reject) => {
       kuromoji
         .builder({
-          dicPath: process.env(),
+          dicPath: process.cwd(),
         })
         .build((err, tokenizer) => {
           if (err) {
