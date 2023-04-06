@@ -58,18 +58,19 @@ export async function GET(request) {
   const d = __dirname;
   const f = __filename;
   const a = process.env.PATH;
-  const c = process.cwd();
-  // const Afiles = fs.readFileSync(a);
-  // const Cfiles = fs.readFileSync(c);
+  const cwd = process.cwd();
+  const eFiles = fs.readdirSync(e);
+
+  const Cwdfiles = fs.readdirSync(cwd);
 
   return NextResponse.json({
     dirName: d,
     fileName: f,
-    Path: a,
-    cwd: c,
+    envPath: a,
+    cwd,
     e,
-    // Afiles,
-    // Cfiles,
+    eFiles,
+    Cwdfiles,
   });
   // const path = process.cwd();
   // return NextResponse.json({ data: path });
