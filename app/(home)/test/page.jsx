@@ -2,10 +2,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import { Button, Box, Center } from "@/app/common/chakraui/ChakraUI";
-import { motion, AnimatePresence, useAnimate, delay } from "framer-motion";
+import { Button, Box, Center, Input } from "@/app/common/chakraui/ChakraUI";
+import { motion } from "framer-motion";
 import { useState } from "react";
-import useSWR from "swr";
+
+import FetchAndRender from "./components/FetchAndRender";
 
 const spring = {
   type: "spring",
@@ -35,65 +36,40 @@ const switch_ = css`
 `;
 
 export default function page(params) {
-  const [toggle, setToggle] = useState(false);
+  const [fetch, setFetch] = useState(false);
+  const [postUrl, setPostUrl] = useState("");
+  const [value, setValue] = useState("");
 
-  const fetcher = (url) => fetch(url).then((res) => res.json());
-  const Result = () => {
-    const { data, error, isLoading } = useSWR(
-      `/api/parse?url=https://qiita.com/nohanaga/items/430b59209b02c298ef2a`,
-      fetcher
-    );
+  const handleURL = (e) => {
+    setValue(e.target.value);
+  };
 
-    if (error)
-      return (
-        <div>
-          <h1>failed to load</h1>
-        </div>
-      );
-    if (isLoading)
-      return (
-        <div>
-          <h1>loading...</h1>
-        </div>
-      );
-
-    return (
-      <div>
-        <ul>
-          {data.json.map((obj, i) => {
-            return (
-              <li key={i}>
-                {Object.keys(obj)}:{obj[Object.keys(obj)]}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
+  const handleClick = () => {
+    setPostUrl(value);
+    setValue("");
+    setFetch(true);
   };
 
   return (
     <Center>
-      <Box
-        w="90vw"
-        h="90vh"
-        bg="green.100"
-        mt="10"
-        display="grid"
-        placeItems="center">
-        <Button
-          onClick={() => setToggle((prev) => !prev)}
-          pos="absolute"
-          top="20">
-          Toggle
+      <Box w="90vw" h="90vh" bg="green.100" mt="10">
+        <Button onClick={handleClick} disabled={fetch}>
+          Fetch
         </Button>
-        <Result />
-        <div
+        <Input
+          value={value}
+          onChange={handleURL}
+          placeholder="URL"
+          size="lg"
+          border="1px black solid"
+        />
+        {fetch && <FetchAndRender postUrl={postUrl} setPostUrl={setPostUrl} />}
+        {/* <div
           css={switch_}
           data-ison={toggle}
           onClick={() => setToggle((prev) => !prev)}>
           <motion.div css={handle} layout transition={spring} />
-        </div>
+        </div> */}
       </Box>
     </Center>
   );

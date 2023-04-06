@@ -83,6 +83,7 @@ function cmp_noun_list(data) {
 
 function increase(cmp_nouns, terms) {
   const SETSUBI = new Set(["など", "ら", "上", "内", "型", "間", "中", "毎"]);
+
   const re = "s+$";
   //  専門用語リストへ、整形して追加するサブルーチン
   if (terms.length > 1) {
