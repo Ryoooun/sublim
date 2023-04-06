@@ -55,12 +55,12 @@ export async function GET(request) {
   });
 
   const require = module.createRequire(import.meta.url);
-  const e = path.resolve(require.resolve("kuromoji"), "../../dict");
+  // const e = path.resolve(require.resolve("kuromoji"), "../../dict");
   const d = __dirname;
   const f = __filename;
   const a = process.env.PWD;
   const cwd = process.cwd();
-  const eFiles = fs.readdirSync(e);
+  // const eFiles = fs.readdirSync(e);
 
   const Cwdfiles = fs.readdirSync(cwd);
   const joinPath = path.join(process.cwd(), "/app/lib/dict");
@@ -70,8 +70,8 @@ export async function GET(request) {
     fileName: f,
     envPath: a,
     cwd,
-    e,
-    eFiles,
+    // e,
+    // eFiles,
     Cwdfiles,
     joinPath,
     joinPathFiles,
