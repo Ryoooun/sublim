@@ -59,7 +59,15 @@ export default function page(params) {
 
     return (
       <div>
-        <h1>hello{data.path}</h1>
+        <ul>
+          {data.json.map((obj, i) => {
+            return (
+              <li key={i}>
+                {Object.keys(obj)}:{obj[Object.keys(obj)]}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   };

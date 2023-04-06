@@ -8,16 +8,6 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  // webpack: (config) => {
-  //   config.plugins = [
-  //     ...config.plugins,
-  //     new webpack.IgnorePlugin({
-  //       resourceRegExp: /canvas/,
-  //       contextRegExp: /jsdom$/,
-  //     }),
-  //   ];
-  //   return config;
-  // },
 };
 
 module.exports = nextConfig;

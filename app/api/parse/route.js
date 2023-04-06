@@ -35,6 +35,7 @@ export async function GET(request) {
   };
 
   const json = await kuro().then((tokenizer) => {
+    termextract.test(); //カウント初期化処理
     let tokenized_word = tokenizer.tokenize(strings);
     let cmp_noun_list = termextract.cmp_noun_list(tokenized_word);
     let frequency = termextract.list2key_value(cmp_noun_list);
@@ -54,27 +55,27 @@ export async function GET(request) {
     return array;
   });
 
-  const require = module.createRequire(import.meta.url);
-  // const e = path.resolve(require.resolve("kuromoji"), "../../dict");
-  const d = __dirname;
-  const f = __filename;
-  const a = process.env.PWD;
-  const cwd = process.cwd();
-  // const eFiles = fs.readdirSync(e);
+  // const require = module.createRequire(import.meta.url);
+  // // const e = path.resolve(require.resolve("kuromoji"), "../../dict");
+  // const d = __dirname;
+  // const f = __filename;
+  // const a = process.env.PWD;
+  // const cwd = process.cwd();
+  // // const eFiles = fs.readdirSync(e);
 
-  const Cwdfiles = fs.readdirSync(cwd);
-  const joinPath = path.join(process.cwd(), "/app/lib/dict");
-  const joinPathFiles = fs.readdirSync(joinPath);
+  // const Cwdfiles = fs.readdirSync(cwd);
+  // const joinPath = path.join(process.cwd(), "/app/lib/dict");
+  // const joinPathFiles = fs.readdirSync(joinPath);
   return NextResponse.json({
-    dirName: d,
-    fileName: f,
-    envPath: a,
-    cwd,
+    // dirName: d,
+    // fileName: f,
+    // envPath: a,
+    // cwd,
     // e,
     // eFiles,
-    Cwdfiles,
-    joinPath,
-    joinPathFiles,
+    // Cwdfiles,
+    // joinPath,
+    // joinPathFiles,
     json,
   });
   // const path = process.cwd();

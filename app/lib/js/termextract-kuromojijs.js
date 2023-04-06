@@ -17,9 +17,16 @@ exports.score_lr = score_lr;
 exports.term_importance = term_importance;
 exports.sort_by_importance = sort_by_importance;
 exports.modify_agglutinative_lang = modify_agglutinative_lang;
+exports.test = test;
 
 let cmp_nouns = [];
 let terms = []; // 複合語リスト作成用の作業用配列
+
+//fetchごとにカウントをリセットするように修正
+function test() {
+  cmp_nouns = [];
+  erms = [];
+}
 
 function cmp_noun_list(data) {
   // 和布蕪の形態素解析結果を受け取り、複合語（空白区切りの単名詞）のリストを返す
@@ -70,6 +77,7 @@ function cmp_noun_list(data) {
   if (!must) {
     increase(cmp_nouns, terms);
   }
+
   return cmp_nouns;
 }
 
