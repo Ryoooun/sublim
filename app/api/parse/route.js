@@ -57,12 +57,13 @@ export async function GET(request) {
   const e = path.resolve(require.resolve("kuromoji"), "../../dict");
   const d = __dirname;
   const f = __filename;
-  const a = process.env.PATH;
+  const a = process.env.PWD;
   const cwd = process.cwd();
   const eFiles = fs.readdirSync(e);
 
   const Cwdfiles = fs.readdirSync(cwd);
-
+  const joinPath = path.join(process.cwd(), "/app/lib/dict");
+  const joinPathFiles = fs.readdirSync(joinPath);
   return NextResponse.json({
     dirName: d,
     fileName: f,
@@ -71,6 +72,8 @@ export async function GET(request) {
     e,
     eFiles,
     Cwdfiles,
+    joinPath,
+    joinPathFiles,
   });
   // const path = process.cwd();
   // return NextResponse.json({ data: path });
