@@ -30,6 +30,7 @@ export default function FetchAndRender({ postUrl }) {
       </div>
     );
   if (data) {
+    console.log("fetch");
     const textData = data.json.map((obj) => {
       const text = Object.keys(obj)[0];
       const value = obj[Object.keys(obj)];
@@ -41,7 +42,7 @@ export default function FetchAndRender({ postUrl }) {
       <>
         <WordCloud
           data={textData}
-          width={300}
+          width={150}
           height={150}
           font="RictyDiminished-Bold"
           fontWeight="bold"
