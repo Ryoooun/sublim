@@ -1,34 +1,17 @@
-import useSWR from "swr";
-import {
-  CircularProgress,
-  Flex,
-  SimpleGrid,
-} from "@/app/common/chakraui/ChakraUI";
-import { useMemo } from "react";
-
 import WordCloud from "react-d3-cloud";
 import { scaleOrdinal } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
+import useSWR from "swr";
+import { useEffect } from "react";
+import { Box } from "@/app/common/chakraui/ChakraUI";
 
-export default function FetchAndRender({ postUrl }) {
+export default function Cloud(params) {
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    `/api/parse?url=${postUrl}`,
+  const { data } = useSWR(
+    `/api/parse?url=https://qiita.com/hedgehog051/items/3b02a78ad7660307f076`,
     fetcher
   );
 
-  if (error)
-    return (
-      <div>
-        <h1>正しいURLを入力してください。</h1>
-      </div>
-    );
-  if (isLoading)
-    return (
-      <div>
-        <CircularProgress isIndeterminate color="brand.700" size="200px" />
-      </div>
-    );
   if (data) {
     const textData = data.json.map((obj) => {
       const text = Object.keys(obj)[0];
@@ -38,18 +21,18 @@ export default function FetchAndRender({ postUrl }) {
     const schemeCategory10ScaleOrdinal = scaleOrdinal(schemeCategory10);
 
     return (
-      <>
+      <Box display="grid" placeContent="center">
         <WordCloud
           data={textData}
-          width={300}
-          height={150}
-          font="RictyDiminished-Bold"
+          width={200}
+          height={200}
+          font="Times"
           fontWeight="bold"
           fontSize={(word) => Math.log2(word.value) * 5}
-          spiral="archimedean"
-          rotate={(word) => word.value % 10}
-          padding={0}
-          // random={Math.random}
+          spiral="rectangular"
+          rotate={(word) => word.value % 360}
+          padding={5}
+          random={Math.random}
           fill={(d, i) => schemeCategory10ScaleOrdinal(i)}
           onWordClick={(event, d) => {
             console.log(`onWordClick: ${d.text}`);
@@ -61,7 +44,7 @@ export default function FetchAndRender({ postUrl }) {
             console.log(`onWordMouseOut: ${d.text}`);
           }}
         />
-      </>
+      </Box>
     );
   }
 }

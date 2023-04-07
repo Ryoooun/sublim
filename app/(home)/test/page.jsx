@@ -52,7 +52,7 @@ export default function page(params) {
 
   return (
     <Center>
-      <Box w="90vw" h="90vh" bg="green.100" mt="10">
+      <Box w="90vw" h="90vh" mt="10">
         <Button onClick={handleClick} disabled={fetch}>
           Fetch
         </Button>
