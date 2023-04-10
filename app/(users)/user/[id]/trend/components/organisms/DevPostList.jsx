@@ -7,13 +7,11 @@ import {
   Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 import "../../../../components/organisms/scroll.css";
 
-export default memo(function ZennPostList({ devToItems }) {
-  const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
-
+export default memo(function ZennPostList({ devToItems, isLargerThen50em }) {
   return (
     <Box w="full" h="full">
       <Flex

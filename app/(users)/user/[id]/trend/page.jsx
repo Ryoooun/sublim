@@ -1,7 +1,7 @@
 import getData from "./components/organisms/QiitaPost";
 import { ZennPost } from "./components/organisms/ZennPost";
 import { DevPost } from "./components/organisms/DevPost";
-
+import { useMemo, useCallback } from "react";
 import PageContentWrapper from "./components/template/PageContentWrapper";
 
 export default async function page(params) {

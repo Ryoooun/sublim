@@ -18,7 +18,6 @@ import "../../../../components/organisms/scroll.css";
 
 export default React.memo(function QiitaPostList({ qiitaItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Box w="full" h="full">

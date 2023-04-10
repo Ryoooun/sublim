@@ -1,4 +1,3 @@
-import { load } from "cheerio";
 import { NextResponse } from "next/server";
 
 export async function DevPost(params) {

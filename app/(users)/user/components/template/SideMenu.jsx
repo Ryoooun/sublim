@@ -19,7 +19,7 @@ import UserNameHeading from "../molecules/UserNameHeading";
 
 import React, { useCallback } from "react";
 
-export const SideMenu = ({ logout, user, children }) => {
+export const SideMenu = React.memo(({ logout, user, children }) => {
   const isOpen = useSideMenuIsOpen((state) => state.isOpen);
   const toggleOpen = useCallback(
     useSideMenuIsOpen((state) => state.toggleOpen),
@@ -70,4 +70,4 @@ export const SideMenu = ({ logout, user, children }) => {
       </Flex>
     </>
   );
-};
+});

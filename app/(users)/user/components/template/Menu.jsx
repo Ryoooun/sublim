@@ -5,6 +5,7 @@ import { useLogout } from "../../../../hooks/useLogout";
 import { useUserHook } from "@/app/hooks/useUser";
 import React, { useCallback } from "react";
 import { LayoutGroup, AnimatePresence } from "framer-motion";
+
 export default React.memo(function Menu({ children }) {
   const user = useUserHook();
   const logout = useLogout();

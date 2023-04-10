@@ -13,13 +13,16 @@ import {
   useMediaQuery,
   Box,
 } from "../../../common/chakraui/ChakraUI";
+import DashboardDammy from "../components/molecules/DashboardDammy";
+
 import { useUserHook } from "@/app/hooks/useUser";
+import { useCallback } from "react";
 
 export default function page(params) {
   const user = useUserHook();
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
 
-  const LoginUser = () => {
+  const LoginUser = useCallback(() => {
     if (user) {
       return (
         <>
@@ -29,7 +32,7 @@ export default function page(params) {
     } else {
       return <p>こんにちは!ゲストさん</p>;
     }
-  };
+  }, []);
 
   return (
     <Box
@@ -38,25 +41,7 @@ export default function page(params) {
       px={isLargerThen50em ? "4rem" : "5"}
       py={isLargerThen50em ? "0" : "10"}>
       <LoginUser />
-      {Array(10)
-        .fill(1)
-        .map((_, index) => (
-          <Card key={index} mb="2">
-            <CardHeader>
-              <Heading>Dashboard</Heading>
-              <Divider w="full" />
-            </CardHeader>
-            <CardBody>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-                distinctio sequi tempora! Distinctio exercitationem, explicabo
-                animi expedita debitis modi repudiandae dicta similique
-                praesentium doloremque mollitia repellendus amet officiis
-                laboriosam sit.
-              </p>
-            </CardBody>
-          </Card>
-        ))}
+      <DashboardDammy />
     </Box>
   );
 }

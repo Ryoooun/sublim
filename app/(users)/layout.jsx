@@ -3,6 +3,7 @@ import Menu from "./user/components/template/Menu";
 // import "./userStyle.css";
 import { Global, css } from "@emotion/react";
 import { LayoutGroup } from "framer-motion";
+import React from "react";
 const global = css`
   html {
     margin: 0;
@@ -12,7 +13,7 @@ const global = css`
   }
 `;
 
-export default function UserLayout({ children }) {
+function UserLayout({ children }) {
   return (
     <>
       <Global styles={global} />
@@ -22,3 +23,5 @@ export default function UserLayout({ children }) {
     </>
   );
 }
+
+export default React.memo(UserLayout);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useCallback, useMemo } from "react";
 
 import {
   Heading,
@@ -17,7 +17,7 @@ export default React.memo(function PageContentWrapper({
   zennItems,
   devToItems,
 }) {
-  const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
+  const [isLargerThen50em] = useMediaQuery("(min-width: 50rem)");
   return (
     <Box
       overflow="hidden"
@@ -28,11 +28,20 @@ export default React.memo(function PageContentWrapper({
       pb="0">
       <VStack gap="4">
         <Heading>Qiita Recent Trend</Heading>
-        <QiitaPostList qiitaItems={qiitaItems} />
+        <QiitaPostList
+          qiitaItems={qiitaItems}
+          isLargerThen50em={isLargerThen50em}
+        />
         <Heading>Zenn Recent Trend</Heading>
-        <ZennPostList zennItems={zennItems} />
+        <ZennPostList
+          zennItems={zennItems}
+          isLargerThen50em={isLargerThen50em}
+        />
         <Heading>Dev Recent Trend</Heading>
-        <DevPostList devToItems={devToItems} />
+        <DevPostList
+          devToItems={devToItems}
+          isLargerThen50em={isLargerThen50em}
+        />
       </VStack>
     </Box>
   );

@@ -25,15 +25,15 @@ export default async function getData() {
   const postsDetailArray = await Promise.all(
     postsArray.map(async (post) => {
       const tags = post.tags.map((tag) => tag?.name);
-      const url = post.url;
-      const res = await fetch(url).catch((err) => console.log(err));
-      const text = await res.text();
-      const $ = await load(text);
-      const ogImageUrl = $("meta[property=og:image]").attr().content;
-      const ogSiteName = $("meta[property=og:site_name]").attr().content;
-      const ogDescription = $("meta[property=og:description]").attr().content;
+      // const url = post.url;
+      // const res = await fetch(url).catch((err) => console.log(err));
+      // const text = await res.text();
+      // const $ = await load(text);
+      // const ogImageUrl = $("meta[property=og:image]").attr().content;
+      // const ogSiteName = $("meta[property=og:site_name]").attr().content;
+      // const ogDescription = $("meta[property=og:description]").attr().content;
 
-      const siteFavicon = $("link[type=image/x-icon]").attr().href;
+      // const siteFavicon = $("link[type=image/x-icon]").attr().href;
       return {
         id: post.id,
         title: post.title,
@@ -51,12 +51,12 @@ export default async function getData() {
           likes: post.likes_count,
           stocks: post.stocks_count,
         },
-        ogData: {
-          ogImageUrl,
-          ogDescription,
-          ogSiteName,
-        },
-        siteFavicon,
+        // ogData: {
+        //   ogImageUrl,
+        //   ogDescription,
+        //   ogSiteName,
+        // },
+        // siteFavicon,
       };
     })
   );
