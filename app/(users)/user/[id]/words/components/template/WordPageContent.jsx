@@ -21,7 +21,7 @@ import {
   Divider,
   CardFooter,
 } from "@/app/common/chakraui/ChakraUI";
-import Cloud from "../../../map/atoms/Cloud";
+import Cloud from "../../../map/components/organisms/CloudWrapper";
 import { useMemo } from "react";
 export default function WordPageContent({ children }) {
   const url = useMemo(() => {
