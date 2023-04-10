@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useSideMenuIsOpen = create((set) => ({
-  isOpen: true,
+  isOpen: false,
   toggleOpen: () =>
     set((state) => ({
       isOpen: !state.isOpen,

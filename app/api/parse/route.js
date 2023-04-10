@@ -50,7 +50,7 @@ export async function GET(request) {
     const array = [];
     for (const data of score_lt_list) {
       const word = termextract.modify_agglutinative_lang(data.cmp_noun);
-      array.push({ [word]: data.importance });
+      array.push({ text: [word], value: data.importance });
     }
     return array;
   });
