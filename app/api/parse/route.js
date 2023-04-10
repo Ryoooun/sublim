@@ -7,11 +7,6 @@ import module from "node:module";
 import path from "node:path";
 import * as fs from "fs";
 
-export const config = {
-  runtime: "edge",
-  regions: "kix1",
-};
-
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get("url");
