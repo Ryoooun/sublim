@@ -1,3 +1,5 @@
+"use client";
+
 import { auth } from "../auth/firebase";
 import { notFound } from "next/navigation";
 import { useIsAuth } from "../store/auth";

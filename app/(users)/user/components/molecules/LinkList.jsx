@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 
 import { Icon, Link, Heading } from "../../../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
@@ -40,7 +40,6 @@ export default React.memo(function LinkList({
       icon: RiMapLine,
     },
   ];
-
   return (
     <>
       {linksTop.map((list) => {
