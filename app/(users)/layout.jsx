@@ -17,9 +17,7 @@ function UserLayout({ children }) {
   return (
     <>
       <Global styles={global} />
-      <Menu>
-        <LayoutGroup>{children}</LayoutGroup>
-      </Menu>
+      <Menu>{children}</Menu>
     </>
   );
 }

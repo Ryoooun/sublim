@@ -52,7 +52,7 @@ export async function GET(request) {
       const word = termextract.modify_agglutinative_lang(data.cmp_noun);
       array.push({ text: word, value: data.importance });
     }
-    console.log(array);
+
     return array;
   });
 

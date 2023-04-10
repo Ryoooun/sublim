@@ -1,12 +1,15 @@
 import useSWR from "swr";
-
+import { useMemo } from "react";
 const fetcher = (id) => fetch(id).then((r) => r.json());
 
-export default function useWord(id) {
-  const { data, error, isLoading } = useSWR(`/api/parse?url=${id}`, fetcher);
+function useWord({ url }) {
+  const { data } = useSWR(`/api/parse?url=${url}`, fetcher);
+
   return {
     post: data,
-    isLoading,
-    isError: error,
+    // isLoading: isLoading,
+    // isError: error,
   };
 }
+
+export default useWord;

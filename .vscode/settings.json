@@ -8,5 +8,6 @@
     "termex",
     "termextract",
     "Zenn"
-  ]
+  ],
+  "search.useIgnoreFiles": true
 }

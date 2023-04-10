@@ -21,13 +21,12 @@ import {
   Divider,
   CardFooter,
 } from "@/app/common/chakraui/ChakraUI";
-import Cloud from "../../../map/components/organisms/CloudWrapper";
+import CloudWrapper from "../../../map/components/organisms/CloudWrapper";
 import { useMemo } from "react";
 export default function WordPageContent({ children }) {
-  const url = useMemo(() => {
-    return "/api/parse?url=https://qiita.com/hedgehog051/items/3b02a78ad7660307f076";
+  const postURL = useMemo(() => {
+    return "https://qiita.com/jnchito/items/459d58ba652bf4763820";
   }, []);
-
   return (
     <Container maxW="85vw">
       <Box>
@@ -75,7 +74,7 @@ export default function WordPageContent({ children }) {
               <Card maxW="sm" key={i}>
                 <CardBody>
                   <Box w="100%" h="100%" borderRadius="xl">
-                    <Cloud url={url} />
+                    <CloudWrapper url={postURL} />
                   </Box>
                   <Stack mt="6" spacing="3">
                     <Heading size="md">React</Heading>

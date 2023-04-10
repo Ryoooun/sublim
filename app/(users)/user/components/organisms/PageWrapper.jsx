@@ -25,7 +25,7 @@ export default React.memo(function PageWrapper({
   isOpen,
   children,
 }) {
-  const LargerThen50rem = ({ children }) => {
+  const LargerThen50rem = React.memo(({ children }) => {
     return (
       <Box
         className="scrollbar"
@@ -42,9 +42,9 @@ export default React.memo(function PageWrapper({
         {children}
       </Box>
     );
-  };
+  });
 
-  const SmallerThen50rem = ({ children }) => {
+  const SmallerThen50rem = React.memo(({ children }) => {
     return (
       <motion.div
         className="scrollbar"
@@ -62,7 +62,7 @@ export default React.memo(function PageWrapper({
         {children}
       </motion.div>
     );
-  };
+  });
 
   if (isLargerThen50em) {
     return <LargerThen50rem>{children}</LargerThen50rem>;
