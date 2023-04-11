@@ -15,9 +15,9 @@ export default function WordStack({ data }) {
         .fill(1)
         .map((_, i) => {
           return (
-            <Card maxW="sm" key={i} borderRadius="xl">
+            <Card key={i} borderRadius="xl">
               <CardBody
-                bg={["#3771FB", "#FF693A", "#58BD7D", "#353945"][i % 4]}
+                bg={["#ffa37c", "#f17f67", "#6ac8d2", "#5b5956"][i % 4]}
                 borderTopRadius="xl">
                 <Stack>
                   <Heading
@@ -31,7 +31,7 @@ export default function WordStack({ data }) {
                 </Stack>
               </CardBody>
               <Divider color="gray.100" />
-              <CardFooter p="2">
+              <CardFooter py="2">
                 <Stack>
                   <Text>単語数: 100</Text>
                   <Text>{new Date().toLocaleDateString()}</Text>

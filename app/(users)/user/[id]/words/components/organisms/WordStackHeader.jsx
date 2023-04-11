@@ -10,20 +10,13 @@ import { motion } from "framer-motion";
 import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import AddNewCollectionButton from "../atoms/AddNewStackButton";
 
-export default function WordStackHeader() {
+export default function WordStackHeader({ isLargerThen50em }) {
   return (
-    <Box
-      mb="4"
-      pos="fixed"
-      top="5"
-      zIndex="10"
-      w="85vw"
-      backdropFilter="auto"
-      backdropBlur="3px">
+    <Box mb="4" w="100%" backdropFilter="auto" backdropBlur="3px">
       <Heading ml="2" mb="4">
         Words
       </Heading>
-      <InputGroup w="95%">
+      <InputGroup>
         <InputLeftElement
           pointerEvents="none"
           children={<RiSearchLine style={{ color: "#888" }} />}
@@ -31,7 +24,7 @@ export default function WordStackHeader() {
         <Input
           as={motion.input}
           type="text"
-          placeholder="単語帳を検索"
+          placeholder="コレクションを検索"
           variant="outline"
           color="#888"
           whileFocus={{ backgroundColor: "#fff" }}

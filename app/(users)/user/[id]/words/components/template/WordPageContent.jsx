@@ -26,6 +26,7 @@ import {
   Input,
   Icon,
   IconButton,
+  useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
@@ -40,12 +41,10 @@ const scroll = css`
 `;
 
 export default function WordPageContent({ children }) {
-  const postURL = useMemo(() => {
-    return "https://qiita.com/jnchito/items/459d58ba652bf4763820";
-  }, []);
+  const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   return (
-    <Container maxW="100vw" as={motion.div} layout overflow="hidden">
-      <WordStackHeader />
+    <Container maxW="100vw" maxH="90vh" overflow="hidden">
+      <WordStackHeader isLargerThen50em={isLargerThen50em} />
       {/* <TableContainer
         overflowY="scroll"
         h="80vh"
@@ -81,12 +80,11 @@ export default function WordPageContent({ children }) {
         </Table>
       </TableContainer> */}
       <SimpleGrid
-        minChildWidth="8rem"
-        gap="4"
+        minChildWidth={isLargerThen50em ? "30%" : "100%"}
+        spacing="5"
         overflow="scroll"
-        h="95vh"
-        pt="24"
-        pb="20"
+        pb="30vh"
+        h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
         <WordStack />

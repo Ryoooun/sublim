@@ -19,6 +19,18 @@ import {
 import ColorRadioButton from "./ColorRadioButton";
 
 import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/app/auth/firebase";
+import { doc, collection, setDoc } from "firebase/firestore";
+import { db } from "@/app/auth/firebase";
+const setDocument = async (uid, collectionName, collectionColor) => {
+  const docRef = doc(collection(db, "post", `${uid}`, collectionName));
+  await setDoc(docRef, {
+    collectionName,
+    collectionColor,
+  });
+  console.log(docRef);
+};
 
 export default function AddCollectionModal({
   isOpen,
@@ -29,7 +41,7 @@ export default function AddCollectionModal({
 }) {
   const [collectionName, setCollectionName] = useState("");
   const [collectionColor, setCollectionColor] = useState("#f17f67");
-
+  const [user] = useAuthState(auth);
   const handleInputChange = (e) => setCollectionName(e.target.value);
   const isError = collectionName === "";
 
@@ -38,6 +50,7 @@ export default function AddCollectionModal({
     if (!isError) {
       console.log(collectionName);
       console.log(collectionColor);
+      setDocument(user.uid, collectionName, collectionColor);
       setCollectionColor("#f17f67");
       setCollectionName("");
       onClose();
