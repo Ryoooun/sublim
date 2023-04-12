@@ -1,3 +1,5 @@
+import { css } from "@emotion/react";
+
 import {
   Card,
   CardBody,
@@ -7,53 +9,76 @@ import {
   Divider,
   Text,
   Button,
+  Box,
 } from "@/app/common/chakraui/ChakraUI";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { LayoutGroup, motion } from "framer-motion";
 
 import dayjs from "dayjs";
+import useToggle from "@/app/hooks/useToggle";
 
-export default memo(function WordStack({ wordCollections, getCollections }) {
+const cardStyle = css({
+  // backgroundImage:
+  //   "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
+  backgroundColor: "#000",
+  borderRadius: "1rem",
+  height: "5rem",
+  width: "100vw",
+});
+
+const cardVariants = {
+  on: {
+    color: "#fff",
+  },
+  off: {
+    color: "#000",
+  },
+};
+
+export default memo(function WordStack({ words, getWords }) {
+  const [toggle, flag] = useToggle(false);
+
   return (
-    <>
-      {wordCollections.length > 0 ? (
-        wordCollections.map((collection, i) => {
+    <LayoutGroup>
+      {words.length > 0 ? (
+        words.map((word, i) => {
           return (
-            <Card key={collection.id} borderRadius="xl" maxH="32">
-              <CardBody bg={collection.color} borderTopRadius="xl">
-                <Stack>
-                  <Heading
-                    size="md"
-                    color="white"
-                    textOverflow="ellipsis"
-                    whiteSpace="nowrap"
-                    overflow="hidden">
-                    {collection.name}
-                  </Heading>
-                </Stack>
-              </CardBody>
-              <Divider color="gray.100" />
-              <CardFooter py="2">
-                <Stack>
-                  <Text fontSize="xs" color="gray.500">
-                    登録単語: {collection.count}個
-                  </Text>
-                  <Text fontSize="xs" color="gray.500">
-                    作成日時:
-                    {dayjs(collection.timestamp.toDate()).format(
-                      "YYYY年MM月DD日"
-                    )}
-                  </Text>
-                </Stack>
-              </CardFooter>
-            </Card>
+            <motion.div
+              css={cardStyle}
+              key={word.id}
+              variants={cardVariants}
+              animate={flag ? "on" : "off"}
+              onClick={toggle}>
+              <motion.div>
+                <motion.h3>{word.title}</motion.h3>
+              </motion.div>
+            </motion.div>
+            // <Card css={cardStyle} key={word.id} onClick={toggle} layout>
+            //   <CardBody
+            //     as={motion.div}
+            //     // borderRadius="xl"
+            //     bgImage="linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)">
+            //     <Stack as={motion.div} layout>
+            //       <Heading
+            //         as={motion.h3}
+            //         size="md"
+            //         color="white"
+            //         textOverflow="ellipsis"
+            //         whiteSpace="nowrap"
+            //         overflow="hidden">
+            //         {word.title}
+            //       </Heading>
+            //     </Stack>
+            //   </CardBody>
+            // </Card>
           );
         })
       ) : (
         <>
           <Heading>No collections.</Heading>
-          <Button onClick={getCollections}>Reload</Button>
+          <Button onClick={getWords}>Reload</Button>
         </>
       )}
-    </>
+    </LayoutGroup>
   );
 });

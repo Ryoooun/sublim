@@ -1,5 +1,5 @@
 import { IconButton } from "@/app/common/chakraui/ChakraUI";
-import { AiOutlineFolderAdd } from "@react-icons/all-files/ai/AiOutlineFolderAdd";
+import { IoIosAdd } from "@react-icons/all-files/io/IoIosAdd";
 import { useDisclosure } from "@/app/common/chakraui/ChakraUI";
 import { useRef } from "react";
 
@@ -15,7 +15,7 @@ export default function AddNewCollectionButton() {
         aria-label="Add new stack"
         onClick={onOpen}
         colorScheme="whatsapp"
-        icon={<AiOutlineFolderAdd size="30" ref={finalRef} />}
+        icon={<IoIosAdd size="40" ref={finalRef} />}
       />
       <AddCollectionModal
         isOpen={isOpen}

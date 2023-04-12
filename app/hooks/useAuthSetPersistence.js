@@ -9,10 +9,12 @@ import { auth, GoogleProvider } from "../auth/firebase";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
 
+import useWordsDB from "./useWordsDB";
 import { useRouter } from "next/navigation";
 
 export default function useAuthSetPersistence() {
   const router = useRouter();
+  const { getWords } = useWordsDB();
   const handleSignWithPopup = () => {
     signInWithPopup(auth, GoogleProvider)
       .then((result) => {
@@ -41,6 +43,7 @@ export default function useAuthSetPersistence() {
       .then(() => {
         console.log("setSession");
         handleSignWithPopup();
+        getWords();
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -35,7 +35,7 @@ import { useMemo } from "react";
 import WordStack from "../organisms/WordStack";
 import WordStackHeader from "../organisms/WordStackHeader";
 
-import useWordCollection from "@/app/hooks/useWordCollection";
+import useWordsDB from "@/app/hooks/useWordsDB";
 
 const scroll = css`
   &::-webkit-scrollbar {
@@ -46,61 +46,25 @@ const scroll = css`
 export default function WordPageContent({ children }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
 
-  const [getCollections, wordCollections] = useWordCollection();
+  const { getWords, words } = useWordsDB();
   const handleClick = async () => {
-    await getCollections();
+    await getWords();
   };
 
   return (
     <Container maxW="100vw" maxH="90vh" overflow="hidden">
       <WordStackHeader isLargerThen50em={isLargerThen50em} />
-      {/* <TableContainer
-        overflowY="scroll"
-        h="80vh"
-        mt="2"
-        sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-        <Table variant="simple" size="sm">
-          <Thead>
-            <Tr>
-              <Th>Folder</Th>
-              <Th>Word's</Th>
-              <Th>create at</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {Array(100)
-              .fill(1)
-              .map((_, i) => {
-                return (
-                  <Tr key={i}>
-                    <Td isTruncated={true}>
-                      {
-                        ["フロントエンド", "バックエンド", "UI/UX", "Network"][
-                          i % 4
-                        ]
-                      }
-                    </Td>
-                    <Td isNumeric>{i * i}</Td>
-                    <Td isNumeric>{new Date().toLocaleDateString()}</Td>
-                  </Tr>
-                );
-              })}
-          </Tbody>
-        </Table>
-      </TableContainer> */}
       <SimpleGrid
-        minChildWidth={isLargerThen50em ? "30%" : "100%"}
+        // minChildWidth={isLargerThen50em ? "30%" : "100%"}
+        columns={isLargerThen50em ? 3 : 1}
         spacingX="2"
         spacingY="4"
         overflow="scroll"
-        pb="30vh"
+        // pb="30vh"
         // h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
-        <WordStack
-          wordCollections={wordCollections}
-          getCollections={getCollections}
-        />
+        <WordStack words={words} getWords={getWords} />
       </SimpleGrid>
     </Container>
   );

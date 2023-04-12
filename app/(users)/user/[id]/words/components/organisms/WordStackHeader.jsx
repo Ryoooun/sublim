@@ -24,7 +24,7 @@ export default function WordStackHeader({ isLargerThen50em }) {
         <Input
           as={motion.input}
           type="text"
-          placeholder="コレクションを検索"
+          placeholder="検索"
           variant="outline"
           color="#888"
           whileFocus={{ backgroundColor: "#fff" }}
