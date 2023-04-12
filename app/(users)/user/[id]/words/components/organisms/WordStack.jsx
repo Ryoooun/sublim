@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
 import {
@@ -18,20 +19,24 @@ import dayjs from "dayjs";
 import useToggle from "@/app/hooks/useToggle";
 
 const cardStyle = css({
-  // backgroundImage:
-  //   "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
-  backgroundColor: "#000",
+  backgroundImage:
+    "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
   borderRadius: "1rem",
   height: "5rem",
-  width: "100vw",
+  width: "70vw",
+  display: "grid",
+  placeContent: "center",
+  fontSize: "2rem",
 });
 
 const cardVariants = {
   on: {
     color: "#fff",
+    height: "20rem",
   },
   off: {
     color: "#000",
+    height: "10rem",
   },
 };
 
