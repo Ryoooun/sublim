@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { useMemo } from "react";
+
 const fetcher = (id) => fetch(id).then((r) => r.json());
 
 function useWord({ url }) {

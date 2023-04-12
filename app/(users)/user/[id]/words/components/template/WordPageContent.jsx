@@ -34,6 +34,9 @@ import CloudWrapper from "../../../map/components/organisms/CloudWrapper";
 import { useMemo } from "react";
 import WordStack from "../organisms/WordStack";
 import WordStackHeader from "../organisms/WordStackHeader";
+
+import useWordCollection from "@/app/hooks/useWordCollection";
+
 const scroll = css`
   &::-webkit-scrollbar {
     display: none;
@@ -42,6 +45,12 @@ const scroll = css`
 
 export default function WordPageContent({ children }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
+
+  const [getCollections, wordCollections] = useWordCollection();
+  const handleClick = async () => {
+    await getCollections();
+  };
+
   return (
     <Container maxW="100vw" maxH="90vh" overflow="hidden">
       <WordStackHeader isLargerThen50em={isLargerThen50em} />
@@ -81,13 +90,17 @@ export default function WordPageContent({ children }) {
       </TableContainer> */}
       <SimpleGrid
         minChildWidth={isLargerThen50em ? "30%" : "100%"}
-        spacing="5"
+        spacingX="2"
+        spacingY="4"
         overflow="scroll"
         pb="30vh"
-        h="100vh"
+        // h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
-        <WordStack />
+        <WordStack
+          wordCollections={wordCollections}
+          getCollections={getCollections}
+        />
       </SimpleGrid>
     </Container>
   );

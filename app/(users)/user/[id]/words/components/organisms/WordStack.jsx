@@ -6,19 +6,20 @@ import {
   Stack,
   Divider,
   Text,
+  Button,
 } from "@/app/common/chakraui/ChakraUI";
+import { memo } from "react";
 
-export default function WordStack({ data }) {
+import dayjs from "dayjs";
+
+export default memo(function WordStack({ wordCollections, getCollections }) {
   return (
     <>
-      {Array(20)
-        .fill(1)
-        .map((_, i) => {
+      {wordCollections.length > 0 ? (
+        wordCollections.map((collection, i) => {
           return (
-            <Card key={i} borderRadius="xl">
-              <CardBody
-                bg={["#ffa37c", "#f17f67", "#6ac8d2", "#5b5956"][i % 4]}
-                borderTopRadius="xl">
+            <Card key={collection.id} borderRadius="xl" maxH="32">
+              <CardBody bg={collection.color} borderTopRadius="xl">
                 <Stack>
                   <Heading
                     size="md"
@@ -26,20 +27,33 @@ export default function WordStack({ data }) {
                     textOverflow="ellipsis"
                     whiteSpace="nowrap"
                     overflow="hidden">
-                    Front End
+                    {collection.name}
                   </Heading>
                 </Stack>
               </CardBody>
               <Divider color="gray.100" />
               <CardFooter py="2">
                 <Stack>
-                  <Text>単語数: 100</Text>
-                  <Text>{new Date().toLocaleDateString()}</Text>
+                  <Text fontSize="xs" color="gray.500">
+                    登録単語: {collection.count}個
+                  </Text>
+                  <Text fontSize="xs" color="gray.500">
+                    作成日時:
+                    {dayjs(collection.timestamp.toDate()).format(
+                      "YYYY年MM月DD日"
+                    )}
+                  </Text>
                 </Stack>
               </CardFooter>
             </Card>
           );
-        })}
+        })
+      ) : (
+        <>
+          <Heading>No collections.</Heading>
+          <Button onClick={getCollections}>Reload</Button>
+        </>
+      )}
     </>
   );
-}
+});

@@ -3,6 +3,7 @@ import {
   HStack,
   useRadio,
   useRadioGroup,
+  Input,
 } from "@/app/common/chakraui/ChakraUI";
 
 function ColorRadioBox(props) {
@@ -52,6 +53,7 @@ export default function ColorRadioButton({ setCollectionColor }) {
           </ColorRadioBox>
         );
       })}
+      <Input type="color" borderRadius="full" w="0.75rem" h="0.75rem" px="3" />
     </HStack>
   );
 }
