@@ -14,6 +14,7 @@ import {
   Button,
   FormHelperText,
   FormErrorMessage,
+  useToast,
 } from "@/app/common/chakraui/ChakraUI";
 // import ColorRadioButton from "./ColorRadioButton";
 
@@ -28,6 +29,8 @@ export default function AddCollectionModal({
   finalRef,
 }) {
   const [value, setValue] = useState("");
+  const [addWord, chceckAddWord] = useState("");
+  const toast = useToast();
   const handleInputChange = (e) => setValue(e.target.value);
   const { setWord } = useWordsDB();
 
@@ -42,9 +45,25 @@ export default function AddCollectionModal({
       : { result: false, message: "ok" };
 
   // ここにPost処理をかく。
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isError?.result) {
-      setWord(value);
+      const res = await setWord(value);
+      console.log(res);
+      if (res.code) {
+        console.log("finish", "=>", res.message);
+        toast({
+          title: `${value}を登録`,
+          status: "success",
+          isClosable: true,
+        });
+      } else {
+        console.log("error", "=>", res.message);
+        toast({
+          title: `${value}登録エラー`,
+          status: "error",
+          isClosable: false,
+        });
+      }
       setValue("");
       onClose();
     }

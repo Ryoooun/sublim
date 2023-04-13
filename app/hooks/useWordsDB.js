@@ -46,12 +46,20 @@ export default function useWordsDB() {
 
   const setWord = useCallback(async (word) => {
     const WordsRef = collection(db, "posts", user.uid, "Words");
-    const documentRef = await addDoc(WordsRef, {
+    await addDoc(WordsRef, {
       title: word,
       contents: "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    getWords();
+    })
+      .then((documentRef) => {
+        console.log("success");
+        getWords();
+        return { code: true, message: "成功" };
+      })
+      .catch((error) => {
+        console.log("error");
+        return { code: false, message: error };
+      });
   }, []);
 
   return { getWords, setWord, words };
