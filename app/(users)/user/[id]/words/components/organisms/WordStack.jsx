@@ -114,6 +114,10 @@ const cardStyle = css({
   whiteSpace: "normal",
 });
 
+const markDownStyle = css({
+  // whiteSpace: "break-spaces",
+});
+
 const cardVariants = {
   on: {
     height: "95vh",
@@ -167,7 +171,7 @@ export default memo(function WordStack({ words, getWords }) {
           words.map((word, i) => {
             return (
               <motion.div
-                layout="position"
+                layout="size"
                 layoutScroll={true}
                 style={{ borderRadius: "1rem" }}
                 css={cardStyle}
@@ -220,9 +224,12 @@ export default memo(function WordStack({ words, getWords }) {
                             overflow: "scroll",
                           }}>
                           <ReactMarkdown
-                            children={test}
+                            css={markDownStyle}
+                            children={word.contents
+                              .replace(/  /g, "\n")
+                              .replace(/\| \|/g, "|\n")}
                             remarkPlugins={[remarkGfm]}
-                            linkTarget={"_top"}
+                            linkTarget={"_blank"}
                             components={{
                               h1: ({ node, ...props }) => (
                                 <Heading
@@ -267,15 +274,18 @@ export default memo(function WordStack({ words, getWords }) {
                                 <Tbody {...props} />
                               ),
                               td: ({ node, ...props }) => (
-                                <Td fontSize="xs" {...props} />
+                                <Td fontSize="sm" {...props} />
                               ),
                               a: ({ node, ...props }) => (
                                 <Link isExternal color="brand.500" {...props} />
                               ),
                               img: ({ node, ...props }) => (
                                 <Image
-                                  boxSize="200px"
-                                  objectFit="cover"
+                                  boxSizing="border-box"
+                                  border="3px solid #fff"
+                                  maxW="50vw"
+                                  m="2rem auto"
+                                  fit="cover"
                                   {...props}
                                 />
                               ),
@@ -302,7 +312,10 @@ export default memo(function WordStack({ words, getWords }) {
                                 <UnorderedList {...props} />
                               ),
                               li: ({ node, ...props }) => (
-                                <ListItem {...props} />
+                                <ListItem
+                                  listStylePosition="inside"
+                                  {...props}
+                                />
                               ),
                             }}
                           />
@@ -315,14 +328,11 @@ export default memo(function WordStack({ words, getWords }) {
             );
           })
         ) : (
-          <>
-            <Heading textAlign="center" pt="20">
-              No collections.
-            </Heading>
-            <Button mt="-40" onClick={getWords}>
+          <motion.div style={{ textAlign: "center" }}>
+            <Button w="10rem" onClick={getWords}>
               Reload
             </Button>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </LayoutGroup>
