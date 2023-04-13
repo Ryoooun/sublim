@@ -12,84 +12,85 @@ import {
   Button,
   Box,
 } from "@/app/common/chakraui/ChakraUI";
-import { memo, useEffect } from "react";
-import { LayoutGroup, motion } from "framer-motion";
+import { memo, useEffect, useState, useCallback } from "react";
+import { LayoutGroup, motion, AnimatePresence } from "framer-motion";
 
 import dayjs from "dayjs";
 import useToggle from "@/app/hooks/useToggle";
 
 const cardStyle = css({
-  backgroundImage:
-    "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
-  borderRadius: "1rem",
-  display: "grid",
-  placeContent: "center",
-  fontSize: "2rem",
   fontWeight: "bold",
   color: "white",
+  display: "grid",
+  placeContent: "center",
+  height: "10rem",
 });
 
 const cardVariants = {
   on: {
-    height: "20rem",
+    height: "95vh",
+    position: "fixed",
+    width: "full",
+    top: "2.5vh",
+    zIndex: "20",
+    backgroundImage: "none",
+    backgroundColor: "#ffffff0f",
+    backdropFilter: "blur(15px)",
   },
   off: {
-    height: "10rem",
+    backgroundImage:
+      "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
   },
 };
 
 export default memo(function WordStack({ words, getWords }) {
   const [toggle, flag] = useToggle(false);
+  const [selectId, setSelectId] = useState(null);
+
+  const handleSelectCard = (id) => {
+    if (id == selectId) {
+      setSelectId(null);
+    } else {
+      setSelectId(id);
+    }
+  };
 
   return (
     <LayoutGroup>
-      {words.length > 0 ? (
-        words.map((word, i) => {
-          return (
-            <motion.div
-              css={cardStyle}
-              key={word.id}
-              variants={cardVariants}
-              animate={flag ? "on" : "off"}
-              onClick={toggle}>
-              <motion.div>
-                <motion.h3
-                  style={{
-                    fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
-                  }}
-                  onClick={() => console.log(`${String(word.title.length)}px`)}>
-                  {word.title.length > 10
-                    ? `${word.title.slice(0, 10)}...`
-                    : word.title}
-                </motion.h3>
+      <AnimatePresence>
+        {words.length > 0 ? (
+          words.map((word, i) => {
+            return (
+              <motion.div
+                layout="size"
+                layoutScroll
+                style={{ borderRadius: "1rem" }}
+                css={cardStyle}
+                key={word.id}
+                variants={cardVariants}
+                animate={selectId == word.id ? "on" : "off"}
+                onClick={() => handleSelectCard(word.id)}>
+                <motion.div>
+                  <motion.h3
+                    layout
+                    style={{
+                      fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
+                    }}>
+                    {word.title.length > 10
+                      ? `${word.title.slice(0, 10)}...`
+                      : word.title}
+                  </motion.h3>
+                </motion.div>
               </motion.div>
-            </motion.div>
-            // <Card css={cardStyle} key={word.id} onClick={toggle} layout>
-            //   <CardBody
-            //     as={motion.div}
-            //     // borderRadius="xl"
-            //     bgImage="linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)">
-            //     <Stack as={motion.div} layout>
-            //       <Heading
-            //         as={motion.h3}
-            //         size="md"
-            //         color="white"
-            //         textOverflow="ellipsis"
-            //         whiteSpace="nowrap"
-            //         overflow="hidden">
-            //         {word.title}
-            //       </Heading>
-            //     </Stack>
-            //   </CardBody>
-            // </Card>
-          );
-        })
-      ) : (
-        <>
-          <Heading>No collections.</Heading>
-          <Button onClick={getWords}>Reload</Button>
-        </>
-      )}
+            );
+          })
+        ) : (
+          <>
+            <Heading>No collections.</Heading>
+            <Button onClick={getWords}>Reload</Button>
+          </>
+        )}
+      </AnimatePresence>
     </LayoutGroup>
   );
 });

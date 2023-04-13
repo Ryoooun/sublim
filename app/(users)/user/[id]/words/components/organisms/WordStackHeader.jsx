@@ -34,9 +34,11 @@ export default function WordStackHeader({ isLargerThen50em }) {
           as={motion.input}
           type="text"
           placeholder="検索"
-          variant="outline"
-          color="#888"
-          whileFocus={{ backgroundColor: "#fff" }}
+          bg="#0000001f"
+          variant="unstyled"
+          color="#aaa"
+          fontSize="lg"
+          whileFocus={{ backgroundColor: "#ffffffff" }}
         />
         <AddNewCollectionButton />
       </InputGroup>
