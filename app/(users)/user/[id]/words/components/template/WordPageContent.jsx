@@ -32,7 +32,7 @@ import {
 import { css } from "@emotion/react";
 import { motion, AnimatePresence } from "framer-motion";
 import CloudWrapper from "../../../map/components/organisms/CloudWrapper";
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import WordStack from "../organisms/WordStack";
 import WordStackHeader from "../organisms/WordStackHeader";
 
@@ -46,6 +46,7 @@ const scroll = css`
 
 export default function WordPageContent({ children }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
+  const [search, setSearch] = useState("");
 
   const { getWords, words } = useWordsDB();
   const handleClick = async () => {
@@ -54,7 +55,11 @@ export default function WordPageContent({ children }) {
 
   return (
     <Container maxW="100vw" maxH="100vh" overflow="hidden" whiteSpace="nowrap">
-      <WordStackHeader isLargerThen50em={isLargerThen50em} />
+      <WordStackHeader
+        isLargerThen50em={isLargerThen50em}
+        search={search}
+        setSearch={setSearch}
+      />
       <SimpleGrid
         // minChildWidth={isLargerThen50em ? "30%" : "100%"}
         position="relative"
@@ -65,13 +70,13 @@ export default function WordPageContent({ children }) {
         overflow="scroll"
         whiteSpace="nowrap"
         w="100%"
-        pt="22vh"
+        pt="25vh"
         pb="20vh"
         h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
         <AnimatePresence initial={false}>
-          <WordStack words={words} getWords={getWords} />
+          <WordStack words={words} getWords={getWords} search={search} />
         </AnimatePresence>
       </SimpleGrid>
     </Container>

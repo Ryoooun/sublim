@@ -10,7 +10,17 @@ import { motion } from "framer-motion";
 import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import AddNewCollectionButton from "../atoms/AddNewStackButton";
 
-export default function WordStackHeader({ isLargerThen50em }) {
+export default function WordStackHeader({
+  isLargerThen50em,
+  search,
+  setSearch,
+}) {
+  const handleChange = (e) => {
+    if (RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(e.target.value[0])) {
+    } else {
+      setSearch(e.target.value);
+    }
+  };
   return (
     <Box
       mb="4"
@@ -38,6 +48,8 @@ export default function WordStackHeader({ isLargerThen50em }) {
           variant="unstyled"
           color="#aaa"
           fontSize="lg"
+          value={search}
+          onChange={handleChange}
           whileFocus={{ backgroundColor: "#ffffffff" }}
         />
         <AddNewCollectionButton />
