@@ -181,9 +181,17 @@ export default memo(function WordStack({ words, getWords }) {
             return (
               <motion.div
                 layout="position"
-                onPanEnd={(evnet, info) =>
-                  info.delta.x > -2 && setSelectId(null)
+                drag="x"
+                onDrag={(event, info) =>
+                  info.offset.x < -100 && console.log("ok")
                 }
+                dragSnapToOrigin={true}
+                dragConstraints={{
+                  top: 0,
+                  left: -10,
+                  right: 10,
+                  bottom: 0,
+                }}
                 layoutScroll={true}
                 style={{ borderRadius: "1rem" }}
                 css={cardStyle}
@@ -204,25 +212,28 @@ export default memo(function WordStack({ words, getWords }) {
                 }}
                 onClick={() => handleSelectCard(word.id)}>
                 <motion.div layout>
-                  <motion.h3
-                    layout="position"
-                    variants={titleVariants}
-                    animate={
-                      selectId == word.id
-                        ? isLargerThen50em
-                          ? "onPc"
-                          : "on"
-                        : "off"
-                    }
-                    exit={{ opacity: "0" }}
-                    // style={{
-                    //   fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
-                    // }}
-                  >
-                    {word.title.length > 10
-                      ? `${word.title.slice(0, 10)}...`
-                      : word.title}
-                  </motion.h3>
+                  <AnimatePresence>
+                    <motion.h3
+                      layout="position"
+                      variants={titleVariants}
+                      initial={{ fontSize: "2px" }}
+                      animate={
+                        selectId == word.id
+                          ? isLargerThen50em
+                            ? "onPc"
+                            : "on"
+                          : "off"
+                      }
+                      exit={{ opacity: "0" }}
+                      // style={{
+                      //   fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
+                      // }}
+                    >
+                      {word.title.length > 10
+                        ? `${word.title.slice(0, 10)}...`
+                        : word.title}
+                    </motion.h3>
+                  </AnimatePresence>
                   <AnimatePresence>
                     {selectId == word.id ? (
                       <motion.div
