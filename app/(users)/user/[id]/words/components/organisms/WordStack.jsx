@@ -22,20 +22,18 @@ const cardStyle = css({
   backgroundImage:
     "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
   borderRadius: "1rem",
-  height: "5rem",
-  width: "70vw",
   display: "grid",
   placeContent: "center",
   fontSize: "2rem",
+  fontWeight: "bold",
+  color: "white",
 });
 
 const cardVariants = {
   on: {
-    color: "#fff",
     height: "20rem",
   },
   off: {
-    color: "#000",
     height: "10rem",
   },
 };
@@ -55,7 +53,15 @@ export default memo(function WordStack({ words, getWords }) {
               animate={flag ? "on" : "off"}
               onClick={toggle}>
               <motion.div>
-                <motion.h3>{word.title}</motion.h3>
+                <motion.h3
+                  style={{
+                    fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
+                  }}
+                  onClick={() => console.log(`${String(word.title.length)}px`)}>
+                  {word.title.length > 10
+                    ? `${word.title.slice(0, 10)}...`
+                    : word.title}
+                </motion.h3>
               </motion.div>
             </motion.div>
             // <Card css={cardStyle} key={word.id} onClick={toggle} layout>

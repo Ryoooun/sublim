@@ -30,7 +30,7 @@ import {
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import CloudWrapper from "../../../map/components/organisms/CloudWrapper";
 import { useMemo } from "react";
 import WordStack from "../organisms/WordStack";
@@ -53,19 +53,26 @@ export default function WordPageContent({ children }) {
   };
 
   return (
-    <Container maxW="100vw" maxH="90vh" overflow="hidden">
+    <Container maxW="100vw" maxH="100vh" overflow="hidden" whiteSpace="nowrap">
       <WordStackHeader isLargerThen50em={isLargerThen50em} />
       <SimpleGrid
         // minChildWidth={isLargerThen50em ? "30%" : "100%"}
-        columns={isLargerThen50em ? 3 : 1}
+        position="relative"
+        top="-48"
+        minChildWidth="15rem"
         spacingX="2"
         spacingY="4"
         overflow="scroll"
-        // pb="30vh"
-        // h="100vh"
+        whiteSpace="nowrap"
+        w="100%"
+        pt="21vh"
+        pb="20vh"
+        h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
-        <WordStack words={words} getWords={getWords} />
+        <AnimatePresence initial={false}>
+          <WordStack words={words} getWords={getWords} />
+        </AnimatePresence>
       </SimpleGrid>
     </Container>
   );

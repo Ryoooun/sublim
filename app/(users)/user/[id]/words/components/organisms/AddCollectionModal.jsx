@@ -15,9 +15,10 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from "@/app/common/chakraui/ChakraUI";
-import ColorRadioButton from "./ColorRadioButton";
+// import ColorRadioButton from "./ColorRadioButton";
 
 import { useState, useMemo } from "react";
+import useWordsDB from "@/app/hooks/useWordsDB";
 
 export default function AddCollectionModal({
   isOpen,
@@ -26,13 +27,14 @@ export default function AddCollectionModal({
   initialRef,
   finalRef,
 }) {
-  const [word, setWord] = useState("");
-  const handleInputChange = (e) => setWord(e.target.value);
+  const [value, setValue] = useState("");
+  const handleInputChange = (e) => setValue(e.target.value);
+  const { setWord } = useWordsDB();
 
   const isError =
-    word.length == 0
+    value.length == 0
       ? { result: true, message: "単語を入力してください。" }
-      : RegExp("^[!-/:-@[-`{-~｟-､]+$", "g").test(word)
+      : RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(value)
       ? {
           result: true,
           message: "半角記号および空白文字は含むことができません。",
@@ -42,7 +44,8 @@ export default function AddCollectionModal({
   // ここにPost処理をかく。
   const handleSave = () => {
     if (!isError?.result) {
-      setWord("");
+      setWord(value);
+      setValue("");
       onClose();
     }
   };
@@ -64,7 +67,7 @@ export default function AddCollectionModal({
               <Input
                 ref={initialRef}
                 placeholder="単語"
-                value={word}
+                value={value}
                 onChange={handleInputChange}
               />
               {!isError?.result ? (

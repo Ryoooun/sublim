@@ -37,7 +37,7 @@ export default React.memo(function PageWrapper({
         boxSizing="border-box"
         borderRadius="1rem"
         boxShadow="lg"
-        py="5"
+        py="0"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
         {children}
       </Box>

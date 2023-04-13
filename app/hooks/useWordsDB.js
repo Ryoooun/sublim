@@ -12,6 +12,7 @@ import {
   query,
   where,
   DocumentReference,
+  addDoc,
 } from "firebase/firestore";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
@@ -43,5 +44,15 @@ export default function useWordsDB() {
     });
   }, []);
 
-  return { getWords, words };
+  const setWord = useCallback(async (word) => {
+    const WordsRef = collection(db, "posts", user.uid, "Words");
+    const documentRef = await addDoc(WordsRef, {
+      title: word,
+      contents: "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    getWords();
+  }, []);
+
+  return { getWords, setWord, words };
 }
