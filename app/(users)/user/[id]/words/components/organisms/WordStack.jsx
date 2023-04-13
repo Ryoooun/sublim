@@ -41,6 +41,7 @@ import { LayoutGroup, motion, AnimatePresence } from "framer-motion";
 
 import dayjs from "dayjs";
 import useToggle from "@/app/hooks/useToggle";
+import { min } from "d3";
 
 const test = `#### 斜体
 
@@ -111,16 +112,21 @@ const cardStyle = css({
   height: "4rem",
   boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
   display: "grid",
+  // overflow: "clip",
   whiteSpace: "normal",
 });
 
 const markDownStyle = css({
   // whiteSpace: "break-spaces",
+  width: "max(75vw, 300px)",
+  height: "60vh",
+  overflowY: "scroll",
+  // paddingRight: "2rem",
 });
 
 const cardVariants = {
   on: {
-    height: "95vh",
+    height: "85vh",
     position: "fixed",
     width: "95vw",
     left: "2.5vw",
@@ -130,7 +136,7 @@ const cardVariants = {
     backgroundColor: "#ffffff0f",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
-    padding: "1rem",
+    padding: "2rem",
   },
   onPc: {
     width: "80vw",
@@ -175,6 +181,11 @@ export default memo(function WordStack({ words, getWords, search }) {
       setSelectId(id);
     }
   };
+
+  const handleOpenCard = useCallback((e) => {
+    e.stopPropagation();
+    alert(`Open at ${new Date().toLocaleDateString()}`);
+  }, []);
 
   return (
     <LayoutGroup>
@@ -238,7 +249,6 @@ export default memo(function WordStack({ words, getWords, search }) {
                       {selectId == word.id ? (
                         <motion.div
                           layout
-                          // style={{ overflow: "scroll", height: "80%" }}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           // transition={cardTransition}
@@ -363,6 +373,12 @@ export default memo(function WordStack({ words, getWords, search }) {
                                 ),
                               }}
                             />
+                            <Button
+                              mt="4"
+                              colorScheme="blackAlpha"
+                              onClick={(e) => handleOpenCard(e)}>
+                              開く
+                            </Button>
                           </motion.div>
                         </motion.div>
                       ) : null}
