@@ -183,7 +183,7 @@ export default memo(function WordStack({ words, getWords }) {
                 layout="position"
                 drag="x"
                 onDrag={(event, info) =>
-                  info.offset.x < -100 && console.log("ok")
+                  info.offset.x < -100 && setSelectId(null)
                 }
                 dragSnapToOrigin={true}
                 dragConstraints={{
