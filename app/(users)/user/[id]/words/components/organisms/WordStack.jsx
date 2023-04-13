@@ -20,10 +20,11 @@ import useToggle from "@/app/hooks/useToggle";
 
 const cardStyle = css({
   fontWeight: "bold",
-  color: "white",
+  color: "black",
   display: "grid",
   placeContent: "center",
   height: "10rem",
+  boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
 });
 
 const cardVariants = {
@@ -35,11 +36,13 @@ const cardVariants = {
     zIndex: "20",
     backgroundImage: "none",
     backgroundColor: "#ffffff0f",
+    WebkitBackdropFilter: "blur(15px)",
     backdropFilter: "blur(15px)",
   },
   off: {
-    backgroundImage:
-      "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
+    //   backgroundImage:
+    //     "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
+    // },
   },
 };
 
