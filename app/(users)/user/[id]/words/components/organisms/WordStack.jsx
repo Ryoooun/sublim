@@ -108,7 +108,7 @@ const test = `#### 斜体
 const cardStyle = css({
   fontWeight: "bold",
   color: "black",
-  height: "10rem",
+  height: "4rem",
   boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
   display: "grid",
   whiteSpace: "normal",
@@ -122,13 +122,14 @@ const cardVariants = {
   on: {
     height: "95vh",
     position: "fixed",
-    width: "full",
+    width: "95vw",
+    left: "2.5vw",
     top: "2.5vh",
     zIndex: "20",
     backgroundImage: "none",
     backgroundColor: "#ffffff0f",
-    WebkitBackdropFilter: "blur(20px)",
-    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(10px)",
+    backdropFilter: "blur(10px)",
     padding: "1rem",
   },
   onPc: {
@@ -151,6 +152,14 @@ const cardVariants = {
   },
 };
 
+const titleVariants = {
+  on: {
+    fontSize: "2rem",
+  },
+  onPC: {},
+  off: { fontSize: "1rem" },
+};
+
 export default memo(function WordStack({ words, getWords }) {
   const [toggle, flag] = useToggle(false);
   const [selectId, setSelectId] = useState(null);
@@ -171,7 +180,10 @@ export default memo(function WordStack({ words, getWords }) {
           words.map((word, i) => {
             return (
               <motion.div
-                layout="size"
+                layout="position"
+                onPanEnd={(evnet, info) =>
+                  info.delta.x > -2 && setSelectId(null)
+                }
                 layoutScroll={true}
                 style={{ borderRadius: "1rem" }}
                 css={cardStyle}
@@ -193,10 +205,20 @@ export default memo(function WordStack({ words, getWords }) {
                 onClick={() => handleSelectCard(word.id)}>
                 <motion.div layout>
                   <motion.h3
-                    layout
-                    style={{
-                      fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
-                    }}>
+                    layout="position"
+                    variants={titleVariants}
+                    animate={
+                      selectId == word.id
+                        ? isLargerThen50em
+                          ? "onPc"
+                          : "on"
+                        : "off"
+                    }
+                    exit={{ opacity: "0" }}
+                    // style={{
+                    //   fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
+                    // }}
+                  >
                     {word.title.length > 10
                       ? `${word.title.slice(0, 10)}...`
                       : word.title}
@@ -219,7 +241,7 @@ export default memo(function WordStack({ words, getWords }) {
                         <motion.div
                           layout
                           style={{
-                            width: "70vw",
+                            width: "90vw",
                             height: "80vh",
                             overflow: "scroll",
                           }}>
