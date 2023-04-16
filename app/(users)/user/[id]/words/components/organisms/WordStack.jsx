@@ -2,6 +2,8 @@
 import { css } from "@emotion/react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
+import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
+import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import {
   Textarea,
   Heading,
@@ -34,6 +36,7 @@ import {
   Stack,
   Button,
   Box,
+  TextArea,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { memo, useEffect, useState, useCallback } from "react";
@@ -133,7 +136,7 @@ const cardVariants = {
     top: "2.5vh",
     zIndex: "20",
     backgroundImage: "none",
-    backgroundColor: "#ffffff0f",
+    backgroundColor: "#ffffff99",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
     padding: "2rem",
@@ -145,7 +148,7 @@ const cardVariants = {
     top: "2.5vh",
     zIndex: "20",
     backgroundImage: "none",
-    backgroundColor: "#ffffff0f",
+    backgroundColor: "#ffffffea",
     WebkitBackdropFilter: "blur(20px)",
     backdropFilter: "blur(20px)",
     padding: "2rem",
@@ -173,14 +176,21 @@ export default memo(function WordStack({ words, getWords, search }) {
   // const [toggle, flag] = useToggle(false);
   const [selectId, setSelectId] = useState(null);
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
+  const [contents, setContents] = useState("");
 
-  const handleSelectCard = (id) => {
-    if (id == selectId) {
+  const handleSelectCard = (word) => {
+    if (word.id == selectId) {
       setSelectId(null);
+      setContents("");
     } else {
-      setSelectId(id);
+      setSelectId(word.id);
+      setContents(word.contents);
     }
   };
+
+  const handleStopPropagation = useCallback((e) => {
+    e.stopPropagation();
+  }, []);
 
   const handleOpenCard = useCallback((e) => {
     e.stopPropagation();
@@ -222,7 +232,7 @@ export default memo(function WordStack({ words, getWords, search }) {
                       : "off"
                   }
                   transition={cardTransition}
-                  onClick={() => handleSelectCard(word.id)}>
+                  onClick={() => handleSelectCard(word)}>
                   <motion.div layout="position">
                     <motion.h3
                       layout="position"
@@ -269,116 +279,151 @@ export default memo(function WordStack({ words, getWords, search }) {
                               height: "80vh",
                               overflow: "scroll",
                             }}>
-                            <ReactMarkdown
-                              css={markDownStyle}
-                              children={word.contents
-                                .replace(/  /g, "\n")
-                                .replace(/\| \|/g, "|\n")}
-                              remarkPlugins={[remarkGfm]}
-                              linkTarget={"_blank"}
-                              components={{
-                                h1: ({ node, ...props }) => (
-                                  <Heading
-                                    fontSize="3xl"
-                                    borderBottom="1px solid #ccc"
-                                    pb="0.5rem"
-                                    mb="1rem"
-                                    {...props}
+                            <Tabs variant="enclosed" as="motion.div" layout>
+                              <TabList onClick={handleStopPropagation}>
+                                <Tab>
+                                  <AiFillEye />
+                                </Tab>
+                                <Tab>
+                                  <MdEdit />
+                                </Tab>
+                              </TabList>
+                              <TabPanels>
+                                <TabPanel>
+                                  <ReactMarkdown
+                                    css={markDownStyle}
+                                    children={word.contents
+                                      .replace(/  /g, "\n")
+                                      .replace(/\| \|/g, "|\n")}
+                                    remarkPlugins={[remarkGfm]}
+                                    linkTarget={"_blank"}
+                                    components={{
+                                      h1: ({ node, ...props }) => (
+                                        <Heading
+                                          fontSize="3xl"
+                                          borderBottom="1px solid #ccc"
+                                          pb="0.5rem"
+                                          mb="1rem"
+                                          {...props}
+                                        />
+                                      ),
+                                      h2: ({ node, ...props }) => (
+                                        <Heading
+                                          fontSize="2xl"
+                                          my="1rem"
+                                          {...props}
+                                        />
+                                      ),
+                                      h3: ({ node, ...props }) => (
+                                        <Heading
+                                          fontSize="xl"
+                                          my="1rem"
+                                          {...props}
+                                        />
+                                      ),
+                                      h4: ({ node, ...props }) => (
+                                        <Heading
+                                          fontSize="lg"
+                                          my="1rem"
+                                          {...props}
+                                        />
+                                      ),
+                                      h5: ({ node, ...props }) => (
+                                        <Heading
+                                          fontSize="md"
+                                          my="1rem"
+                                          {...props}
+                                        />
+                                      ),
+                                      h6: ({ node, ...props }) => (
+                                        <Heading
+                                          fontSize="sm"
+                                          color="gray.400"
+                                          my="1rem"
+                                          {...props}
+                                        />
+                                      ),
+                                      table: ({ node, ...props }) => (
+                                        <TableContainer maxW="100%">
+                                          <Table {...props} />
+                                        </TableContainer>
+                                      ),
+                                      thead: ({ node, ...props }) => (
+                                        <Thead {...props} />
+                                      ),
+                                      tr: ({ node, ...props }) => (
+                                        <Tr {...props} />
+                                      ),
+                                      th: ({ node, ...props }) => (
+                                        <Th {...props} />
+                                      ),
+                                      tbody: ({ node, ...props }) => (
+                                        <Tbody {...props} />
+                                      ),
+                                      td: ({ node, ...props }) => (
+                                        <Td fontSize="sm" {...props} />
+                                      ),
+                                      a: ({ node, ...props }) => (
+                                        <Link
+                                          isExternal
+                                          color="brand.500"
+                                          {...props}
+                                        />
+                                      ),
+                                      img: ({ node, ...props }) => (
+                                        <Image
+                                          boxSizing="border-box"
+                                          border="3px solid #fff"
+                                          maxW="50vw"
+                                          m="2rem auto"
+                                          fit="cover"
+                                          {...props}
+                                        />
+                                      ),
+                                      blockquote: ({ node, ...props }) => (
+                                        <Text
+                                          {...props}
+                                          borderLeft="5px solid #ccc"
+                                          mb="1rem"
+                                          ml="1rem"
+                                          mt="1rem"
+                                          pl="1rem"
+                                        />
+                                      ),
+                                      hr: ({ node, ...props }) => (
+                                        <Divider {...props} my="1rem" />
+                                      ),
+                                      code: ({ node, ...props }) => (
+                                        <Code variant="subtle" {...props} />
+                                      ),
+                                      ol: ({ node, ...props }) => (
+                                        <OrderedList {...props} />
+                                      ),
+                                      ul: ({ node, ...props }) => (
+                                        <UnorderedList {...props} />
+                                      ),
+                                      li: ({ node, ...props }) => (
+                                        <ListItem
+                                          listStylePosition="inside"
+                                          {...props}
+                                        />
+                                      ),
+                                    }}
                                   />
-                                ),
-                                h2: ({ node, ...props }) => (
-                                  <Heading
-                                    fontSize="2xl"
-                                    my="1rem"
-                                    {...props}
-                                  />
-                                ),
-                                h3: ({ node, ...props }) => (
-                                  <Heading fontSize="xl" my="1rem" {...props} />
-                                ),
-                                h4: ({ node, ...props }) => (
-                                  <Heading fontSize="lg" my="1rem" {...props} />
-                                ),
-                                h5: ({ node, ...props }) => (
-                                  <Heading fontSize="md" my="1rem" {...props} />
-                                ),
-                                h6: ({ node, ...props }) => (
-                                  <Heading
-                                    fontSize="sm"
-                                    color="gray.400"
-                                    my="1rem"
-                                    {...props}
-                                  />
-                                ),
-                                table: ({ node, ...props }) => (
-                                  <TableContainer maxW="100%">
-                                    <Table {...props} />
-                                  </TableContainer>
-                                ),
-                                thead: ({ node, ...props }) => (
-                                  <Thead {...props} />
-                                ),
-                                tr: ({ node, ...props }) => <Tr {...props} />,
-                                th: ({ node, ...props }) => <Th {...props} />,
-                                tbody: ({ node, ...props }) => (
-                                  <Tbody {...props} />
-                                ),
-                                td: ({ node, ...props }) => (
-                                  <Td fontSize="sm" {...props} />
-                                ),
-                                a: ({ node, ...props }) => (
-                                  <Link
-                                    isExternal
-                                    color="brand.500"
-                                    {...props}
-                                  />
-                                ),
-                                img: ({ node, ...props }) => (
-                                  <Image
-                                    boxSizing="border-box"
-                                    border="3px solid #fff"
-                                    maxW="50vw"
-                                    m="2rem auto"
-                                    fit="cover"
-                                    {...props}
-                                  />
-                                ),
-                                blockquote: ({ node, ...props }) => (
-                                  <Text
-                                    {...props}
-                                    borderLeft="5px solid #ccc"
-                                    mb="1rem"
-                                    ml="1rem"
-                                    mt="1rem"
+                                </TabPanel>
+                                <TabPanel>
+                                  <Textarea
+                                    w="80vw"
+                                    h="60vh"
+                                    pos="relative"
+                                    left="-2"
                                     pl="1rem"
+                                    onClick={handleStopPropagation}
+                                    value={contents}
                                   />
-                                ),
-                                hr: ({ node, ...props }) => (
-                                  <Divider {...props} my="1rem" />
-                                ),
-                                code: ({ node, ...props }) => (
-                                  <Code variant="subtle" {...props} />
-                                ),
-                                ol: ({ node, ...props }) => (
-                                  <OrderedList {...props} />
-                                ),
-                                ul: ({ node, ...props }) => (
-                                  <UnorderedList {...props} />
-                                ),
-                                li: ({ node, ...props }) => (
-                                  <ListItem
-                                    listStylePosition="inside"
-                                    {...props}
-                                  />
-                                ),
-                              }}
-                            />
-                            <Button
-                              mt="4"
-                              colorScheme="blackAlpha"
-                              onClick={(e) => handleOpenCard(e)}>
-                              開く
-                            </Button>
+                                </TabPanel>
+                              </TabPanels>
+                            </Tabs>
                           </motion.div>
                         </motion.div>
                       ) : null}

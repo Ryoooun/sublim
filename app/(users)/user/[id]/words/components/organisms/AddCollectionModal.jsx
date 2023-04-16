@@ -29,7 +29,6 @@ export default function AddCollectionModal({
   finalRef,
 }) {
   const [value, setValue] = useState("");
-  const [addWord, chceckAddWord] = useState("");
   const toast = useToast();
   const handleInputChange = (e) => setValue(e.target.value);
   const { setWord } = useWordsDB();
@@ -81,7 +80,7 @@ export default function AddCollectionModal({
           <ModalHeader>新規単語の追加</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl isInvalid={isError}>
+            <FormControl isInvalid={isError.result}>
               <FormLabel>単語</FormLabel>
               <Input
                 ref={initialRef}

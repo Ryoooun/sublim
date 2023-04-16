@@ -1,38 +1,13 @@
 "use client";
 /** @jsxImportSource @emotion/react */
 import {
-  Heading,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-  Box,
   Container,
-  Tag,
-  Flex,
-  Card,
-  CardBody,
-  Stack,
-  Text,
-  Divider,
-  CardFooter,
   SimpleGrid,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  Icon,
-  IconButton,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";
-import { motion, AnimatePresence } from "framer-motion";
-import CloudWrapper from "../../../map/components/organisms/CloudWrapper";
-import { useCallback, useMemo, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import WordStack from "../organisms/WordStack";
 import WordStackHeader from "../organisms/WordStackHeader";
 
