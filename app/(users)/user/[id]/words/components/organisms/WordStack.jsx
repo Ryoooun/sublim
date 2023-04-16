@@ -236,6 +236,7 @@ export default memo(function WordStack({ words, getWords, search }) {
                   <motion.div layout="position">
                     <motion.h3
                       layout="position"
+                      layoutScroll={true}
                       initial={{ fontSize: "2rem" }}
                       variants={titleVariants}
                       transition={cardTransition}
@@ -259,6 +260,7 @@ export default memo(function WordStack({ words, getWords, search }) {
                       {selectId == word.id ? (
                         <motion.div
                           layout
+                          layoutScroll={true}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           // transition={cardTransition}
@@ -274,12 +276,18 @@ export default memo(function WordStack({ words, getWords, search }) {
                           {/* <motion.p>{word.contents}</motion.p> */}
                           <motion.div
                             layout="size"
+                            layoutScroll={true}
                             style={{
                               width: "90vw",
                               height: "80vh",
                               overflow: "scroll",
                             }}>
-                            <Tabs variant="enclosed" as="motion.div" layout>
+                            <Tabs
+                              variant="enclosed"
+                              as="motion.div"
+                              layout
+                              layoutScroll
+                              w="80vw">
                               <TabList onClick={handleStopPropagation}>
                                 <Tab>
                                   <AiFillEye />
