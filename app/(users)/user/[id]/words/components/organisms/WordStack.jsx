@@ -41,7 +41,7 @@ import {
 } from "@/app/common/chakraui/ChakraUI";
 import { memo, useEffect, useState, useCallback } from "react";
 import { LayoutGroup, motion, AnimatePresence } from "framer-motion";
-
+import usePrevious from "@/app/hooks/usePrevious";
 import dayjs from "dayjs";
 import useToggle from "@/app/hooks/useToggle";
 import { min } from "d3";
@@ -429,6 +429,9 @@ export default memo(function WordStack({ words, getWords, search }) {
                                     left="-2"
                                     pl="1rem"
                                     onClick={handleStopPropagation}
+                                    onBlur={() =>
+                                      alert(`${word.contents}=>${contents}`)
+                                    }
                                     value={contents}
                                   />
                                 </TabPanel>
