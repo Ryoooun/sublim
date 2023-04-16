@@ -206,7 +206,7 @@ export default memo(function WordStack({ words, getWords, search }) {
             .map((word, i) => {
               return (
                 <motion.div
-                  layout="position"
+                  layout="size"
                   // drag="x"
                   // onDrag={(event, info) =>
                   //   info.offset.x < -100 && setSelectId(null)
