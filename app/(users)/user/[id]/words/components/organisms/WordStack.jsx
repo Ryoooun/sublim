@@ -111,6 +111,7 @@ const test = `#### 斜体
 `;
 const cardStyle = css({
   fontWeight: "bold",
+
   color: "black",
   height: "4rem",
   boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
@@ -162,7 +163,7 @@ const cardVariants = {
   },
 };
 
-const cardTransition = { duration: 0.5, type: "spring", mass: 0.6 };
+const cardTransition = { duration: 0.2, type: "spring", mass: 0.6 };
 
 const titleVariants = {
   on: {
@@ -199,7 +200,7 @@ export default memo(function WordStack({ words, getWords, search }) {
 
   return (
     <LayoutGroup>
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {words.length > 0 ? (
           words
             .filter((word) => new RegExp(search, "gi").test(word.title))
@@ -207,6 +208,7 @@ export default memo(function WordStack({ words, getWords, search }) {
               return (
                 <motion.div
                   layout="size"
+                  layoutRoot
                   // drag="x"
                   // onDrag={(event, info) =>
                   //   info.offset.x < -100 && setSelectId(null)
@@ -287,7 +289,7 @@ export default memo(function WordStack({ words, getWords, search }) {
                               as="motion.div"
                               layout
                               layoutScroll
-                              w="80vw">
+                              w={isLargerThen50em ? "70vw" : "80vw"}>
                               <TabList onClick={handleStopPropagation}>
                                 <Tab>
                                   <AiFillEye />
