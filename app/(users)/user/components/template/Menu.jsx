@@ -29,7 +29,13 @@ export default React.memo(function Menu({ children }) {
   if (user) {
     return (
       <LayoutGroup>
-        <Box bg="#f5f6f6" overflow="hidden">
+        <Box
+          bg="#f5f6f6"
+          overflow="hidden"
+          onTouchMove={(e) => {
+            console.log(e);
+            e.preventDefault();
+          }}>
           <SideMenu
             logout={logout}
             user={user}

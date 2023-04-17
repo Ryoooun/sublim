@@ -39,7 +39,6 @@ export default function WordPageContent({ children }) {
       />
       <SimpleGrid
         // minChildWidth={isLargerThen50em ? "30%" : "100%"}
-        onTouchMove={(e) => e.preventDefault()}
         position="relative"
         top="-48"
         minChildWidth="15rem"
