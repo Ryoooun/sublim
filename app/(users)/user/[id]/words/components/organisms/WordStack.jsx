@@ -224,13 +224,13 @@ export default memo(function WordStack({
     setContents(e.target.value);
   };
 
-  //ここにマークダウンの更新処理をかく。
-  const handleBlurEditor = async (oldContent) => {
-    console.log(oldContent, "=>", contents);
+  const handleBlurEditor = async (word) => {
+    // console.log(word.contents, "=>", contents);
     try {
-      if (oldContent !== contents) {
-        console.log("changed content");
-        await updateWord({ field: "contents", content: contents, oldContent });
+      if (word.contents !== contents) {
+        // console.log("changed content");
+        await updateWord(word.title, { field: "contents", content: contents });
+        setSelectId(word.id);
       } else console.log("not change");
     } catch (e) {
       console.error(e.message);
@@ -482,9 +482,7 @@ export default memo(function WordStack({
                                     // onClick={handleStopPropagation}
                                     value={contents}
                                     onChange={handleEditMarkDown}
-                                    onBlur={() =>
-                                      handleBlurEditor(word.contents)
-                                    }
+                                    onBlur={() => handleBlurEditor(word)}
                                   />
                                 </TabPanel>
                               </TabPanels>

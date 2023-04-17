@@ -73,9 +73,9 @@ export default function useWordsDB() {
     }
   }, []);
 
-  const updateWord = useCallback(async (data) => {
+  const updateWord = useCallback(async (key, data) => {
     const collRef = collection(db, "posts", user.uid, "Words");
-    const q = query(collRef, where(data.field, "==", data.oldContent));
+    const q = query(collRef, where("title", "==", key));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(async (document) => {
       const wordDocumentRef = doc(db, "posts", user.uid, "Words", document.id);

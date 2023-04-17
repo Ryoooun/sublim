@@ -33,7 +33,7 @@ export default function EditableText({ title, words }) {
   const handleSubmit = async (word) => {
     console.log(oldTitle, "=>", word);
     try {
-      await updateWord({ field: "title", content: word, oldContent: oldTitle });
+      await updateWord(oldTitle, { field: "title", content: word });
       console.log("updated");
     } catch (e) {
       console.log(e.message);
