@@ -15,37 +15,25 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Link,
   Image,
   Text,
   Divider,
   Code,
-  List,
   ListItem,
   OrderedList,
   UnorderedList,
-  Card,
-  CardBody,
-  CardFooter,
-  Stack,
   Button,
-  Box,
-  TextArea,
-  CloseButton,
   useMediaQuery,
-  Editable,
-  EditablePreview,
-  EditableInput,
 } from "@/app/common/chakraui/ChakraUI";
+import { TextArea } from "@chakra-ui/react";
 import EditableText from "./EditableText";
 
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useState, useCallback } from "react";
 import { LayoutGroup, motion, AnimatePresence } from "framer-motion";
 import dayjs from "dayjs";
 import useWordsDB from "@/app/hooks/useWordsDB";
@@ -219,6 +207,7 @@ export default memo(function WordStack({
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [contents, setContents] = useState("");
   const { checkIsRegistered } = useWordsDB();
+  const { updateWord } = useWordsDB();
 
   const handleSelectCard = (word) => {
     if (word.id !== selectId) {
@@ -236,11 +225,16 @@ export default memo(function WordStack({
   };
 
   //ここにマークダウンの更新処理をかく。
-  const handleBlurEditor = (oldContent) => {
+  const handleBlurEditor = async (oldContent) => {
     console.log(oldContent, "=>", contents);
-    if (oldContent !== contents) {
-      console.log("changed content");
-    } else console.log("not change");
+    try {
+      if (oldContent !== contents) {
+        console.log("changed content");
+        await updateWord({ field: "contents", content: contents, oldContent });
+      } else console.log("not change");
+    } catch (e) {
+      console.error(e.message);
+    }
   };
 
   return (
@@ -479,6 +473,7 @@ export default memo(function WordStack({
                                 </TabPanel>
                                 <TabPanel>
                                   <Textarea
+                                    variant="outline"
                                     w={isLargerThen50em ? "70vw" : "80vw"}
                                     h="60vh"
                                     pos="relative"

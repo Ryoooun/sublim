@@ -1,24 +1,23 @@
 import {
   EditablePreview,
-  Box,
   IconButton,
   Input,
-  useDisclosure,
   useEditableControls,
   ButtonGroup,
-  SlideFade,
   Editable,
-  Tooltip,
   EditableInput,
   Flex,
   Text,
 } from "@/app/common/chakraui/ChakraUI";
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
+import useWordsDB from "@/app/hooks/useWordsDB";
 
 export default function EditableText({ title, words }) {
   const [titles, setTitles] = useState([]);
+  const [oldTitle, setOldTitle] = useState("");
   const [titleAlert, setTitleAlert] = useState(false);
+  const { updateWord } = useWordsDB();
 
   useEffect(() => {
     setTitles(
@@ -28,9 +27,18 @@ export default function EditableText({ title, words }) {
           return !title.toLowerCase().includes(v);
         })
     );
-  }, [words]);
+    setOldTitle(title);
+  }, []);
 
-  const handleSubmit = (word) => {};
+  const handleSubmit = async (word) => {
+    console.log(oldTitle, "=>", word);
+    try {
+      await updateWord({ field: "title", content: word, oldContent: oldTitle });
+      console.log("updated");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   const handleChanged = (word) => {
     if (titles.includes(word)) {

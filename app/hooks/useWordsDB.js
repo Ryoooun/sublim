@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
   get,
+  updateDoc,
   snapshotEqual,
   onSnapshot,
   query,
@@ -72,6 +73,17 @@ export default function useWordsDB() {
     }
   }, []);
 
+  const updateWord = useCallback(async (data) => {
+    const collRef = collection(db, "posts", user.uid, "Words");
+    const q = query(collRef, where(data.field, "==", data.oldContent));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (document) => {
+      const wordDocumentRef = doc(db, "posts", user.uid, "Words", document.id);
+      await updateDoc(wordDocumentRef, { [data.field]: data.content });
+    });
+    getWords();
+  }, []);
+
   const checkIsRegistered = useCallback(
     (word) => {
       const result = words.filter(
@@ -82,5 +94,5 @@ export default function useWordsDB() {
     [words]
   );
 
-  return { getWords, setWord, checkIsRegistered, words };
+  return { getWords, setWord, updateWord, checkIsRegistered, words };
 }

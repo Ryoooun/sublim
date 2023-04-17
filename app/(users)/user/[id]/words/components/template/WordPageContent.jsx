@@ -47,8 +47,8 @@ export default function WordPageContent({ children }) {
         overflow="scroll"
         whiteSpace={isLargerThen50em ? "normal" : "nowrap"}
         w="100%"
-        pt="20vh"
-        pb="20vh"
+        pt="25vh"
+        pb="25vh"
         h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
