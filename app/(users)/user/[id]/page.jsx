@@ -17,11 +17,12 @@ import DashboardDammy from "../components/molecules/DashboardDammy";
 
 import { useUserHook } from "@/app/hooks/useUser";
 import { useCallback } from "react";
-
+import useWordsDB from "@/app/hooks/useWordsDB";
 export default function page(params) {
   const user = useUserHook();
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
-
+  const { getWords } = useWordsDB();
+  getWords();
   const LoginUser = useCallback(() => {
     if (user) {
       return (

@@ -25,7 +25,6 @@ export default function useAuthSetPersistence() {
         useUser.setState({ user: user }, true);
         console.log("success!");
         router.push(`/user/${user.uid}`);
-        getWords();
       })
       .catch((error) => {
         const errorCode = error.code;
