@@ -40,6 +40,12 @@ export default function EditableText({ title, words }) {
     }
   };
 
+  const handleEnterTitle = (event) => {
+    if (event.code === "Enter" && titleAlert) {
+      event.preventDefault();
+    }
+  };
+
   const EditableControls = () => {
     const {
       isEditing,
@@ -82,10 +88,11 @@ export default function EditableText({ title, words }) {
         fontSize="2xl"
         isPreviewFocusable={true}
         submitOnBlur={false}
+        onKeyDown={(e) => handleEnterTitle(e)}
         onChange={(title) => handleChanged(title)}
         onSubmit={(title) => handleSubmit(title)}>
         <EditablePreview />
-        <Input as={EditableInput} />
+        <Input as={EditableInput} onKeyDown={(e) => handleEnterTitle(e)} />
         <EditableControls />
       </Editable>
       {titleAlert && (
