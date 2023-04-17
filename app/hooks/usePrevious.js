@@ -8,10 +8,11 @@ import { useRef, useEffect, useState } from "react";
 // }
 
 export default function usePrevious(value) {
-  const ref = useRef();
+  const previous = useRef();
 
   useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
+    previous.current = value;
+  }, [value]);
+
+  return previous.current;
 }

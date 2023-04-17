@@ -37,14 +37,18 @@ import {
   Button,
   Box,
   TextArea,
+  CloseButton,
   useMediaQuery,
+  Editable,
+  EditablePreview,
+  EditableInput,
 } from "@/app/common/chakraui/ChakraUI";
+import EditableText from "./EditableText";
+
 import { memo, useEffect, useState, useCallback } from "react";
 import { LayoutGroup, motion, AnimatePresence } from "framer-motion";
-import usePrevious from "@/app/hooks/usePrevious";
 import dayjs from "dayjs";
-import useToggle from "@/app/hooks/useToggle";
-import { min } from "d3";
+import useWordsDB from "@/app/hooks/useWordsDB";
 
 const test = `#### 斜体
 
@@ -109,6 +113,37 @@ const test = `#### 斜体
 |content A| content B|content C|content D|
 
 `;
+
+const closeButtonStyle = css({
+  display: "block",
+  position: "relative",
+  top: "-4rem",
+  right: "-77vw",
+  width: "1.5rem ",
+  height: "1.5rem",
+  border: "2px solid #333d",
+  borderRadius: "50%",
+  transition: "all 1s",
+  "&::before,&::after": {
+    content: '""',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "1rem",
+    height: "2px",
+    backgroundColor: "#333d",
+  },
+  "::before": {
+    transform: "translate(-50%, -50%) rotate(45deg)",
+  },
+  "::after": {
+    transform: "translate(-50%, -50%) rotate(-45deg)",
+  },
+  ":hover": {
+    transform: "rotate(360deg)",
+  },
+});
+
 const cardStyle = css({
   fontWeight: "bold",
 
@@ -173,17 +208,21 @@ const titleVariants = {
   off: { fontSize: "2rem" },
 };
 
-export default memo(function WordStack({ words, getWords, search }) {
+export default memo(function WordStack({
+  words,
+  getWords,
+  search,
+  selectId,
+  setSelectId,
+}) {
   // const [toggle, flag] = useToggle(false);
-  const [selectId, setSelectId] = useState(null);
+
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [contents, setContents] = useState("");
+  const { checkIsRegistered } = useWordsDB();
 
   const handleSelectCard = (word) => {
-    if (word.id == selectId) {
-      setSelectId(null);
-      setContents("");
-    } else {
+    if (word.id !== selectId) {
       setSelectId(word.id);
       setContents(word.contents);
     }
@@ -193,10 +232,16 @@ export default memo(function WordStack({ words, getWords, search }) {
     e.stopPropagation();
   }, []);
 
-  const handleOpenCard = useCallback((e) => {
-    e.stopPropagation();
-    alert(`Open at ${new Date().toLocaleDateString()}`);
-  }, []);
+  const handleEditMarkDown = (e) => {
+    setContents(e.target.value);
+  };
+
+  const handleBlurEditor = (oldContent) => {
+    console.log(oldContent, "=>", contents);
+    if (oldContent !== contents) {
+      console.log("changed content");
+    } else console.log("not change");
+  };
 
   return (
     <LayoutGroup>
@@ -236,28 +281,30 @@ export default memo(function WordStack({ words, getWords, search }) {
                   transition={cardTransition}
                   onClick={() => handleSelectCard(word)}>
                   <motion.div layout="position">
-                    <motion.h3
-                      layout="position"
-                      layoutScroll={true}
-                      initial={{ fontSize: "2rem" }}
-                      variants={titleVariants}
-                      transition={cardTransition}
-                      animate={
-                        selectId == word.id
-                          ? isLargerThen50em
-                            ? "onPc"
-                            : "on"
-                          : "off"
-                      }
-                      exit={{ opacity: 0, transition: { duration: 0.2 } }}
-                      // style={{
-                      //   fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
-                      // }}
-                    >
-                      {word.title.length > 10
-                        ? `${word.title.slice(0, 10)}...`
-                        : word.title}
-                    </motion.h3>
+                    {selectId !== word.id ? (
+                      <motion.h3
+                        layout="position"
+                        layoutScroll={true}
+                        initial={{ fontSize: "2rem" }}
+                        variants={titleVariants}
+                        transition={cardTransition}
+                        animate={
+                          selectId == word.id
+                            ? isLargerThen50em
+                              ? "onPc"
+                              : "on"
+                            : "off"
+                        }
+                        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                        // style={{
+                        //   fontSize: `${word.title.length < 7 ? "3" : "2"}rem`,
+                        // }}
+                      >
+                        {word.title.length > 10
+                          ? `${word.title.slice(0, 10)}...`
+                          : word.title}
+                      </motion.h3>
+                    ) : null}
                     <AnimatePresence>
                       {selectId == word.id ? (
                         <motion.div
@@ -267,6 +314,14 @@ export default memo(function WordStack({ words, getWords, search }) {
                           animate={{ opacity: 1 }}
                           // transition={cardTransition}
                           exit={{ opacity: 0, transition: { duration: 0.2 } }}>
+                          <EditableText title={word.title} words={words} />
+                          <motion.button
+                            css={closeButtonStyle}
+                            onClick={() => {
+                              setSelectId(null);
+                              setContents("");
+                            }}
+                          />
                           <motion.time
                             dateTime={dayjs(word.timestamp.toDate()).format(
                               "YYYY-MM-DDTHH:mm"
@@ -423,16 +478,17 @@ export default memo(function WordStack({ words, getWords, search }) {
                                 </TabPanel>
                                 <TabPanel>
                                   <Textarea
-                                    w="80vw"
+                                    w={isLargerThen50em ? "70vw" : "80vw"}
                                     h="60vh"
                                     pos="relative"
                                     left="-2"
                                     pl="1rem"
                                     onClick={handleStopPropagation}
-                                    onBlur={() =>
-                                      alert(`${word.contents}=>${contents}`)
-                                    }
                                     value={contents}
+                                    onChange={handleEditMarkDown}
+                                    onBlur={() =>
+                                      handleBlurEditor(word.contents)
+                                    }
                                   />
                                 </TabPanel>
                               </TabPanels>

@@ -36,6 +36,7 @@ export default function useAuthSetPersistence() {
         console.log(error);
         router.push("/");
       });
+    getWords();
   };
 
   const setP = () => {
@@ -43,7 +44,6 @@ export default function useAuthSetPersistence() {
       .then(() => {
         console.log("setSession");
         handleSignWithPopup();
-        getWords();
       })
       .catch((error) => {
         const errorCode = error.code;

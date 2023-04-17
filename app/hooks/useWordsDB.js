@@ -46,21 +46,41 @@ export default function useWordsDB() {
 
   const setWord = useCallback(async (word) => {
     const WordsRef = collection(db, "posts", user.uid, "Words");
-    await addDoc(WordsRef, {
-      title: word,
-      contents: "",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    })
-      .then((documentRef) => {
-        console.log("success");
-        getWords();
-        return { code: true, message: "成功" };
-      })
-      .catch((error) => {
-        console.log("error");
-        return { code: false, message: error };
+    try {
+      if (words.filter((w) => w.title.includes(word)).length > 0) {
+        throw new Error("already registered.");
+      }
+      const docRef = await addDoc(WordsRef, {
+        title: word,
+        contents: "",
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
+      if (docRef) {
+        getWords();
+        return { code: 1, id: docRef.id, message: "単語を新規登録しました。" };
+      }
+    } catch (e) {
+      if (e.message === "already registered.") {
+        return {
+          code: 0,
+          message: "追加しようとした単語は既に登録されています。",
+        };
+      }
+      console.log(e.message);
+      getWords();
+      return { code: -1, message: "単語の登録に失敗しました。" };
+    }
   }, []);
 
-  return { getWords, setWord, words };
+  const checkIsRegistered = useCallback(
+    (word) => {
+      const result = words.filter(
+        (w) => w.title.toLowerCase() === word.toLowerCase()
+      );
+      return result;
+    },
+    [words]
+  );
+
+  return { getWords, setWord, checkIsRegistered, words };
 }

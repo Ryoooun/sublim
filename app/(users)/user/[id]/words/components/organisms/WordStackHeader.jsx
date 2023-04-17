@@ -14,6 +14,7 @@ export default function WordStackHeader({
   isLargerThen50em,
   search,
   setSearch,
+  setSelectId,
 }) {
   const handleChange = (e) => {
     if (RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(e.target.value[0])) {
@@ -52,7 +53,7 @@ export default function WordStackHeader({
           onChange={handleChange}
           whileFocus={{ backgroundColor: "#ffffffff" }}
         />
-        <AddNewCollectionButton />
+        <AddNewCollectionButton setSelectId={setSelectId} />
       </InputGroup>
     </Box>
   );

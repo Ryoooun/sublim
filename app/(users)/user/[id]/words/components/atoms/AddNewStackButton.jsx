@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 import AddCollectionModal from "../organisms/AddCollectionModal";
 
-export default function AddNewCollectionButton() {
+export default function AddNewCollectionButton({ setSelectId }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -23,6 +23,7 @@ export default function AddNewCollectionButton() {
         onClose={onClose}
         initialRef={initialRef}
         finalRef={finalRef}
+        setSelectId={setSelectId}
       />
     </>
   );

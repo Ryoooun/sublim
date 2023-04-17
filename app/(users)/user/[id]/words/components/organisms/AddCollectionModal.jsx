@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  Text,
+  Flex,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -27,11 +29,27 @@ export default function AddCollectionModal({
   onClose,
   initialRef,
   finalRef,
+  setSelectId,
 }) {
   const [value, setValue] = useState("");
   const toast = useToast();
-  const handleInputChange = (e) => setValue(e.target.value);
-  const { setWord } = useWordsDB();
+  const { setWord, checkIsRegistered } = useWordsDB();
+  const [focusFlag, setFocusFlag] = useState();
+  const [registered, setRegistered] = useState([]);
+
+  const handleInputChange = (e) => {
+    setValue(e.target.value);
+    const result = checkIsRegistered(e.target.value);
+    if (result.length > 0) {
+      setRegistered(result);
+    } else {
+      setRegistered([]);
+    }
+  };
+
+  // const handleBlur = (e) => {
+  //   setFocusFlag(false);
+  // };
 
   const isError =
     value.length == 0
@@ -48,24 +66,44 @@ export default function AddCollectionModal({
     if (!isError?.result) {
       const res = await setWord(value);
       console.log(res);
-      if (res.code) {
-        console.log("finish", "=>", res.message);
+      if (res.code === 1) {
+        setSelectId(res.id);
+        console.log("finish:", res.message);
         toast({
           title: `${value}を登録`,
           status: "success",
           isClosable: true,
         });
-      } else {
+      } else if (res.code === -1) {
         console.log("error", "=>", res.message);
         toast({
           title: `${value}登録エラー`,
           status: "error",
           isClosable: false,
         });
+      } else if (res.code === 0) {
+        toast({
+          title: `${value}は既に登録されています。`,
+          status: "info",
+          isClosable: true,
+        });
       }
+
       setValue("");
       onClose();
     }
+  };
+  const beforeClose = () => {
+    setValue("");
+    setRegistered([]);
+    onClose();
+  };
+
+  const handleLinkRegistered = (id) => {
+    onClose();
+    setValue("");
+    setRegistered([]);
+    setSelectId(id);
   };
 
   return (
@@ -74,7 +112,7 @@ export default function AddCollectionModal({
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
-        onClose={onClose}>
+        onClose={beforeClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>新規単語の追加</ModalHeader>
@@ -103,16 +141,39 @@ export default function AddCollectionModal({
           </ModalBody>
           <ModalFooter
             display="flex"
-            flexDirection="row"
+            mt="-8"
+            gap="4"
+            flexDirection="column"
             justifyContent="center">
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={handleSave}
-              isDisabled={isError?.result}>
-              作成
-            </Button>
-            <Button onClick={onClose}>キャンセル</Button>
+            {registered.length > 0
+              ? registered.map((r) => {
+                  return (
+                    <Text as="p" fontSize="xs">
+                      <Text
+                        as="span"
+                        color="blue.400"
+                        fontSize="lg"
+                        mr="2"
+                        onClick={() => handleLinkRegistered(r.id)}>
+                        {r.title}
+                      </Text>
+                      が既に登録されています。
+                    </Text>
+                  );
+                })
+              : null}
+            <Flex direction="row">
+              <Button
+                colorScheme="blue"
+                mr={3}
+                onClick={handleSave}
+                isLoading={isError?.result}
+                loadingText="Checking"
+                isDisabled={isError?.result || registered.length > 0}>
+                作成
+              </Button>
+              <Button onClick={beforeClose}>キャンセル</Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>

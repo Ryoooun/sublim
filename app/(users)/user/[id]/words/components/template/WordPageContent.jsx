@@ -22,6 +22,7 @@ const scroll = css`
 export default function WordPageContent({ children }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [search, setSearch] = useState("");
+  const [selectId, setSelectId] = useState(null);
 
   const { getWords, words } = useWordsDB();
   const handleClick = async () => {
@@ -34,6 +35,7 @@ export default function WordPageContent({ children }) {
         isLargerThen50em={isLargerThen50em}
         search={search}
         setSearch={setSearch}
+        setSelectId={setSelectId}
       />
       <SimpleGrid
         // minChildWidth={isLargerThen50em ? "30%" : "100%"}
@@ -51,7 +53,13 @@ export default function WordPageContent({ children }) {
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
         css={scroll}>
         <AnimatePresence initial={false}>
-          <WordStack words={words} getWords={getWords} search={search} />
+          <WordStack
+            words={words}
+            getWords={getWords}
+            search={search}
+            selectId={selectId}
+            setSelectId={setSelectId}
+          />
         </AnimatePresence>
       </SimpleGrid>
     </Container>
