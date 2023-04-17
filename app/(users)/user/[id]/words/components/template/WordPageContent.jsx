@@ -3,6 +3,8 @@
 import {
   Container,
   SimpleGrid,
+  Grid,
+  Flex,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";
@@ -38,16 +40,14 @@ export default function WordPageContent({ children }) {
         setSelectId={setSelectId}
       />
       <SimpleGrid
-        // minChildWidth={isLargerThen50em ? "30%" : "100%"}
+        minChildWidth={isLargerThen50em ? "30%" : "100%"}
         position="relative"
         top="-48"
-        minChildWidth="15rem"
-        spacingX="2"
-        spacingY="4"
+        gap="2"
         overflow="scroll"
-        whiteSpace="nowrap"
+        whiteSpace={isLargerThen50em ? "normal" : "nowrap"}
         w="100%"
-        pt="25vh"
+        pt="20vh"
         pb="20vh"
         h="100vh"
         sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}

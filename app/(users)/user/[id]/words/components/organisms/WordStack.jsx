@@ -146,7 +146,6 @@ const closeButtonStyle = css({
 
 const cardStyle = css({
   fontWeight: "bold",
-
   color: "black",
   height: "4rem",
   boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
@@ -165,14 +164,14 @@ const markDownStyle = css({
 
 const cardVariants = {
   on: {
-    height: "85vh",
+    height: "100vh",
     position: "fixed",
-    width: "95vw",
-    left: "2.5vw",
-    top: "2.5vh",
+    width: "100vw",
+    left: "0",
+    top: "0",
     zIndex: "20",
     backgroundImage: "none",
-    backgroundColor: "#ffffff99",
+    backgroundColor: "#ffffffea",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
     padding: "2rem",
@@ -236,6 +235,7 @@ export default memo(function WordStack({
     setContents(e.target.value);
   };
 
+  //ここにマークダウンの更新処理をかく。
   const handleBlurEditor = (oldContent) => {
     console.log(oldContent, "=>", contents);
     if (oldContent !== contents) {
@@ -356,6 +356,7 @@ export default memo(function WordStack({
                               <TabPanels>
                                 <TabPanel>
                                   <ReactMarkdown
+                                    as={TextArea}
                                     css={markDownStyle}
                                     children={word.contents
                                       .replace(/  /g, "\n")
@@ -483,7 +484,7 @@ export default memo(function WordStack({
                                     pos="relative"
                                     left="-2"
                                     pl="1rem"
-                                    onClick={handleStopPropagation}
+                                    // onClick={handleStopPropagation}
                                     value={contents}
                                     onChange={handleEditMarkDown}
                                     onBlur={() =>
