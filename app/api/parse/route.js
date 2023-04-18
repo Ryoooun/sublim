@@ -50,9 +50,13 @@ export async function GET(request) {
     const array = [];
     for (const data of score_lt_list) {
       const word = termextract.modify_agglutinative_lang(data.cmp_noun);
-      array.push({ text: word, value: data.importance });
+      if (word.length > 1 && word.length < 13) {
+        array.push({
+          text: word.replace(/[\(\)\[\]{}_//]/g, ""),
+          value: data.importance,
+        });
+      }
     }
-
     return array;
   });
 

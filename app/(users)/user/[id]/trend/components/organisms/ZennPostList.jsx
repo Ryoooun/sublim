@@ -17,6 +17,7 @@ import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { memo } from "react";
 import { ZennPost } from "./ZennPost";
 import { useState } from "react";
+import useWord from "@/app/hooks/useWord";
 import "../../../../components/organisms/scroll.css";
 
 const closeButtonStyle = css({
@@ -82,13 +83,8 @@ const cardTransition = {
 
 const cardVariants = {
   on: {
-    backgroundColor: "#f00",
     width: "100vw",
     height: "70vh",
-    position: "relative",
-    left: "0",
-    top: "25%",
-    zIndex: "999",
     padding: "2rem",
   },
   onPc: {},
@@ -100,7 +96,7 @@ const cardVariants = {
     borderRadius: "1.25rem",
     scrollSnapAlign: "center",
     scrollSnapStop: "always",
-    backgroundColor: "#0f0",
+    backgroundColor: "#fff",
     boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
   },
   offPc: {
@@ -118,9 +114,9 @@ const cardVariants = {
 export default memo(function ZennPostList({ zennItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [selectId, setSelectId] = useState(null);
-  const handleClickCard = (post) => {
+
+  const handleClickCard = async (post) => {
     if (post.id !== selectId) {
-      console.log(post.title);
       setSelectId(post.id);
     } else {
       setSelectId(null);
@@ -154,14 +150,6 @@ export default memo(function ZennPostList({ zennItems }) {
                   key={post.id}
                   onClick={() => handleClickCard(post)}>
                   <motion.div style={{ whiteSpace: "normal" }}>
-                    {selectId === post.id ? (
-                      <motion.button
-                        css={closeButtonStyle}
-                        onClick={() => {
-                          setSelectId(null);
-                        }}
-                      />
-                    ) : null}
                     <Avatar
                       name={post.user.username}
                       src={post.user.avatarSmallUrl}
@@ -170,13 +158,27 @@ export default memo(function ZennPostList({ zennItems }) {
                     <Text
                       fontSize="sm"
                       fontFamily="mono">{`@${post.user.username}`}</Text>
-                    <a href={`https://zenn.dev${post.path}`} target="_blank">
+                    <a href={post.path} target="_blank">
                       <Heading fontSize="md" _hover={{ color: "brand.700" }}>
                         {post.title}
                       </Heading>
                     </a>
                     <Divider w="full" mt="3" />
-                    <Box mt="3" maxH="4rem"></Box>
+                    <Box mt="3" maxH="4rem">
+                      {post.id === selectId &&
+                        post.parse.map((obj, i) => (
+                          <Text
+                            as="span"
+                            bg="gray.400"
+                            py="1"
+                            px="2"
+                            borderRadius="xl"
+                            color="white"
+                            key={i}>
+                            {obj.text}
+                          </Text>
+                        ))}
+                    </Box>
                   </motion.div>
                 </motion.div>
               );

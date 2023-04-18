@@ -1,9 +1,11 @@
 import useSWR from "swr";
+import { useEffect, useState } from "react";
 
 const fetcher = (id) => fetch(id).then((r) => r.json());
 
-function useWord({ url }) {
-  const { data } = useSWR(`/api/parse?url=${url}`, fetcher);
+async function useWord(url) {
+  const data = await fetch(`/api/parse?url=${url}`);
+  // const { data } = useSWR(`/api/parse?url=${url}`, fetcher);
 
   return {
     post: data,
