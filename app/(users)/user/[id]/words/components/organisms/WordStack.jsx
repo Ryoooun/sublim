@@ -228,9 +228,18 @@ export default memo(function WordStack({
   const { updateWord } = useWordsDB();
 
   const handleSelectCard = (word) => {
-    if (word.id !== selectId) {
+    const open = () => {
       setSelectId(word.id);
       setContents(word.contents);
+    };
+    const close = () => {
+      setSelectId(null);
+      setContents("");
+    };
+    if (word.id !== selectId) {
+      open();
+      close();
+      open();
     }
   };
 
