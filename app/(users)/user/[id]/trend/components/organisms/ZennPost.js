@@ -1,5 +1,6 @@
 import { load } from "cheerio";
 import { NextResponse } from "next/server";
+import path from "path";
 
 export async function ZennPost(params) {
   console.time("zenn");
@@ -33,7 +34,10 @@ export async function ZennPost(params) {
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
       const parse = await fetch(
-        `http:localhost:3000/api/parse?url=https://zenn.dev${obj.path}`
+        path.join(
+          process.cwd(),
+          `app/api/parse?url=https://zenn.dev${obj.path}`
+        )
       ).then((res) => res.json());
       return {
         id: obj.id,
