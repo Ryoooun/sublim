@@ -259,7 +259,7 @@ export default memo(function WordStack({
             .map((word, i) => {
               return (
                 <motion.div
-                  layout="size" //sizeが良いかも
+                  layout={true} //sizeが良いかも
                   layoutRoot
                   // drag="x"
                   // onDrag={(event, info) =>
