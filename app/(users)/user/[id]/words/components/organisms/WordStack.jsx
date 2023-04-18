@@ -155,14 +155,15 @@ const cardVariants = {
     display: "block",
     height: "100vh",
     position: "fixed",
-    width: "100vw",
+    // width: "100vw",
+    borderRadius: "0",
     left: "0",
     top: "0",
     zIndex: "20",
     whiteSpace: "wrap",
     backgroundImage: "none",
-    // backgroundColor: "#ffffffea",
-    backgroundColor: "#f00",
+    backgroundColor: "#ffffffea",
+    // backgroundColor: "#f00",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
     padding: "2rem",
@@ -194,7 +195,6 @@ const cardVariants = {
     display: "block",
     textAlign: "center",
     lineHeight: "8vh",
-    backgroundColor: "#00f",
     // overflow: "clip",
     whiteSpace: "normal",
     //   backgroundImage:
@@ -228,18 +228,9 @@ export default memo(function WordStack({
   const { updateWord } = useWordsDB();
 
   const handleSelectCard = (word) => {
-    const open = () => {
+    if (word.id !== selectId) {
       setSelectId(word.id);
       setContents(word.contents);
-    };
-    const close = () => {
-      setSelectId(null);
-      setContents("");
-    };
-    if (word.id !== selectId) {
-      open();
-      close();
-      open();
     }
   };
 
