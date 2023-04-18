@@ -155,7 +155,8 @@ const cardVariants = {
     display: "block",
     height: "100vh",
     position: "fixed",
-    width: "100vw",
+    width: "120vw",
+    borderRadius: "0",
     left: "0",
     top: "0",
     zIndex: "20",
@@ -259,7 +260,7 @@ export default memo(function WordStack({
               return (
                 <motion.div
                   layout="size" //sizeが良いかも
-                  layoutId="card"
+                  layoutRoot
                   // drag="x"
                   // onDrag={(event, info) =>
                   //   info.offset.x < -100 && setSelectId(null)
