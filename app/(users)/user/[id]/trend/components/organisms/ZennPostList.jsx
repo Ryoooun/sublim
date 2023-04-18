@@ -178,7 +178,7 @@ export default memo(function ZennPostList({ zennItems }) {
                           {post.id === selectId &&
                             post.parse.map((obj, i) => (
                               <Text
-                                bg="brand.500"
+                                bg="brand.400"
                                 py="1"
                                 px="2"
                                 borderRadius="xl"
