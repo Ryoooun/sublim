@@ -166,6 +166,8 @@ const cardVariants = {
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
     padding: "2rem",
+    lineHeight: "inherit",
+    textAlign: "left",
   },
   onPc: {
     display: "block",
@@ -180,6 +182,8 @@ const cardVariants = {
     WebkitBackdropFilter: "blur(20px)",
     backdropFilter: "blur(20px)",
     padding: "2rem",
+    lineHeight: "inherit",
+    textAlign: "left",
   },
   off: {
     placeContent: "center",
@@ -187,7 +191,9 @@ const cardVariants = {
     color: "black",
     height: "8vh",
     boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
-    display: "grid",
+    display: "block",
+    textAlign: "center",
+    lineHeight: "8vh",
     backgroundColor: "#00f",
     // overflow: "clip",
     whiteSpace: "normal",
