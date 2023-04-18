@@ -155,8 +155,7 @@ const cardVariants = {
     display: "block",
     height: "100vh",
     position: "fixed",
-    width: "120vw",
-    borderRadius: "0",
+    width: "100vw",
     left: "0",
     top: "0",
     zIndex: "20",
@@ -293,7 +292,7 @@ export default memo(function WordStack({
                   <motion.div layout="position">
                     {selectId !== word.id ? (
                       <motion.h3
-                        layout="position"
+                        layout={true}
                         layoutScroll={true}
                         initial={{ fontSize: "2rem" }}
                         variants={titleVariants}
