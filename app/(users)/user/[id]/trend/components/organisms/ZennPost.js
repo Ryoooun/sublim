@@ -34,7 +34,7 @@ export async function ZennPost(params) {
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
       const parse = await fetch(
-        `api/parse?url=https://zenn.dev${obj.path}`
+        `/api/parse?url=https://zenn.dev${obj.path}`
       ).then((res) => res.json());
       return {
         id: obj.id,
