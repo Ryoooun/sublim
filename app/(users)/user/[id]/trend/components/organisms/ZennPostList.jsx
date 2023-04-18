@@ -84,13 +84,13 @@ const cardTransition = {
 const cardVariants = {
   on: {
     width: "100vw",
-    height: "70vh",
+
     padding: "2rem",
   },
   onPc: {},
   off: {
     marginBottom: "1rem",
-    height: "30vh",
+
     padding: "1rem",
     minWidth: "100%",
     borderRadius: "1.25rem",
@@ -135,7 +135,7 @@ export default memo(function ZennPostList({ zennItems }) {
                   layoutScroll={true}
                   variants={cardVariants}
                   // css={cardStyleMobile}
-                  inlist={false}
+                  initial={false}
                   animate={
                     selectId === post.id
                       ? isLargerThen50em
@@ -164,21 +164,28 @@ export default memo(function ZennPostList({ zennItems }) {
                       </Heading>
                     </a>
                     <Divider w="full" mt="3" />
-                    <Box mt="3" maxH="4rem">
+                    <SimpleGrid
+                      pb="3"
+                      mt="4"
+                      spacing="0.5rem"
+                      height={post.id === selectId && "8rem "}
+                      overflow="scroll">
                       {post.id === selectId &&
                         post.parse.map((obj, i) => (
                           <Text
                             as="span"
-                            bg="gray.400"
+                            bg="brand.500"
                             py="1"
                             px="2"
                             borderRadius="xl"
                             color="white"
-                            key={i}>
+                            textAlign="center"
+                            key={i}
+                            onClick={() => alert(obj.text)}>
                             {obj.text}
                           </Text>
                         ))}
-                    </Box>
+                    </SimpleGrid>
                   </motion.div>
                 </motion.div>
               );
