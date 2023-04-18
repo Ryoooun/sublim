@@ -42,7 +42,6 @@ export default memo(function ZennPostList({ devToItems, isLargerThen50em }) {
                 transitionTimingFunction: "ease-in-out",
               }}>
               <Box whiteSpace="normal">
-                <Heading>Keyword</Heading>
                 <Avatar
                   name={post.user.username}
                   src={post.user.profile_image}

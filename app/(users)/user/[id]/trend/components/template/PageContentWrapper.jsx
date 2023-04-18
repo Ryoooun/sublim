@@ -26,18 +26,20 @@ export default React.memo(function PageContentWrapper({
       // px={isLargerThen50em ? "4rem" : "5"}
       py={isLargerThen50em ? "0" : "10"}
       pb="0">
-      <VStack gap="4">
-        <Heading>Qiita Recent Trend</Heading>
+      <VStack gap="4" pb="5rem">
+        <Heading fontSize="3xl" mt="2">
+          Qiita
+        </Heading>
         <QiitaPostList
           qiitaItems={qiitaItems}
           isLargerThen50em={isLargerThen50em}
         />
-        <Heading>Zenn Recent Trend</Heading>
+        <Heading fontSize="3xl">Zenn</Heading>
         <ZennPostList
           zennItems={zennItems}
           isLargerThen50em={isLargerThen50em}
         />
-        <Heading>Dev Recent Trend</Heading>
+        <Heading fontSize="3xl">DEV Community</Heading>
         <DevPostList
           devToItems={devToItems}
           isLargerThen50em={isLargerThen50em}

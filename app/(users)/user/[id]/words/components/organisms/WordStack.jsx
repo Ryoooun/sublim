@@ -152,6 +152,7 @@ const markDownStyle = css({
 
 const cardVariants = {
   on: {
+    display: "block",
     height: "100vh",
     position: "fixed",
     width: "100vw",
@@ -179,6 +180,13 @@ const cardVariants = {
   },
   off: {
     placeContent: "center",
+    fontWeight: "bold",
+    color: "black",
+    height: "4rem",
+    boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
+    display: "grid",
+    // overflow: "clip",
+    whiteSpace: "normal",
 
     //   backgroundImage:
     //     "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
@@ -247,7 +255,7 @@ export default memo(function WordStack({
             .map((word, i) => {
               return (
                 <motion.div
-                  layout="preserve-aspect" //sizeが良いかも
+                  layout="position" //sizeが良いかも
                   layoutRoot
                   // drag="x"
                   // onDrag={(event, info) =>
@@ -264,7 +272,7 @@ export default memo(function WordStack({
                   style={{
                     borderRadius: "1rem",
                   }}
-                  css={cardStyle}
+                  // css={cardStyle}
                   key={word.id}
                   variants={cardVariants}
                   exit={{ opacity: 0, transition: { duration: 0.2 } }}

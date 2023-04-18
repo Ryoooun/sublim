@@ -1,8 +1,4 @@
 import {
-  SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
   Avatar,
   Text,
   Heading,
@@ -11,9 +7,8 @@ import {
   Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import React, { useState } from "react";
+import React from "react";
 
-import { motion } from "framer-motion";
 import "../../../../components/organisms/scroll.css";
 
 export default React.memo(function QiitaPostList({ qiitaItems }) {
@@ -49,7 +44,6 @@ export default React.memo(function QiitaPostList({ qiitaItems }) {
                 transitionTimingFunction: "ease-in-out",
               }}>
               <Box whiteSpace="normal">
-                <Heading>Keyword</Heading>
                 <Avatar
                   name={post.user.id}
                   src={post.user.profile_image_url}
