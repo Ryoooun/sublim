@@ -106,7 +106,7 @@ const closeButtonStyle = css({
   display: "block",
   position: "relative",
   top: "-4rem",
-  right: "-77vw",
+  right: "-80vw",
   width: "1.5rem ",
   height: "1.5rem",
   border: "2px solid #333d",
@@ -165,10 +165,11 @@ const cardVariants = {
     padding: "2rem",
   },
   onPc: {
-    width: "80vw",
+    width: "85vw",
     height: "95vh",
     position: "fixed",
     top: "2.5vh",
+    left: "10vw",
     zIndex: "20",
     backgroundImage: "none",
     backgroundColor: "#ffffffea",
@@ -246,7 +247,7 @@ export default memo(function WordStack({
             .map((word, i) => {
               return (
                 <motion.div
-                  layout="size"
+                  layout="preserve-aspect" //sizeが良いかも
                   layoutRoot
                   // drag="x"
                   // onDrag={(event, info) =>
@@ -260,7 +261,9 @@ export default memo(function WordStack({
                   //   bottom: 0,
                   // }}
                   layoutScroll={true}
-                  style={{ borderRadius: "1rem" }}
+                  style={{
+                    borderRadius: "1rem",
+                  }}
                   css={cardStyle}
                   key={word.id}
                   variants={cardVariants}
