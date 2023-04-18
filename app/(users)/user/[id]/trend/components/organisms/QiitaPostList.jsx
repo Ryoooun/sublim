@@ -80,10 +80,14 @@ const cardTransition = {
 const cardVariants = {
   on: {
     width: "100vw",
-    height: "40vh",
+    height: "38vh",
     padding: "2rem",
   },
-  onPc: {},
+  onPc: {
+    height: "38vh",
+    minWidth: "28%",
+    padding: "2rem",
+  },
   off: {
     marginBottom: "1rem",
     height: "20vh",
@@ -97,6 +101,7 @@ const cardVariants = {
   },
   offPc: {
     marginBottom: "1rem",
+    height: "20vh",
     padding: "1rem",
     minWidth: "28%",
     borderRadius: "1.25rem",
@@ -166,7 +171,7 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                         <Divider w="full" mt="3" />
                         <SimpleGrid
                           pb="3"
-                          mt="4"
+                          mt="1"
                           spacing="0.5rem"
                           height={post.id === selectId && "8rem "}
                           overflow="scroll">
