@@ -10,13 +10,7 @@ import {
   Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import {
-  AnimatePresence,
-  LayoutGroup,
-  motion,
-  useAnimate,
-  stagger,
-} from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { memo, useEffect } from "react";
 import { ZennPost } from "./ZennPost";
 import { useState } from "react";
@@ -54,6 +48,7 @@ const closeButtonStyle = css({
 });
 
 const flexStyle = css({
+  height: "100%",
   padding: "0 4rem 0 2rem",
   whiteSpace: "nowrap",
   overflow: "scroll",
@@ -79,7 +74,7 @@ const cardStyleMobile = css({
 });
 
 const cardTransition = {
-  duration: 0.2,
+  duration: 0.5,
   type: "spring",
   mass: 0.6,
 };
@@ -87,13 +82,13 @@ const cardTransition = {
 const cardVariants = {
   on: {
     width: "100vw",
-
+    height: "40vh",
     padding: "2rem",
   },
   onPc: {},
   off: {
     marginBottom: "1rem",
-
+    height: "20vh",
     padding: "1rem",
     minWidth: "100%",
     borderRadius: "1.25rem",
@@ -127,14 +122,14 @@ export default memo(function ZennPostList({ zennItems }) {
   };
 
   return (
-    <Box w="full" h="full">
-      <Flex css={flexStyle}>
-        <LayoutGroup id="card">
-          <AnimatePresence mode="popLayout" initial={false}>
+    <Box w="full" h="40vh">
+      <LayoutGroup id="card">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <Flex css={flexStyle}>
             {zennItems.map((post) => {
               return (
                 <motion.div
-                  layout="position"
+                  layout="size"
                   layoutScroll={true}
                   variants={cardVariants}
                   // css={cardStyleMobile}
@@ -199,9 +194,9 @@ export default memo(function ZennPostList({ zennItems }) {
                 </motion.div>
               );
             })}
-          </AnimatePresence>
-        </LayoutGroup>
-      </Flex>
+          </Flex>
+        </AnimatePresence>
+      </LayoutGroup>
     </Box>
   );
 });

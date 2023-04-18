@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { load } from "cheerio";
+import { URL } from "url";
 
 export default async function getData() {
   console.time("Qiita");
@@ -25,6 +26,12 @@ export default async function getData() {
   const postsDetailArray = await Promise.all(
     postsArray.map(async (post) => {
       const tags = post.tags.map((tag) => tag?.name);
+      const parse = await fetch(
+        new URL(
+          `/api/parse?url=${post.url}`,
+          "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
+        )
+      ).then((res) => res.json());
       // const url = post.url;
       // const res = await fetch(url).catch((err) => console.log(err));
       // const text = await res.text();
@@ -51,6 +58,7 @@ export default async function getData() {
           likes: post.likes_count,
           stocks: post.stocks_count,
         },
+        parse: parse.json,
         // ogData: {
         //   ogImageUrl,
         //   ogDescription,

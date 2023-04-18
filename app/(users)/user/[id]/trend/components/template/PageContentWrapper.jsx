@@ -15,7 +15,7 @@ import DevPostList from "../organisms/DevPostList";
 export default React.memo(function PageContentWrapper({
   qiitaItems,
   zennItems,
-  devToItems,
+  // devToItems,
 }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50rem)");
   return (
@@ -40,11 +40,11 @@ export default React.memo(function PageContentWrapper({
             zennItems={zennItems}
             isLargerThen50em={isLargerThen50em}
           />
-          <Heading fontSize="3xl">DEV Community</Heading>
+          {/* <Heading fontSize="3xl">DEV Community</Heading>
           <DevPostList
             devToItems={devToItems}
             isLargerThen50em={isLargerThen50em}
-          />
+          /> */}
         </VStack>
       </Box>
     </>
