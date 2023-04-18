@@ -13,8 +13,14 @@ import {
   Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { memo } from "react";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useAnimate,
+  stagger,
+} from "framer-motion";
+import { memo, useEffect } from "react";
 import { ZennPost } from "./ZennPost";
 import { useState } from "react";
 import useWord from "@/app/hooks/useWord";
@@ -163,29 +169,35 @@ export default memo(function ZennPostList({ zennItems }) {
                         {post.title}
                       </Heading>
                     </a>
-                    <Divider w="full" mt="3" />
-                    <SimpleGrid
-                      pb="3"
-                      mt="4"
-                      spacing="0.5rem"
-                      height={post.id === selectId && "8rem "}
-                      overflow="scroll">
-                      {post.id === selectId &&
-                        post.parse.map((obj, i) => (
-                          <Text
-                            as="span"
-                            bg="brand.500"
-                            py="1"
-                            px="2"
-                            borderRadius="xl"
-                            color="white"
-                            textAlign="center"
-                            key={i}
-                            onClick={() => alert(obj.text)}>
-                            {obj.text}
-                          </Text>
-                        ))}
-                    </SimpleGrid>
+                    {post.id === selectId && (
+                      <>
+                        <Divider w="full" mt="3" />
+                        <SimpleGrid
+                          pb="3"
+                          mt="4"
+                          spacing="0.5rem"
+                          height={post.id === selectId && "8rem "}
+                          overflow="scroll">
+                          {post.id === selectId &&
+                            post.parse.map((obj, i) => (
+                              <Text
+                                bg="brand.500"
+                                py="1"
+                                px="2"
+                                borderRadius="xl"
+                                color="white"
+                                textAlign="center"
+                                key={i}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  alert(obj.text);
+                                }}>
+                                {obj.text}
+                              </Text>
+                            ))}
+                        </SimpleGrid>
+                      </>
+                    )}
                   </motion.div>
                 </motion.div>
               );
