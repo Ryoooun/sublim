@@ -161,7 +161,8 @@ const cardVariants = {
     zIndex: "20",
     whiteSpace: "wrap",
     backgroundImage: "none",
-    backgroundColor: "#ffffffea",
+    // backgroundColor: "#ffffffea",
+    backgroundColor: "#f00",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
     padding: "2rem",
@@ -187,6 +188,7 @@ const cardVariants = {
     height: "8vh",
     boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
     display: "grid",
+    backgroundColor: "#00f",
     // overflow: "clip",
     whiteSpace: "normal",
     //   backgroundImage:
@@ -256,8 +258,8 @@ export default memo(function WordStack({
             .map((word, i) => {
               return (
                 <motion.div
-                  layout="position" //sizeが良いかも
-                  layoutRoot
+                  layout="size" //sizeが良いかも
+                  layoutId="card"
                   // drag="x"
                   // onDrag={(event, info) =>
                   //   info.offset.x < -100 && setSelectId(null)
