@@ -19,6 +19,36 @@ import { ZennPost } from "./ZennPost";
 import { useState } from "react";
 import "../../../../components/organisms/scroll.css";
 
+const closeButtonStyle = css({
+  display: "block",
+  position: "absolute",
+  top: "1rem",
+  right: "1rem",
+  width: "1.5rem ",
+  height: "1.5rem",
+  border: "2px solid #333d",
+  borderRadius: "50%",
+  transition: "all 1s",
+  "&::before,&::after": {
+    content: '""',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "1rem",
+    height: "2px",
+    backgroundColor: "#333d",
+  },
+  "::before": {
+    transform: "translate(-50%, -50%) rotate(45deg)",
+  },
+  "::after": {
+    transform: "translate(-50%, -50%) rotate(-45deg)",
+  },
+  ":hover": {
+    transform: "rotate(360deg)",
+  },
+});
+
 const flexStyle = css({
   padding: "0 4rem 0 2rem",
   whiteSpace: "nowrap",
@@ -34,76 +64,104 @@ const flexStyle = css({
 
 const cardStyleMobile = css({
   marginBottom: "1rem",
+  height: "20rem",
   padding: "1rem",
   minWidth: "100%",
   borderRadius: "1.25rem",
   scrollSnapAlign: "center",
   scrollSnapStop: "always",
+  backgroundColor: "#0f0",
   boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-  "&:hover": {
-    opacity: "0.7",
-    transitionDuration: "400ms",
-    transitionTimingFunction: "ease-in-out",
-  },
 });
+
+const cardTransition = {
+  duration: 0.2,
+  type: "spring",
+  mass: 0.6,
+};
 
 const cardVariants = {
   on: {
-    display: "block",
+    backgroundColor: "#f00",
     width: "100vw",
-    height: "20rem",
-    position: "fixed",
+    height: "70vh",
+    position: "relative",
     left: "0",
-    top: "0",
-    zIndex: "20",
-    backgroundColor: "#ffffffea",
-    WebkitBackdropFilter: "blur(10px)",
-    backdropFilter: "blur(10px)",
+    top: "25%",
+    zIndex: "999",
     padding: "2rem",
   },
   onPc: {},
-  off: {},
+  off: {
+    marginBottom: "1rem",
+    height: "30vh",
+    padding: "1rem",
+    minWidth: "100%",
+    borderRadius: "1.25rem",
+    scrollSnapAlign: "center",
+    scrollSnapStop: "always",
+    backgroundColor: "#0f0",
+    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+  },
+  offPc: {
+    marginBottom: "1rem",
+    padding: "1rem",
+    minWidth: "28%",
+    borderRadius: "1.25rem",
+    scrollSnapAlign: "center",
+    scrollSnapStop: "always",
+    backgroundColor: "#fff",
+    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+  },
 };
 
 export default memo(function ZennPostList({ zennItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [selectId, setSelectId] = useState(null);
-  const handleClickCard = (id) => {
-    if (id !== selectId) {
-      console.log(id);
-      setSelectId(id);
+  const handleClickCard = (post) => {
+    if (post.id !== selectId) {
+      console.log(post.title);
+      setSelectId(post.id);
+    } else {
+      setSelectId(null);
     }
   };
 
   return (
     <Box w="full" h="full">
       <Flex css={flexStyle}>
-        <LayoutGroup>
-          <AnimatePresence>
+        <LayoutGroup id="card">
+          <AnimatePresence mode="popLayout" initial={false}>
             {zennItems.map((post) => {
               return (
                 <motion.div
-                  layout
-                  layoutScroll
+                  layout="position"
+                  layoutScroll={true}
                   variants={cardVariants}
+                  // css={cardStyleMobile}
+                  inlist={false}
                   animate={
-                    selectId == post.id
+                    selectId === post.id
                       ? isLargerThen50em
                         ? "onPc"
                         : "on"
+                      : isLargerThen50em
+                      ? "offPc"
                       : "off"
                   }
-                  css={
-                    isLargerThen50em
-                      ? css`
-                          ${cardStyleMobile};
-                          min-width: 28%;
-                        `
-                      : cardStyleMobile
-                  }
+                  transition={cardTransition}
+                  exit={{ opacity: 0 }}
                   key={post.id}
-                  onClick={() => handleClickCard(post.id)}>
+                  onClick={() => handleClickCard(post)}>
                   <motion.div style={{ whiteSpace: "normal" }}>
+                    {selectId === post.id ? (
+                      <motion.button
+                        css={closeButtonStyle}
+                        onClick={() => {
+                          setSelectId(null);
+                        }}
+                      />
+                    ) : null}
                     <Avatar
                       name={post.user.username}
                       src={post.user.avatarSmallUrl}

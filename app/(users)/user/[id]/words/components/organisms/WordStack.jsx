@@ -159,6 +159,7 @@ const cardVariants = {
     left: "0",
     top: "0",
     zIndex: "20",
+    whiteSpace: "wrap",
     backgroundImage: "none",
     backgroundColor: "#ffffffea",
     WebkitBackdropFilter: "blur(10px)",
@@ -166,11 +167,12 @@ const cardVariants = {
     padding: "2rem",
   },
   onPc: {
+    display: "block",
     width: "85vw",
     height: "95vh",
     position: "fixed",
-    top: "2.5vh",
-    left: "10vw",
+    top: "2rem",
+    left: "10rem",
     zIndex: "20",
     backgroundImage: "none",
     backgroundColor: "#ffffffea",
@@ -182,12 +184,11 @@ const cardVariants = {
     placeContent: "center",
     fontWeight: "bold",
     color: "black",
-    height: "4rem",
+    height: "8vh",
     boxShadow: "0px 0px 10px 2px rgba(0, 0, 0, 0.06) inset",
     display: "grid",
     // overflow: "clip",
     whiteSpace: "normal",
-
     //   backgroundImage:
     //     "linear-gradient(140deg, rgb(35, 81, 94), rgb(190, 131, 139) 100%)",
     // },
@@ -275,7 +276,8 @@ export default memo(function WordStack({
                   // css={cardStyle}
                   key={word.id}
                   variants={cardVariants}
-                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                  initial={false}
+                  exit={{ opacity: 0 }}
                   animate={
                     selectId == word.id
                       ? isLargerThen50em
@@ -313,7 +315,6 @@ export default memo(function WordStack({
                     <AnimatePresence>
                       {selectId == word.id ? (
                         <motion.div
-                          layout
                           layoutScroll={true}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
