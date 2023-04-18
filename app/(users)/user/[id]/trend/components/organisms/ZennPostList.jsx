@@ -2,9 +2,6 @@
 import { css } from "@emotion/react";
 import {
   SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
   Avatar,
   Text,
   Heading,
