@@ -1,6 +1,7 @@
 import { load } from "cheerio";
 import { NextResponse } from "next/server";
 import path from "path";
+import { URL } from "url";
 
 export async function ZennPost(params) {
   console.time("zenn");
@@ -34,7 +35,10 @@ export async function ZennPost(params) {
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
       const parse = await fetch(
-        `/api/parse?url=https://zenn.dev${obj.path}`
+        new URL(
+          `/api/parse?url=https://zenn.dev${obj.path}`,
+          "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
+        )
       ).then((res) => res.json());
       return {
         id: obj.id,
