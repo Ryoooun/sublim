@@ -12,12 +12,14 @@ import {
   Th,
   Td,
   TableContainer,
+  useDisclosure,
 } from "@/app/common/chakraui/ChakraUI";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import useBookmarkDB from "@/app/hooks/useBookmarkDB";
 import useWordsDB from "@/app/hooks/useWordsDB";
+import BookmarkAlert from "../atoms/BookmarkAlert";
 
 const closeButtonStyle = css({
   display: "block",
@@ -100,6 +102,8 @@ export default function BookmarkModal({ text }) {
   const [registered, setRegistered] = useState([]);
   const { getBookmark, bookmarks } = useBookmarkDB();
   const { words } = useWordsDB();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     if (bookmarks.length === 0) {
@@ -121,6 +125,11 @@ export default function BookmarkModal({ text }) {
     e.stopPropagation();
     setRegistered([]);
     setToggle(false);
+  };
+
+  const handleClickTitle = (e) => {
+    setTitle(e.target.innerText);
+    onOpen();
   };
 
   return (
@@ -175,7 +184,7 @@ export default function BookmarkModal({ text }) {
               <Text>TITLE</Text>
               <Text>DATE</Text>
             </Flex>
-            <TableContainer overflowY="scroll" height="55vh">
+            <TableContainer overflowY="scroll" height="50vh">
               <Table variant="simple">
                 {/* <Thead>
                   <Tr>
@@ -187,7 +196,12 @@ export default function BookmarkModal({ text }) {
                   {bookmarks.map((obj) => {
                     return (
                       <Tr key={obj.id}>
-                        <Td>{obj.title}</Td>
+                        <Td
+                          onClick={(e) => {
+                            handleClickTitle(e);
+                          }}>
+                          {obj.title}
+                        </Td>
                         <Td isNumeric>
                           <Text
                             as="time"
@@ -198,6 +212,12 @@ export default function BookmarkModal({ text }) {
                             )}>
                             {dayjs(obj.timestamp.toDate()).format("YYYY-MM-DD")}
                           </Text>
+                          <BookmarkAlert
+                            text={title}
+                            isOpen={isOpen}
+                            onClose={onClose}
+                            handleCancel={handleCancel}
+                          />
                         </Td>
                       </Tr>
                     );
