@@ -47,10 +47,11 @@ const closeButtonStyle = css({
 const tagStyle = css({
   backgroundColor: "#3fcb72",
   // maxWidth: "90%",
-  padding: "0.25rem 0.5rem",
+  padding: "0.125rem 0.25rem",
   borderRadius: "0.5rem",
   color: "#fff",
   textAlign: "center",
+  fontSize: "0.5rem",
 });
 
 const popoverStyle = {
@@ -126,7 +127,7 @@ export default function WordBookmarkPopOver({ text }) {
   const handleSave = async () => {
     if (!isError?.result) {
       const res = await setBookmark(word);
-      console.log(res);
+
       if (res.code === 1) {
         console.log("finish:", res.message);
         getBookmark();

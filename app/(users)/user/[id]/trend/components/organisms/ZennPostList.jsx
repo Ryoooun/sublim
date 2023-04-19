@@ -91,7 +91,7 @@ const cardTransition = {
 const cardVariants = {
   on: {
     width: "100vw",
-    height: "40vh",
+    height: "30vh",
   },
   onPc: {
     height: "38vh",
@@ -191,7 +191,7 @@ export default memo(function ZennPostList({ zennItems }) {
                         justifyItems="center"
                         mt="2"
                         gap="2"
-                        height={post.id === selectId && "11.5rem "}
+                        height={post.id === selectId && "12vh "}
                         overflow="scroll">
                         {post.id === selectId &&
                           post.parse.map((obj, i) => (

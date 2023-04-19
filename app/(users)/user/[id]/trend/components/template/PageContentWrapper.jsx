@@ -28,15 +28,15 @@ export default React.memo(function PageContentWrapper({
         // px={isLargerThen50em ? "4rem" : "5"}
       >
         <VStack pb="3rem">
-          <LayoutGroup id="card">
+          <LayoutGroup>
             <Heading fontSize="3xl" mt="2">
-              Qiita
+              Trend
             </Heading>
             <QiitaPostList
               qiitaItems={qiitaItems}
               isLargerThen50em={isLargerThen50em}
             />
-            <Heading fontSize="3xl">Zenn</Heading>
+            {/* <Heading fontSize="3xl">Zenn</Heading> */}
             <ZennPostList
               zennItems={zennItems}
               isLargerThen50em={isLargerThen50em}
