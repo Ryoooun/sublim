@@ -11,7 +11,7 @@ import {
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, lazy, Suspense } from "react";
 import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 import "../../../../components/organisms/scroll.css";
@@ -179,7 +179,7 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                     fontFamily="mono">{`@${post.user.id}`}</Text>
                   <a href={post.url} target="_blank">
                     <Heading fontSize="sm" _hover={{ color: "brand.700" }}>
-                      {post.title}
+                      {post.title.slice(0, 45)}
                     </Heading>
                   </a>
                   {post.id === selectId && (

@@ -45,12 +45,12 @@ const closeButtonStyle = css({
 });
 
 const tagStyle = css({
-  backgroundColor: "#3fcb72",
+  backgroundColor: "#bfbfbf",
   // maxWidth: "90%",
   padding: "0.125rem 0.5rem",
   borderRadius: "0.5rem",
   color: "#fff",
-  fontWeight: "normal",
+  fontWeight: "bold",
   textAlign: "center",
   fontSize: "1rem",
 });
@@ -181,7 +181,8 @@ export default function WordBookmarkPopOver({ text }) {
             onClick={(e) => handleCancel(e)}
             style={{ width: "100vw", height: "100vh" }}
             variants={overlay}
-            animate={toggle && "on"}
+            initial={false}
+            // animate={toggle && "on"}
             exit={{ opacity: 0, transition: { duration: 0.1 } }}>
             <motion.div
               layout="size"

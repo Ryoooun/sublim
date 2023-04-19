@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useCallback, useMemo } from "react";
+import React, { Suspense, useCallback, useMemo, lazy } from "react";
 import { AnimatePresence, LayoutGroup } from "framer-motion";
 import {
   Heading,
@@ -8,9 +8,10 @@ import {
   VStack,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import QiitaPostList from "../organisms/QiitaPostList";
-import ZennPostList from "../organisms/ZennPostList";
-import DevPostList from "../organisms/DevPostList";
+// import QiitaPostList from "../organisms/QiitaPostList";
+// import ZennPostList from "../organisms/ZennPostList";
+// import DevPostList from "../organisms/DevPostList";
+import PostSkelton from "../molecules/PostSkelton";
 
 export default React.memo(function PageContentWrapper({
   qiitaItems,
@@ -18,6 +19,8 @@ export default React.memo(function PageContentWrapper({
   // devToItems,
 }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50rem)");
+  const QiitaPostList = lazy(() => import("../organisms/QiitaPostList"));
+  const ZennPostList = lazy(() => import("../organisms/ZennPostList"));
   return (
     <>
       <Box
@@ -28,20 +31,23 @@ export default React.memo(function PageContentWrapper({
         // px={isLargerThen50em ? "4rem" : "5"}
       >
         <VStack pb="3rem">
-          <LayoutGroup>
-            <Heading fontSize="3xl" mt="2">
-              Trend
-            </Heading>
+          <Heading fontSize="3xl" mt="2">
+            Trend
+          </Heading>
+          <Suspense fallback={<PostSkelton />}>
             <QiitaPostList
               qiitaItems={qiitaItems}
               isLargerThen50em={isLargerThen50em}
             />
-            {/* <Heading fontSize="3xl">Zenn</Heading> */}
+          </Suspense>
+          {/* <Heading fontSize="3xl">Zenn</Heading> */}
+          <Suspense fallback={<PostSkelton />}>
             <ZennPostList
               zennItems={zennItems}
               isLargerThen50em={isLargerThen50em}
             />
-          </LayoutGroup>
+          </Suspense>
+
           {/* <Heading fontSize="3xl">DEV Community</Heading>
           <DevPostList
             devToItems={devToItems}

@@ -4,7 +4,7 @@ import { CircularProgress, Box } from "@/app/common/chakraui/ChakraUI";
 export default function TrendLayout({ children }) {
   return (
     <>
-      <Suspense
+      {/* <Suspense
         fallback={
           <Box
             style={{
@@ -12,11 +12,11 @@ export default function TrendLayout({ children }) {
               placeContent: "center",
               height: "100vh",
             }}>
-            <CircularProgress color="brand.400" size="xs" isIndeterminate />
+            <CircularProgress color="brand.400" size="100px" isIndeterminate />
           </Box>
-        }>
-        {children}
-      </Suspense>
+        }> */}
+      {children}
+      {/* </Suspense> */}
     </>
   );
 }
