@@ -51,7 +51,7 @@ const closeButtonStyle = css({
 
 const tagStyle = css({
   backgroundColor: "transparent",
-  fontSize: ".5rem",
+  fontSize: "1rem",
   padding: "0.25rem 0.5rem",
   borderRadius: "0.5rem",
   color: "#3fcb72",
@@ -62,9 +62,9 @@ const popoverStyle = {
   on: {
     position: "fixed",
     zIndex: "30",
-    top: "40vh",
-    left: "0",
-    width: "80vw",
+    top: "5rem",
+    height: "80vh",
+    width: "82vw",
     whiteSpace: "normal",
     // height: "20vhs",
     padding: "1rem",
@@ -158,15 +158,31 @@ export default function BookmarkModal({ text }) {
               mt="2"
               color="blackAlpha.700">
               学習予定の単語
+              <Text
+                fontSize="sm"
+                fontWeight="thin"
+                textAlign="right"
+                color={bookmarks.length > 9 && "red.400"}>
+                {bookmarks.length}words
+              </Text>
             </Text>
-            <TableContainer>
+            <Flex direction="row" justifyContent="flex-end">
+              <Text color="blue.400" textAlign="right">
+                Edit
+              </Text>
+            </Flex>
+            <Flex direction="row" justifyContent="space-around">
+              <Text>TITLE</Text>
+              <Text>DATE</Text>
+            </Flex>
+            <TableContainer overflowY="scroll" height="55vh">
               <Table variant="simple">
-                <Thead>
+                {/* <Thead>
                   <Tr>
                     <Th>Title</Th>
-                    <Th>Date</Th>
+                    <Th isNumeric>Date</Th>
                   </Tr>
-                </Thead>
+                </Thead> */}
                 <Tbody>
                   {bookmarks.map((obj) => {
                     return (
