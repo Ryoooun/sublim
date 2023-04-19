@@ -83,7 +83,7 @@ const cardVariants = {
   on: {
     width: "100vw",
     height: "38vh",
-    padding: "2rem",
+    padding: "0rem",
   },
   onPc: {
     minWidth: "28%",

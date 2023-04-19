@@ -27,7 +27,7 @@ export default React.memo(function PageContentWrapper({
         // px={isLargerThen50em ? "4rem" : "5"}
         py={isLargerThen50em ? "0" : "10"}
         pb="0">
-        <VStack gap="4" pb="5rem">
+        <VStack gap="0" pb="3rem">
           <Heading fontSize="3xl" mt="2">
             Qiita
           </Heading>
