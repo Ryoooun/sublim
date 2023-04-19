@@ -47,6 +47,14 @@ const closeButtonStyle = css({
   },
 });
 
+const scroll = css({
+  msOverflowStyle: "none",
+  scrollbarWidth: "none",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
+});
+
 const flexStyle = css({
   height: "100%",
   padding: "0 4rem 0 2rem",
@@ -86,8 +94,8 @@ const cardVariants = {
     padding: "0rem",
   },
   onPc: {
-    minWidth: "28%",
     height: "38vh",
+    minWidth: "28%",
     padding: "2rem",
   },
   off: {
@@ -113,6 +121,15 @@ const cardVariants = {
     boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
   },
 };
+
+const tagStyle = css({
+  backgroundColor: "#3fcb72",
+  maxWidth: "90%",
+  padding: "0.25rem 0.5rem",
+  borderRadius: "1.25rem",
+  color: "#fff",
+  textAlign: "center",
+});
 
 export default memo(function ZennPostList({ zennItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
@@ -168,29 +185,24 @@ export default memo(function ZennPostList({ zennItems }) {
                     </a>
                     {post.id === selectId && (
                       <>
-                        <Divider w="full" mt="3" />
                         <SimpleGrid
-                          pb="3"
-                          mt="1"
+                          css={scroll}
+                          justifyItems="center"
+                          mt="2"
                           spacing="0.5rem"
                           height={post.id === selectId && "8rem "}
                           overflow="scroll">
                           {post.id === selectId &&
                             post.parse.map((obj, i) => (
-                              <Text
-                                bg="brand.400"
-                                py="1"
-                                px="2"
-                                borderRadius="xl"
-                                color="white"
-                                textAlign="center"
+                              <motion.span
+                                css={tagStyle}
                                 key={i}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   alert(obj.text);
                                 }}>
                                 {obj.text}
-                              </Text>
+                              </motion.span>
                             ))}
                         </SimpleGrid>
                       </>

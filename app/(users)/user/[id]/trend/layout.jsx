@@ -12,7 +12,7 @@ export default function TrendLayout({ children }) {
               placeContent: "center",
               height: "100vh",
             }}>
-            <CircularProgress color="brand.400" size="2xl" isIndeterminate />
+            <CircularProgress color="brand.400" size="md" isIndeterminate />
           </Box>
         }>
         {children}

@@ -12,6 +12,7 @@ import {
 } from "@/app/common/chakraui/ChakraUI";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import React, { memo, useEffect, useState } from "react";
+import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 import "../../../../components/organisms/scroll.css";
 
@@ -42,6 +43,14 @@ const closeButtonStyle = css({
   },
   ":hover": {
     transform: "rotate(360deg)",
+  },
+});
+
+const scroll = css({
+  msOverflowStyle: "none",
+  scrollbarWidth: "none",
+  "&::-webkit-scrollbar": {
+    display: "none",
   },
 });
 
@@ -112,6 +121,15 @@ const cardVariants = {
   },
 };
 
+const tagStyle = css({
+  backgroundColor: "#3fcb72",
+  maxWidth: "90%",
+  padding: "0.25rem 0.5rem",
+  borderRadius: "1.25rem",
+  color: "#fff",
+  textAlign: "center",
+});
+
 import "../../../../components/organisms/scroll.css";
 
 export default memo(function QiitaPostList({ qiitaItems }) {
@@ -168,28 +186,25 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                     </a>
                     {post.id === selectId && (
                       <>
-                        <Divider w="full" mt="3" />
                         <SimpleGrid
-                          mt="1"
+                          css={scroll}
+                          justifyItems="center"
+                          mt="2"
                           spacing="0.5rem"
                           height={post.id === selectId && "8rem "}
                           overflow="scroll">
                           {post.id === selectId &&
                             post.parse.map((obj, i) => (
-                              <Text
-                                bg="brand.400"
-                                py="1"
-                                px="2"
-                                borderRadius="xl"
-                                color="white"
-                                textAlign="center"
-                                key={i}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  alert(obj.text);
-                                }}>
-                                {obj.text}
-                              </Text>
+                              <WordBookmarkPopOver text={obj.text} key={i} />
+                              // <motion.span
+                              //   css={tagStyle}
+                              //   key={i}
+                              //   onClick={(e) => {
+                              //     e.stopPropagation();
+                              //     alert(obj.text);
+                              //   }}>
+                              //   {obj.text}
+                              // </motion.span>
                             ))}
                         </SimpleGrid>
                       </>
@@ -202,74 +217,5 @@ export default memo(function QiitaPostList({ qiitaItems }) {
         </AnimatePresence>
       </LayoutGroup>
     </Box>
-    // <Box w="full" h="full">
-    //   <Flex
-    //     whiteSpace="nowrap"
-    //     overflow="scroll"
-    //     gap="4"
-    //     className="scrollbar"
-    //     scrollSnapType="x proximity"
-    //     sx={{ msOverflowStyle: "none", scrollbarWidth: "none" }}>
-    //     {qiitaItems.map((post) => {
-    //       return (
-    //         <Box
-    //           className="Card"
-    //           key={post.id}
-    //           mb="4"
-    //           minW={isLargerThen50em ? "28%" : "60%"}
-    //           borderRadius="xl"
-    //           scrollSnapAlign="center"
-    //           scrollSnapStop="always"
-    //           // boxShadow="0 20px 25px -5px rgba(0 0 0 / .10), 0 10px 10px -5px rgba(0 0 0 / .0.4)"
-    //           sx={{
-    //             boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-    //           }}
-    //           p="4"
-    //           _hover={{
-    //             opacity: "0.7",
-    //             transitionDuration: "400ms",
-    //             transitionTimingFunction: "ease-in-out",
-    //           }}>
-    //           <Box whiteSpace="normal">
-    //             <Avatar
-    //               name={post.user.id}
-    //               src={post.user.profile_image_url}
-    //               size="md"
-    //             />
-    //             <Text
-    //               fontSize="sm"
-    //               fontFamily="mono">{`@${post.user.id}`}</Text>
-    //             <a href={post.url} target="_blank">
-    //               <Heading fontSize="md" _hover={{ color: "brand.700" }}>
-    //                 {post.title}
-    //               </Heading>
-    //             </a>
-    //             <Divider w="full" mt="3" />
-    //             <Box mt="3" maxH="4rem">
-    //               <Flex
-    //                 direction="row"
-    //                 flexWrap="wrap"
-    //                 gap="1"
-    //                 overflow="auto"
-    //                 whiteSpace="nowrap">
-    //                 {post.tags.map((tag, i) => (
-    //                   <Box
-    //                     fontSize="xs"
-    //                     px="0.2rem"
-    //                     bg="blackAlpha.400"
-    //                     color="white"
-    //                     borderRadius="md"
-    //                     key={i}>
-    //                     {tag}
-    //                   </Box>
-    //                 ))}
-    //               </Flex>
-    //             </Box>
-    //           </Box>
-    //         </Box>
-    //       );
-    //     })}
-    //   </Flex>
-    // </Box>
   );
 });
