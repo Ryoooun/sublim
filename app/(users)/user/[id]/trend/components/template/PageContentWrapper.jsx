@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense, useCallback, useMemo } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
 import {
   Heading,
   Box,
@@ -24,22 +24,24 @@ export default React.memo(function PageContentWrapper({
         overflow="hidden"
         w={isLargerThen50em ? "93vw" : "100vw"}
         bg="white"
+        pt="8"
         // px={isLargerThen50em ? "4rem" : "5"}
-        py={isLargerThen50em ? "0" : "10"}
-        pb="0">
-        <VStack gap="0" pb="3rem">
-          <Heading fontSize="3xl" mt="2">
-            Qiita
-          </Heading>
-          <QiitaPostList
-            qiitaItems={qiitaItems}
-            isLargerThen50em={isLargerThen50em}
-          />
-          <Heading fontSize="3xl">Zenn</Heading>
-          <ZennPostList
-            zennItems={zennItems}
-            isLargerThen50em={isLargerThen50em}
-          />
+      >
+        <VStack pb="3rem">
+          <LayoutGroup id="card">
+            <Heading fontSize="3xl" mt="2">
+              Qiita
+            </Heading>
+            <QiitaPostList
+              qiitaItems={qiitaItems}
+              isLargerThen50em={isLargerThen50em}
+            />
+            <Heading fontSize="3xl">Zenn</Heading>
+            <ZennPostList
+              zennItems={zennItems}
+              isLargerThen50em={isLargerThen50em}
+            />
+          </LayoutGroup>
           {/* <Heading fontSize="3xl">DEV Community</Heading>
           <DevPostList
             devToItems={devToItems}

@@ -50,14 +50,16 @@ export async function GET(request) {
     const array = [];
     for (const data of score_lt_list) {
       const word = termextract.modify_agglutinative_lang(data.cmp_noun);
-      if (word.length > 1 && word.length < 13) {
+
+      if (word.length > 1 && word.length < 10) {
         array.push({
           text: word.replace(/['\"\(\)\[\]{}_//]/g, ""),
           value: data.importance,
         });
       }
     }
-    return array;
+
+    return array.slice(0, 100);
   });
 
   // const require = module.createRequire(import.meta.url);

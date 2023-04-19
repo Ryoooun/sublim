@@ -91,8 +91,7 @@ const cardTransition = {
 const cardVariants = {
   on: {
     width: "100vw",
-    height: "38vh",
-    padding: "0rem",
+    height: "40vh",
   },
   onPc: {
     height: "38vh",
@@ -145,68 +144,69 @@ export default memo(function ZennPostList({ zennItems }) {
   };
 
   return (
-    <Box w="full" h="40vh">
-      <LayoutGroup id="card">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <Flex css={flexStyle}>
-            {zennItems.map((post) => {
-              return (
-                <motion.div
-                  layout="size"
-                  layoutScroll={true}
-                  variants={cardVariants}
-                  // css={cardStyleMobile}
-                  initial={false}
-                  animate={
-                    selectId === post.id
-                      ? isLargerThen50em
-                        ? "onPc"
-                        : "on"
-                      : isLargerThen50em
-                      ? "offPc"
-                      : "off"
-                  }
-                  transition={cardTransition}
-                  exit={{ opacity: 0 }}
-                  key={post.id}
-                  onClick={() => handleClickCard(post)}>
-                  <motion.div style={{ whiteSpace: "normal" }}>
-                    <Avatar
-                      name={post.user.username}
-                      src={post.user.avatarSmallUrl}
-                      size="md"
-                    />
-                    <Text
-                      fontSize="sm"
-                      fontFamily="mono">{`@${post.user.username}`}</Text>
-                    <a href={post.path} target="_blank">
-                      <Heading fontSize="md" _hover={{ color: "brand.700" }}>
-                        {post.title}
-                      </Heading>
-                    </a>
-                    {post.id === selectId && (
-                      <>
-                        <SimpleGrid
-                          css={scroll}
-                          justifyItems="center"
-                          mt="2"
-                          spacing="0.5rem"
-                          height={post.id === selectId && "8rem "}
-                          overflow="scroll">
-                          {post.id === selectId &&
-                            post.parse.map((obj, i) => (
-                              <WordBookmarkPopOver text={obj.text} key={i} />
-                            ))}
-                        </SimpleGrid>
-                      </>
-                    )}
-                  </motion.div>
+    <Box w="full">
+      {/* <LayoutGroup id="card"> */}
+      <AnimatePresence mode="popLayout" initial={false}>
+        <Flex css={flexStyle}>
+          {zennItems.map((post) => {
+            return (
+              <motion.div
+                layout="size"
+                layoutScroll={true}
+                variants={cardVariants}
+                // css={cardStyleMobile}
+                animate={
+                  selectId === post.id
+                    ? isLargerThen50em
+                      ? "onPc"
+                      : "on"
+                    : isLargerThen50em
+                    ? "offPc"
+                    : "off"
+                }
+                exit={{ opacity: 0 }}
+                key={post.id}
+                onClick={() => handleClickCard(post)}>
+                <motion.div style={{ whiteSpace: "normal" }}>
+                  <Avatar
+                    name={post.user.username}
+                    src={post.user.avatarSmallUrl}
+                    size="md"
+                  />
+                  <Text
+                    fontSize="xs"
+                    fontFamily="mono">{`@${post.user.username}`}</Text>
+                  <a href={post.path} target="_blank">
+                    <Heading fontSize="sm" _hover={{ color: "brand.700" }}>
+                      {post.title}
+                    </Heading>
+                  </a>
+                  {post.id === selectId && (
+                    <>
+                      <Flex
+                        as="motion.div"
+                        layout
+                        css={scroll}
+                        flexWrap="wrap"
+                        justifyItems="center"
+                        mt="2"
+                        gap="2"
+                        height={post.id === selectId && "11.5rem "}
+                        overflow="scroll">
+                        {post.id === selectId &&
+                          post.parse.map((obj, i) => (
+                            <WordBookmarkPopOver text={obj.text} key={i} />
+                          ))}
+                      </Flex>
+                    </>
+                  )}
                 </motion.div>
-              );
-            })}
-          </Flex>
-        </AnimatePresence>
-      </LayoutGroup>
+              </motion.div>
+            );
+          })}
+        </Flex>
+      </AnimatePresence>
+      {/* </LayoutGroup> */}
     </Box>
   );
 });

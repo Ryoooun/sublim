@@ -46,7 +46,7 @@ const closeButtonStyle = css({
 
 const tagStyle = css({
   backgroundColor: "#3fcb72",
-  maxWidth: "90%",
+  // maxWidth: "90%",
   padding: "0.25rem 0.5rem",
   borderRadius: "0.5rem",
   color: "#fff",
