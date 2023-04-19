@@ -190,7 +190,7 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                         css={scroll}
                         flexWrap="wrap"
                         justifyItems="center"
-                        my="4"
+                        mt="2"
                         gap="2"
                         height={post.id === selectId && "12vh"}
                         overflow="scroll">
