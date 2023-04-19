@@ -81,7 +81,7 @@ const cardVariants = {
   on: {
     width: "100vw",
     height: "38vh",
-    padding: "2rem",
+    padding: "1rem",
   },
   onPc: {
     height: "38vh",
@@ -170,7 +170,6 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                       <>
                         <Divider w="full" mt="3" />
                         <SimpleGrid
-                          pb="3"
                           mt="1"
                           spacing="0.5rem"
                           height={post.id === selectId && "8rem "}
