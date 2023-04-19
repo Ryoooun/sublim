@@ -1,5 +1,7 @@
 import {
   Box,
+  Flex,
+  Text,
   Heading,
   InputGroup,
   InputLeftElement,
@@ -9,6 +11,8 @@ import {
 import { motion } from "framer-motion";
 import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import AddNewCollectionButton from "../atoms/AddNewStackButton";
+import useWordsDB from "@/app/hooks/useWordsDB";
+import BookmarkModal from "../molecules/BookmarkModal";
 
 export default function WordStackHeader({
   isLargerThen50em,
@@ -16,6 +20,8 @@ export default function WordStackHeader({
   setSearch,
   setSelectId,
 }) {
+  const { words } = useWordsDB();
+
   const handleChange = (e) => {
     if (RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(e.target.value[0])) {
     } else {
@@ -33,9 +39,16 @@ export default function WordStackHeader({
       bg="radial-gradient(circle, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0) 100%)"
       zIndex="10"
       position="relative">
-      <Heading ml="2" mb="4">
-        Words
-      </Heading>
+      <Flex
+        direction="row"
+        justifyContent="space-between"
+        alignItems="baseline"
+        pr={isLargerThen50em ? "10" : ""}>
+        <Heading ml="2" mb="4">
+          Words
+        </Heading>
+        <Text fontWeight="thin">{words.length} words</Text>
+      </Flex>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
@@ -55,6 +68,9 @@ export default function WordStackHeader({
         />
         <AddNewCollectionButton setSelectId={setSelectId} />
       </InputGroup>
+      <Flex justifyContent="flex-end">
+        <BookmarkModal text={"学習予定から学習を始める"} />
+      </Flex>
     </Box>
   );
 }

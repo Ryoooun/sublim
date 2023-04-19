@@ -16,6 +16,7 @@ import { ZennPost } from "./ZennPost";
 import { useState } from "react";
 import useWord from "@/app/hooks/useWord";
 import "../../../../components/organisms/scroll.css";
+import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 const closeButtonStyle = css({
   display: "block",
@@ -194,15 +195,7 @@ export default memo(function ZennPostList({ zennItems }) {
                           overflow="scroll">
                           {post.id === selectId &&
                             post.parse.map((obj, i) => (
-                              <motion.span
-                                css={tagStyle}
-                                key={i}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  alert(obj.text);
-                                }}>
-                                {obj.text}
-                              </motion.span>
+                              <WordBookmarkPopOver text={obj.text} key={i} />
                             ))}
                         </SimpleGrid>
                       </>

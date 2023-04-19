@@ -31,18 +31,20 @@ export default function useWordsDB() {
 
   // コレクション読み込みを行うハンドラ
   const getWords = useCallback(() => {
-    const WordsRef = collection(db, "posts", user.uid, "Words");
-    getDocs(WordsRef).then((querySnapshot) => {
-      useWordsStore.setState(
-        {
-          words: querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          })),
-        },
-        true
-      );
-    });
+    if (user) {
+      const WordsRef = collection(db, "posts", user.uid, "Words");
+      getDocs(WordsRef).then((querySnapshot) => {
+        useWordsStore.setState(
+          {
+            words: querySnapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            })),
+          },
+          true
+        );
+      });
+    }
   }, []);
 
   const setWord = useCallback(async (word) => {

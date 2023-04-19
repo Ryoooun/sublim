@@ -32,7 +32,7 @@ export default function WordPageContent({ children }) {
   };
 
   return (
-    <Container maxW="100vw" maxH="100vh" overflow="hidden" whiteSpace="nowrap">
+    <Container maxW="80vw" maxH="100vh" overflow="hidden" whiteSpace="nowrap">
       <WordStackHeader
         isLargerThen50em={isLargerThen50em}
         search={search}
