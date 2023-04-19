@@ -4,14 +4,18 @@ import {
   Flex,
   Text,
   Button,
-  Input,
-  FormControl,
-  FormHelperText,
-  FormErrorMessage,
-  useToast,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
 } from "@/app/common/chakraui/ChakraUI";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import dayjs from "dayjs";
 import useBookmarkDB from "@/app/hooks/useBookmarkDB";
 import useWordsDB from "@/app/hooks/useWordsDB";
 
@@ -94,8 +98,14 @@ export default function BookmarkModal({ text }) {
   const [word, setWord] = useState(value);
   const [toggle, setToggle] = useState(false);
   const [registered, setRegistered] = useState([]);
-  const { getBookmark } = useBookmarkDB();
+  const { getBookmark, bookmarks } = useBookmarkDB();
   const { words } = useWordsDB();
+
+  useEffect(() => {
+    if (bookmarks.length === 0) {
+      getBookmark();
+    }
+  }, []);
 
   const isError =
     word.length == 0
@@ -147,19 +157,39 @@ export default function BookmarkModal({ text }) {
               textAlign="center"
               mt="2"
               color="blackAlpha.700">
-              学習予定から学習を始める
+              学習予定の単語
             </Text>
+            <TableContainer>
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Title</Th>
+                    <Th>Date</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {bookmarks.map((obj) => {
+                    return (
+                      <Tr key={obj.id}>
+                        <Td>{obj.title}</Td>
+                        <Td isNumeric>
+                          <Text
+                            as="time"
+                            fontSize="xs"
+                            color="gray.500"
+                            dateTime={dayjs(obj.timestamp.toDate()).format(
+                              "YYYY-MM-DDTHH:mm"
+                            )}>
+                            {dayjs(obj.timestamp.toDate()).format("YYYY-MM-DD")}
+                          </Text>
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
             <Flex direction="row" justifyContent="center" gap="2" mt="0.5rem">
-              <Button
-                colorScheme="whatsapp"
-                isLoading={isError?.result}
-                loadingText="Checking"
-                isDisabled={isError?.result || registered.length > 0}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}>
-                追加
-              </Button>
               <Button colorScheme="gray" onClick={(e) => handleCancel(e)}>
                 キャンセル
               </Button>
