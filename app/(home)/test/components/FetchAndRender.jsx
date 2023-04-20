@@ -1,14 +1,9 @@
+import { CircularProgress } from "@/app/common/chakraui/ChakraUI";
 import useSWR from "swr";
-import {
-  CircularProgress,
-  Flex,
-  SimpleGrid,
-} from "@/app/common/chakraui/ChakraUI";
-import { useMemo } from "react";
 
-import WordCloud from "react-d3-cloud";
 import { scaleOrdinal } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
+import WordCloud from "react-d3-cloud";
 
 export default function FetchAndRender({ postUrl }) {
   const fetcher = (url) => fetch(url).then((res) => res.json());

@@ -20,24 +20,28 @@ export default React.memo(function LinkList({
       title: "Dashboard",
       path: `/user/${user?.uid}`,
       icon: RiHome2Fill,
+      prefetch: true,
     },
     {
       id: 1,
       title: "Trend",
       path: `/user/${user?.uid}/trend`,
       icon: RiSearchLine,
+      prefetch: true,
     },
     {
       id: 2,
       title: "Words",
       path: `/user/${user?.uid}/words`,
       icon: MdModeEdit,
+      prefetch: false,
     },
     {
       id: 3,
       title: "Map",
       path: `/user/${user?.uid}/map`,
       icon: RiMapLine,
+      prefetch: false,
     },
   ];
   return (
@@ -51,6 +55,7 @@ export default React.memo(function LinkList({
             alignItems="center"
             key={list.id}
             as={NextLink}
+            prefetch={linksTop.prefetch}
             href={list.path}
             _hover={{ color: "brand.500" }}>
             {list.icon ? <Icon as={list.icon} boxSize="6" /> : null}

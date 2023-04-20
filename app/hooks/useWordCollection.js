@@ -1,20 +1,8 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  get,
-  snapshotEqual,
-  onSnapshot,
-  query,
-  where,
-  DocumentReference,
-} from "firebase/firestore";
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
+import { collection, getDocs } from "firebase/firestore/lite";
+// import "firebase/compat/firestore";
 
 import { auth, db } from "../auth/firebase";
 

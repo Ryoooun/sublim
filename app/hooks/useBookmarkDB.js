@@ -4,22 +4,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import {
   collection,
   getDocs,
-  doc,
-  getDoc,
-  get,
-  updateDoc,
-  snapshotEqual,
-  onSnapshot,
-  query,
-  where,
-  DocumentReference,
   addDoc,
-} from "firebase/firestore";
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
+  serverTimestamp,
+} from "firebase/firestore/lite";
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/firestore";
 
 import { auth, db } from "../auth/firebase";
-import { getAuth } from "firebase/auth";
 import { useBookmarksStore } from "../store/bookmarks";
 import useWordsDB from "./useWordsDB";
 
@@ -57,10 +48,10 @@ export default function useBookmarkDB() {
       const docRef = await addDoc(bookmarkRef, {
         title: bookmark,
         content: "",
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: serverTimestamp(),
       });
       if (docRef) {
-        getWords();
+        getBookmark();
         return {
           code: 1,
           id: docRef.id,
@@ -74,8 +65,8 @@ export default function useBookmarkDB() {
           message: "追加しようとした単語は既に登録されています。",
         };
       }
-      console.log(e.message);
-      getWords();
+      console.log(e);
+      getBookmark();
       return { code: -1, message: "単語の登録に失敗しました。" };
     }
   }, []);

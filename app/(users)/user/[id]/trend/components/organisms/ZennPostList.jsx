@@ -15,7 +15,6 @@ import { useState } from "react";
 
 import "../../../../components/organisms/scroll.css";
 import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
-import NextImage from "next/image";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -138,7 +137,6 @@ export default memo(function ZennPostList({ zennItems }) {
                 onClick={() => handleClickCard(post)}>
                 <motion.div style={{ whiteSpace: "normal" }}>
                   <Avatar
-                    as={NextImage}
                     name={post.user.username}
                     src={post.user.avatarSmallUrl}
                     size="md"
@@ -154,7 +152,7 @@ export default memo(function ZennPostList({ zennItems }) {
                   {post.id === selectId && (
                     <>
                       <Flex
-                        as="motion.div"
+                        as={motion.div}
                         layout
                         css={scroll}
                         flexWrap="wrap"

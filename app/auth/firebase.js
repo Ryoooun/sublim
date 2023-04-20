@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 // Google認証ポップアップの設定
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 // Firesoreの初期化
-import { getFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore/lite";
 import { getStorage } from "firebase/storage";
 // webアプリのFirebase設定
 const firebaseConfig = {

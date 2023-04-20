@@ -28,8 +28,9 @@ export default async function getData() {
       const tags = post.tags.map((tag) => tag?.name);
       const parse = await fetch(
         new URL(
-          `/api/parse?url=${post.url}`,
-          "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
+          `http://localhost:3000/api/parse?url=${post.url}`
+
+          // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
         )
       ).then((res) => res.json());
       // const url = post.url;

@@ -5,7 +5,6 @@ import remarkGfm from "remark-gfm";
 import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
 import { MdEdit } from "@react-icons/all-files/md/MdEdit";
 import {
-  Textarea,
   Heading,
   Tabs,
   TabList,
@@ -28,9 +27,10 @@ import {
   OrderedList,
   UnorderedList,
   Button,
+  Textarea,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import { TextArea } from "@chakra-ui/react";
+
 import EditableText from "./EditableText";
 
 import { memo, useState, useCallback } from "react";
@@ -355,7 +355,7 @@ export default memo(function WordStack({
                             }}>
                             <Tabs
                               variant="enclosed"
-                              as="motion.div"
+                              as={motion.div}
                               layout
                               layoutScroll
                               w={isLargerThen50em ? "70vw" : "80vw"}>
@@ -370,7 +370,6 @@ export default memo(function WordStack({
                               <TabPanels>
                                 <TabPanel>
                                   <ReactMarkdown
-                                    as={TextArea}
                                     css={markDownStyle}
                                     children={word.contents
                                       .replace(/  /g, "\n")

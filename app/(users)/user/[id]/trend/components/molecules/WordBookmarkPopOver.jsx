@@ -11,7 +11,7 @@ import {
   useToast,
 } from "@/app/common/chakraui/ChakraUI";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useBookmarkDB from "@/app/hooks/useBookmarkDB";
 
 const closeButtonStyle = css({

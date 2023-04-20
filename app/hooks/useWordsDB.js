@@ -5,18 +5,14 @@ import {
   collection,
   getDocs,
   doc,
-  getDoc,
-  get,
   updateDoc,
-  snapshotEqual,
-  onSnapshot,
   query,
   where,
-  DocumentReference,
   addDoc,
-} from "firebase/firestore";
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
+  serverTimestamp,
+} from "firebase/firestore/lite";
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/firestore";
 
 import { auth, db } from "../auth/firebase";
 
@@ -56,7 +52,7 @@ export default function useWordsDB() {
       const docRef = await addDoc(WordsRef, {
         title: word,
         contents: "",
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: serverTimestamp(),
       });
       if (docRef) {
         getWords();

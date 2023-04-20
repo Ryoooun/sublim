@@ -1,6 +1,6 @@
-import { Box, Heading, Button } from "../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
 import React from "react";
+import { Box, Button, Heading } from "../../common/chakraui/ChakraUI";
 
 export default React.memo(function AboutLink(params) {
   return (

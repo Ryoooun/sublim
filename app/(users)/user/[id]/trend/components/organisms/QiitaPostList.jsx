@@ -13,8 +13,6 @@ import { memo, useState } from "react";
 import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 import "../../../../components/organisms/scroll.css";
-import "../../../../components/organisms/scroll.css";
-import NextImage from "next/image";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -138,7 +136,6 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                 onClick={() => handleClickCard(post)}>
                 <motion.div style={{ whiteSpace: "normal" }}>
                   <Avatar
-                    as={NextImage}
                     name={post.user.id}
                     src={post.user.profile_image_url}
                     size="md"
@@ -154,7 +151,7 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                   {post.id === selectId && (
                     <>
                       <Flex
-                        as="motion.div"
+                        as={motion.div}
                         layout
                         css={scroll}
                         flexWrap="wrap"

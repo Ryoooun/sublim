@@ -64,7 +64,7 @@ export default function PostSkelton({ qiitaItems }) {
           .fill(1)
           .map((_, i) => {
             return (
-              <Box style={{ whiteSpace: "normal" }} css={off}>
+              <Box style={{ whiteSpace: "normal" }} css={off} key={i}>
                 <SkeletonCircle size="3rem" />
                 <SkeletonText noOfLines={4} spacing="2" skeletonHeight="5" />
                 <SkeletonText fontSize="sm" />

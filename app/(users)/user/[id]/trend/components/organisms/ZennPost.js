@@ -35,10 +35,9 @@ export async function ZennPost(params) {
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
       const parse = await fetch(
-        new URL(
-          `/api/parse?url=https://zenn.dev${obj.path}`,
-          "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
-        )
+        `http://localhost:3000/api/parse?url=https://zenn.dev${obj.path}`
+
+        // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
       ).then((res) => res.json());
       return {
         id: obj.id,

@@ -1,10 +1,9 @@
 "use client";
 import { Box, Button, VStack } from "../../common/chakraui/ChakraUI";
-import HeroLogo from "../organisms/HeroLogo";
-import DescriptionBanner from "../organisms/DescriptionBanner";
-import HomeStackCard from "./HomeStackCard";
 import AboutLink from "../organisms/AboutLink";
-import useAuthWithPopup from "@/app/hooks/useAuthWithPopup";
+import DescriptionBanner from "../organisms/DescriptionBanner";
+import HeroLogo from "../organisms/HeroLogo";
+import HomeStackCard from "./HomeStackCard";
 
 import useAuthSetPersistence from "@/app/hooks/useAuthSetPersistence";
 

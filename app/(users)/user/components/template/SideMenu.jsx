@@ -6,7 +6,6 @@ import {
   Flex,
   VStack,
   Divider,
-  useMediaQuery,
 } from "../../../../common/chakraui/ChakraUI";
 import { RiLogoutBoxLine } from "@react-icons/all-files/ri/RiLogoutBoxLine";
 

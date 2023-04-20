@@ -10,7 +10,7 @@ import {
 import { useLogout } from "../../../../hooks/useLogout";
 
 import React, { useMemo } from "react";
-import { LayoutGroup, AnimatePresence } from "framer-motion";
+import { LayoutGroup } from "framer-motion";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/auth/firebase";
 

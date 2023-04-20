@@ -1,6 +1,5 @@
-import { Button, Icon } from "../../common/chakraui/ChakraUI";
-import { useMediaQuery } from "../../common/chakraui/ChakraUI";
 import React from "react";
+import { Button, Icon, useMediaQuery } from "../../common/chakraui/ChakraUI";
 
 export default React.memo(function PrimaryButton({ title, icon, onClick }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)", {

@@ -2,8 +2,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import { Button, Box, Center, Input } from "@/app/common/chakraui/ChakraUI";
-import { motion } from "framer-motion";
+import { Box, Button, Center, Input } from "@/app/common/chakraui/ChakraUI";
 import { useState } from "react";
 
 import FetchAndRender from "./components/FetchAndRender";
