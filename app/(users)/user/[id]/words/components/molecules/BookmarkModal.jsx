@@ -1,24 +1,21 @@
 /**@jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import {
-  Flex,
-  Text,
   Button,
+  Flex,
   Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
   TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Tr,
   useDisclosure,
 } from "@/app/common/chakraui/ChakraUI";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import dayjs from "dayjs";
 import useBookmarkDB from "@/app/hooks/useBookmarkDB";
 import useWordsDB from "@/app/hooks/useWordsDB";
+import { css } from "@emotion/react";
+import dayjs from "dayjs";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import BookmarkAlert from "../atoms/BookmarkAlert";
 
 const closeButtonStyle = css({

@@ -1,12 +1,11 @@
 /**@jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import {
-  Flex,
   Box,
-  SkeletonText,
+  Flex,
   SkeletonCircle,
-  Skeleton,
+  SkeletonText,
 } from "@/app/common/chakraui/ChakraUI";
+import { css } from "@emotion/react";
 
 const flexStyle = css({
   padding: "0 4rem 0 2rem",

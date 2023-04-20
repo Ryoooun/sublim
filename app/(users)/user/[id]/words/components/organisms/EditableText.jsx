@@ -1,17 +1,17 @@
 import {
-  EditablePreview,
-  IconButton,
-  Input,
-  useEditableControls,
   ButtonGroup,
   Editable,
   EditableInput,
+  EditablePreview,
   Flex,
+  IconButton,
+  Input,
   Text,
+  useEditableControls,
 } from "@/app/common/chakraui/ChakraUI";
-import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
 import useWordsDB from "@/app/hooks/useWordsDB";
+import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
 export default function EditableText({ title, words }) {
   const [titles, setTitles] = useState([]);

@@ -1,6 +1,6 @@
 import { scaleOrdinal } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import WordCloud from "react-d3-cloud";
 const color = scaleOrdinal(schemeCategory10);
 export default function Cloud({ post }) {

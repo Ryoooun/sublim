@@ -1,27 +1,27 @@
 "use client";
 
 import {
-  Text,
+  Button,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Input,
-  Button,
-  FormHelperText,
-  FormErrorMessage,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
   useToast,
 } from "@/app/common/chakraui/ChakraUI";
 // import ColorRadioButton from "./ColorRadioButton";
 
-import { useState, useMemo } from "react";
 import useWordsDB from "@/app/hooks/useWordsDB";
+import { useState } from "react";
 
 export default function AddCollectionModal({
   isOpen,

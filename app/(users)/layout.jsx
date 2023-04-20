@@ -1,9 +1,9 @@
 "use client";
-import Menu from "./user/components/template/Menu";
-import { Global, css } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 import React, { useEffect } from "react";
-import useWordsDB from "../hooks/useWordsDB";
 import useBookmarkDB from "../hooks/useBookmarkDB";
+import useWordsDB from "../hooks/useWordsDB";
+import Menu from "./user/components/template/Menu";
 
 const global = css`
   html {

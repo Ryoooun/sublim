@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
 import { Box } from "@/app/common/chakraui/ChakraUI";
-import "./scroll.css";
+import { motion } from "framer-motion";
 import React from "react";
+import "./scroll.css";
 
 const variantsPage = {
   open: {

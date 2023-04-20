@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import { memo } from "react";
 
 import { Box, useMediaQuery } from "@/app/common/chakraui/ChakraUI";
 
-export default React.memo(function PageWrapper({ children }) {
+export default memo(function PageWrapper({ children }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   return (
     <Box

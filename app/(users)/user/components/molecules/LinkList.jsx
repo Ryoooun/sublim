@@ -1,13 +1,13 @@
 "use client";
-import React, { useMemo } from "react";
+import React from "react";
 
-import { Icon, Link, Heading } from "../../../../common/chakraui/ChakraUI";
 import NextLink from "next/link";
+import { Heading, Icon, Link } from "../../../../common/chakraui/ChakraUI";
 
-import { RiHome2Fill } from "@react-icons/all-files/ri/RiHome2Fill";
-import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import { MdModeEdit } from "@react-icons/all-files/md/MdModeEdit";
+import { RiHome2Fill } from "@react-icons/all-files/ri/RiHome2Fill";
 import { RiMapLine } from "@react-icons/all-files/ri/RiMapLine";
+import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 
 export default React.memo(function LinkList({
   fontSize = "2xl",

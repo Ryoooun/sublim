@@ -1,22 +1,22 @@
 "use client";
 import { useSideMenuIsOpen } from "@/app/store/sidemenuIsOpen";
 
+import { RiLogoutBoxLine } from "@react-icons/all-files/ri/RiLogoutBoxLine";
 import {
   Button,
+  Divider,
   Flex,
   VStack,
-  Divider,
 } from "../../../../common/chakraui/ChakraUI";
-import { RiLogoutBoxLine } from "@react-icons/all-files/ri/RiLogoutBoxLine";
 
 import DashBoardAvatar from "../atoms/DashBoardAvatar";
 import HamburgerIcon from "../atoms/HamburgerIcon";
 import LinkList from "../molecules/LinkList";
-import SideMenuWrapper from "../organisms/SideMenuWrapper";
-import PageWrapper from "../organisms/PageWrapper";
 import UserNameHeading from "../molecules/UserNameHeading";
+import PageWrapper from "../organisms/PageWrapper";
+import SideMenuWrapper from "../organisms/SideMenuWrapper";
 
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 
 export const SideMenu = ({ logout, user, isLargerThen50em, children }) => {
   const isOpen = useSideMenuIsOpen((state) => state.isOpen);

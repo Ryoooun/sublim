@@ -1,10 +1,9 @@
 "use client";
 
-import { auth } from "../auth/firebase";
 import { notFound } from "next/navigation";
+import { auth } from "../auth/firebase";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
-import { useEffect } from "react";
 
 export const useUserHook = () => {
   try {

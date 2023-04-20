@@ -1,13 +1,12 @@
 import {
   AlertDialog,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogContent,
   AlertDialogOverlay,
   Button,
   Text,
-  Flex,
 } from "@/app/common/chakraui/ChakraUI";
 import { useRef } from "react";
 

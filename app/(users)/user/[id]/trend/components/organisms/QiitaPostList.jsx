@@ -1,18 +1,17 @@
 /**@jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import {
-  Avatar,
-  Text,
-  Heading,
-  Flex,
   Box,
+  Flex,
+  Heading,
+  Text,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
+import { css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
+import NextImage from "next/image";
 import { memo, useState } from "react";
-import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
-
 import "../../../../components/organisms/scroll.css";
+import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -20,6 +19,10 @@ const scroll = css({
   "&::-webkit-scrollbar": {
     display: "none",
   },
+});
+
+const avatarStyleImage = css({
+  borderRadius: "50%",
 });
 
 const flexStyle = css({
@@ -135,11 +138,16 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                 key={post.id}
                 onClick={() => handleClickCard(post)}>
                 <motion.div style={{ whiteSpace: "normal" }}>
-                  <Avatar
-                    name={post.user.id}
+                  <NextImage
+                    // name={post.user.id}
                     src={post.user.profile_image_url}
-                    size="md"
+                    alt={post.id}
+                    width={50}
+                    height={50}
+                    css={avatarStyleImage}
+                    // size="md"
                   />
+
                   <Text
                     fontSize="xs"
                     fontFamily="mono">{`@${post.user.id}`}</Text>

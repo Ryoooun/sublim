@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
-import { useMediaQuery } from "../../../../common/chakraui/ChakraUI";
 
 const HamburgerIcon = React.memo(
   ({ isOpen, toggle, isLargerThen50em, ref }) => {

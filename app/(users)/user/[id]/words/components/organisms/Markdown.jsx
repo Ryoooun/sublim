@@ -1,100 +1,32 @@
 "use client";
 
-import { useCallback } from "react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import remarkGfm from "remark-gfm";
 import {
-  Textarea,
-  Heading,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-  Link,
-  Image,
-  Text,
-  Divider,
   Code,
-  List,
+  Divider,
+  Heading,
+  Image,
+  Link,
   ListItem,
   OrderedList,
+  Tab,
+  Table,
+  TableContainer,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Tbody,
+  Td,
+  Text,
+  Textarea,
+  Th,
+  Thead,
+  Tr,
   UnorderedList,
 } from "@/app/common/chakraui/ChakraUI";
 import { useState } from "react";
-
-const test = `#### 斜体
-
- *強調* もしくは _強調_
-
- #### 太字
-
- **強い強調** もしくは __強い強調__
-
- #### コード
-
- インラインコードは「\`some code\`」のようにバッククオート（U+0060）で囲む
-
-     1行目
-     2行目
-     3行目
-
- #### リスト
-
- * 順序無しリストのアイテム
-    * サブアイテムは4つのスペースでインデントする
- * 順序無しリストの別のアイテム
-
- 1. 順序付きリストのアイテム
- 2. 順序付きリストの別のアイテム
-
- #### 見出し
-
- # レベル1の見出し
-
- ## レベル2の見出し
-
- ### レベル3の見出し
-
- #### レベル4の見出し
-
- レベル1の見出し
- ===============
-
- レベル2の見出し
- ---------------
-
- #### 引用
-
- > "このテキストは、HTMLのblockquote要素に囲まれます。
- blockquote要素はreflowableです。テキストを好きなように
- 改行することができます。改行したとしても、変換後はひとつの
- blockquote要素として扱われます。"
-
- #### リンク
-
- [Opentone](http://www.opentone.co.jp/ "Opentone")
-
- #### 水平線
-
- ---
-
-|a|b|c|d|
-|-|-|-|-|
-|content A| content B|content C|content D|
-|content A| content B|content C|content D|
-|content A| content B|content C|content D|
-
-`;
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function Markdown() {
   const [value, setValue] = useState(test);

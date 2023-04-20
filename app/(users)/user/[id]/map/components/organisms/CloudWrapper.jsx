@@ -1,9 +1,9 @@
 "use client";
 import { CircularProgress } from "@/app/common/chakraui/ChakraUI";
 
-import Cloud from "../atoms/Cloud";
-import { memo, useState } from "react";
 import useWord from "@/app/hooks/useWord";
+import { memo } from "react";
+import Cloud from "../atoms/Cloud";
 
 export default memo(function CloudWrapper({ url }) {
   const { post } = useWord({ url });

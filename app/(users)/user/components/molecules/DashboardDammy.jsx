@@ -1,9 +1,9 @@
 import {
   Card,
-  CardHeader,
-  Heading,
-  Divider,
   CardBody,
+  CardHeader,
+  Divider,
+  Heading,
 } from "@/app/common/chakraui/ChakraUI";
 import { memo } from "react";
 

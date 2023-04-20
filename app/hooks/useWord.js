@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import { useEffect, useState } from "react";
 
 const fetcher = (id) => fetch(id).then((r) => r.json());
 

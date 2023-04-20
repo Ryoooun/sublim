@@ -1,6 +1,5 @@
-import { IconButton } from "@/app/common/chakraui/ChakraUI";
+import { IconButton, useDisclosure } from "@/app/common/chakraui/ChakraUI";
 import { IoIosAdd } from "@react-icons/all-files/io/IoIosAdd";
-import { useDisclosure } from "@/app/common/chakraui/ChakraUI";
 import { useRef } from "react";
 
 import AddCollectionModal from "../organisms/AddCollectionModal";

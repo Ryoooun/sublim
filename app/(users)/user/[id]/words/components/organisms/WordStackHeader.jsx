@@ -1,17 +1,16 @@
 import {
   Box,
   Flex,
-  Text,
   Heading,
+  Input,
   InputGroup,
   InputLeftElement,
-  Input,
-  IconButton,
+  Text,
 } from "@/app/common/chakraui/ChakraUI";
-import { motion } from "framer-motion";
-import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
-import AddNewCollectionButton from "../atoms/AddNewStackButton";
 import useWordsDB from "@/app/hooks/useWordsDB";
+import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
+import { motion } from "framer-motion";
+import AddNewCollectionButton from "../atoms/AddNewStackButton";
 import BookmarkModal from "../molecules/BookmarkModal";
 
 export default function WordStackHeader({

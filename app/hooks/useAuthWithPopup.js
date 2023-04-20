@@ -3,8 +3,8 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
 
-import { useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 export default function useAuthWithPopup() {
   const router = useRouter();

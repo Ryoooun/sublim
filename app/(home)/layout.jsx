@@ -1,8 +1,8 @@
 "use client";
 
-import HomeMenu from "./template/HomeMenu";
 import { useEffect, useState } from "react";
 import { useURLStore } from "../store/urlOrigin";
+import HomeMenu from "./template/HomeMenu";
 
 export default function HomeLayout({ children }) {
   const setOriginUrl = useURLStore((state) => state.setOriginUrl);

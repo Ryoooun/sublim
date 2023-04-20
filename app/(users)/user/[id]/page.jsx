@@ -1,24 +1,10 @@
 "use client";
 
-import { useLogout } from "@/app/hooks/useLogout";
-
-import {
-  Button,
-  Flex,
-  Card,
-  CardBody,
-  CardHeader,
-  Heading,
-  Divider,
-  useMediaQuery,
-  Box,
-} from "../../../common/chakraui/ChakraUI";
+import { Box, useMediaQuery } from "../../../common/chakraui/ChakraUI";
 import DashboardDammy from "../components/molecules/DashboardDammy";
 
 import { useUserHook } from "@/app/hooks/useUser";
 import { useCallback } from "react";
-import useWordsDB from "@/app/hooks/useWordsDB";
-import useBookmarkDB from "@/app/hooks/useBookmarkDB";
 
 export default function page(params) {
   const user = useUserHook();

@@ -3,8 +3,6 @@
 import {
   Container,
   SimpleGrid,
-  Grid,
-  Flex,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";

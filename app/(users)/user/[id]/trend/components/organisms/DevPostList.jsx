@@ -1,13 +1,12 @@
 import {
   Avatar,
-  Text,
-  Heading,
-  Flex,
   Box,
   Divider,
-  useMediaQuery,
+  Flex,
+  Heading,
+  Text,
 } from "@/app/common/chakraui/ChakraUI";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 
 import "../../../../components/organisms/scroll.css";
 

@@ -9,10 +9,10 @@ import {
 } from "@/app/common/chakraui/ChakraUI";
 import { useLogout } from "../../../../hooks/useLogout";
 
-import React, { useMemo } from "react";
-import { LayoutGroup } from "framer-motion";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/auth/firebase";
+import { LayoutGroup } from "framer-motion";
+import React, { useMemo } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default React.memo(function Menu({ children }) {
   const [user, loading] = useAuthState(auth);

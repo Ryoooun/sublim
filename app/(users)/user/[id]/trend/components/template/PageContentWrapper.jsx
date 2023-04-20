@@ -1,13 +1,12 @@
 "use client";
 
-import React, { Suspense, useCallback, useMemo, lazy } from "react";
-import { AnimatePresence, LayoutGroup } from "framer-motion";
 import {
-  Heading,
   Box,
-  VStack,
+  Heading,
   useMediaQuery,
+  VStack,
 } from "@/app/common/chakraui/ChakraUI";
+import React, { lazy, Suspense } from "react";
 // import QiitaPostList from "../organisms/QiitaPostList";
 // import ZennPostList from "../organisms/ZennPostList";
 // import DevPostList from "../organisms/DevPostList";

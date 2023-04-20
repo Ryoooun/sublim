@@ -1,18 +1,15 @@
 /**@jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import {
-  Avatar,
-  Text,
-  Heading,
-  Flex,
   Box,
+  Flex,
+  Heading,
+  Text,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
+import { css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { memo } from "react";
-import { ZennPost } from "./ZennPost";
-import { useState } from "react";
-
+import NextImage from "next/image";
+import { memo, useState } from "react";
 import "../../../../components/organisms/scroll.css";
 import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
@@ -24,6 +21,9 @@ const scroll = css({
   },
 });
 
+const avatarStyleImage = css({
+  borderRadius: "50%",
+});
 const flexStyle = css({
   height: "100%",
   padding: "0 4rem 0 2rem",
@@ -136,11 +136,14 @@ export default memo(function ZennPostList({ zennItems }) {
                 key={post.id}
                 onClick={() => handleClickCard(post)}>
                 <motion.div style={{ whiteSpace: "normal" }}>
-                  <Avatar
-                    name={post.user.username}
+                  <NextImage
                     src={post.user.avatarSmallUrl}
-                    size="md"
+                    alt={post.id}
+                    width={50}
+                    height={50}
+                    css={avatarStyleImage}
                   />
+
                   <Text
                     fontSize="xs"
                     fontFamily="mono">{`@${post.user.username}`}</Text>

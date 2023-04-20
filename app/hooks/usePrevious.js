@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 // 前回の値を保持する。
 // function Counter() {
