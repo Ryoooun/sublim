@@ -1,16 +1,14 @@
 "use client";
-import { useLogout } from "@/app/hooks/useLogout";
-
 import NextLink from "next/link";
+import React from "react";
 import {
   Avatar,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Link,
 } from "../../common/chakraui/ChakraUI";
-import React from "react";
 
 export default React.memo(function AvatarMenu({ name, src, logout }) {
   return (

@@ -1,75 +1,46 @@
 "use client";
+import { SideMenu } from "./SideMenu";
 
 import {
-  Flex,
-  Heading,
-  Text,
-  Image,
-  Button,
-} from "../../../../common/chakraui/ChakraUI";
-import { BsPlusSquare } from "@react-icons/all-files/bs/BsPlusSquare";
-import { BsNewspaper } from "@react-icons/all-files/bs/BsNewspaper";
-import { RiDoorOpenLine } from "@react-icons/all-files/ri/RiDoorOpenLine";
-import { RiMailStarLine } from "@react-icons/all-files/ri/RiMailStarLine";
-import { CgProfile } from "@react-icons/all-files/cg/CgProfile";
+  Box,
+  CircularProgress,
+  Container,
+  useMediaQuery,
+} from "@/app/common/chakraui/ChakraUI";
+import { useLogout } from "../../../../hooks/useLogout";
 
-import DashBoardAvatar from "../atoms/DashBoardAvatar";
+import { auth } from "@/app/auth/firebase";
+import { LayoutGroup } from "framer-motion";
+import React, { useMemo } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import { useLogout } from "@/app/hooks/useLogout";
-import { useUser } from "@/app/hooks/useUser";
+export default React.memo(function Menu({ children }) {
+  const [user, loading] = useAuthState(auth);
 
-export default function Menu() {
-  const user = useUser();
-  const logout = useLogout();
-
-  return (
-    <>
-      <Flex w="20%" direction="column" align="center">
-        <Flex direction="column" justify="space-between">
-          <Flex mt="50" mb="100">
-            <DashBoardAvatar src={user.photoURL || null} />
-            <Heading ml="3" fontWeight="800" fontSize="xl" alignSelf="center">
-              {user.userName || null}
-            </Heading>
-          </Flex>
-          <Flex h="65vh" direction="column" justify="space-between">
-            <Flex
-              h="20vh"
-              mb="32"
-              direction="column"
-              align="flex-start"
-              justify="space-around">
-              <Flex
-                fontSize="xl"
-                color="gray"
-                align="center"
-                fontWeight="800"
-                bg="pink.50"
-                p="3"
-                m="-3"
-                rounded="full">
-                <CgProfile color="pink" />
-                <Text ml="3">Home</Text>
-              </Flex>
-
-              <Flex fontSize="xl" color="gray" align="center">
-                <BsNewspaper color="#63B3ED" />
-                <Text ml="3">About</Text>
-              </Flex>
-              <Flex fontSize="xl" color="gray" align="center">
-                <RiMailStarLine color="#ECC94B" />
-                <Text ml="3">Employee</Text>
-              </Flex>
-            </Flex>
-            <Flex fontSize="2xl" mb={30} color="gray" align="center">
-              <RiDoorOpenLine />
-              <Button ml={3} fontSize="md" onClick={logout}>
-                Log out
-              </Button>
-            </Flex>
-          </Flex>
-        </Flex>
-      </Flex>
-    </>
-  );
-}
+  const logout = useMemo(() => useLogout(), []);
+  const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
+  if (loading) {
+    return (
+      <Container display="grid" placeContent="center" w="100vw" h="100vh">
+        <CircularProgress size="10rem" isIndeterminate color="brand.400" />
+      </Container>
+    );
+  }
+  if (user) {
+    return (
+      <LayoutGroup>
+        <Box
+          bg="#f5f6f6"
+          overflow="hidden"
+          onTouchMove={(e) => e.preventDefault()}>
+          <SideMenu
+            logout={logout}
+            user={user}
+            isLargerThen50em={isLargerThen50em}>
+            {children}
+          </SideMenu>
+        </Box>
+      </LayoutGroup>
+    );
+  }
+});

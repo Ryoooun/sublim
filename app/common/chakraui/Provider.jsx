@@ -1,7 +1,5 @@
 "use client";
-import { extendTheme } from "@chakra-ui/react";
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "@/app/theme";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const customTheme = extendTheme({
   colors: {

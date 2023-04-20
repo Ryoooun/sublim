@@ -1,8 +1,7 @@
 "use client";
+import React, { useRef } from "react";
+import { Box, Flex, Heading } from "../../../common/chakraui/ChakraUI";
 import SideMenu from "./SideMenu";
-import { Heading, Box, Flex } from "../../../common/chakraui/ChakraUI";
-import { useRef } from "react";
-import React from "react";
 
 export default React.memo(function AboutContent(props, ref) {
   const top = useRef(null);

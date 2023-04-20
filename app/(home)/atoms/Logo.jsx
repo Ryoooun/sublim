@@ -1,5 +1,5 @@
-import { Heading } from "../../common/chakraui/ChakraUI";
 import React from "react";
+import { Heading } from "../../common/chakraui/ChakraUI";
 // logoをスタイリングする。
 export default React.memo(function Logo({
   logo = "SUBLIM",

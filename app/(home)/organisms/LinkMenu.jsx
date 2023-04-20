@@ -1,17 +1,16 @@
+import NextLink from "next/link";
 import {
+  Icon,
   Link,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  Icon,
-  Box,
+  MenuList,
 } from "../../common/chakraui/ChakraUI";
-import NextLink from "next/link";
 
-import { useMediaQuery } from "../../common/chakraui/ChakraUI";
-import React from "react";
 import { HiMenu } from "@react-icons/all-files/hi/HiMenu";
+import React from "react";
+import { useMediaQuery } from "../../common/chakraui/ChakraUI";
 
 export default React.memo(function LinkMenu({ currentPage, handleLinkClick }) {
   const menuContents = [

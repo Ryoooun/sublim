@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["chakraui"]
+  "cSpell.words": [
+    "chakraui",
+    "kuromoji",
+    "kuromojijs",
+    "Qiita",
+    "teremex",
+    "termex",
+    "termextract",
+    "Zenn"
+  ],
+  "search.useIgnoreFiles": true
 }

@@ -1,14 +1,14 @@
+import React from "react";
 import {
-  Stack,
-  Card,
-  CardHeader,
-  CardBody,
-  Flex,
   Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Flex,
   Icon,
+  Stack,
   Text,
 } from "../../common/chakraui/ChakraUI";
-import React from "react";
 export default React.memo(function DescriptionCard({ content }) {
   const { icon, header, body } = { ...content };
 

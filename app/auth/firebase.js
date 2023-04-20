@@ -4,8 +4,8 @@ import { initializeApp } from "firebase/app";
 // Google認証ポップアップの設定
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 // Firesoreの初期化
-import { getFirestore } from "firebase/firestore";
-
+import { getFirestore } from "firebase/firestore/lite";
+import { getStorage } from "firebase/storage";
 // webアプリのFirebase設定
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -18,10 +18,9 @@ const firebaseConfig = {
 
 // Firebaseの初期化
 const app = initializeApp(firebaseConfig);
-
 // 認証の設定
-const auth = getAuth(app);
-const db = getFirestore(app);
-const GoogleProvider = new GoogleAuthProvider();
-
-export { auth, GoogleProvider, db };
+export const auth = getAuth(app);
+export const db = getFirestore();
+export const storage = getStorage();
+export const GoogleProvider = new GoogleAuthProvider();
+export const getauth = getAuth;

@@ -1,7 +1,7 @@
 import AboutContent from "./AboutContent";
 
-import { Box } from "../../../common/chakraui/ChakraUI";
 import React from "react";
+import { Box } from "../../../common/chakraui/ChakraUI";
 
 export default React.memo(function AboutRoot() {
   return (

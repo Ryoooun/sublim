@@ -5,19 +5,19 @@ import React from "react";
 import PrimaryButton from "../atoms/PrimaryButton";
 import AvatarMenu from "../molecules/AvatarMenu";
 
-import { RiLoginCircleLine } from "@react-icons/all-files/ri/RiLoginCircleLine";
 import { AiOutlineUserAdd } from "@react-icons/all-files/ai/AiOutlineUserAdd";
+import { RiLoginBoxLine } from "@react-icons/all-files/ri/RiLoginBoxLine";
 
-import useAuthWithPopup from "../../hooks/useAuthWithPopup";
+import useAuthSetPersistence from "@/app/hooks/useAuthSetPersistence";
+
 import { useUser } from "@/app/store/user";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+
 import { useLogout } from "@/app/hooks/useLogout";
 
 export default React.memo(function HeaderLoginContent(params) {
-  const [handleSignInWithPopup, isAuth, user] = useAuthWithPopup();
-  const router = useRouter();
+  const handleSignInWithPopup = useAuthSetPersistence();
   const logout = useLogout();
+  const user = useUser((state) => state.user);
 
   return (
     <>
@@ -33,7 +33,7 @@ export default React.memo(function HeaderLoginContent(params) {
             <PrimaryButton
               title="Log in"
               color="whiteAlpha.700"
-              icon={RiLoginCircleLine}
+              icon={RiLoginBoxLine}
               onClick={handleSignInWithPopup}
             />
             <PrimaryButton

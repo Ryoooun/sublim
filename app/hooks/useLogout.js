@@ -1,24 +1,21 @@
-import { signOut, getAuth, connectAuthEmulator } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { auth } from "../auth/firebase";
 import { useUser } from "../store/user";
-import { useIsAuth } from "../store/auth";
 
 export const useLogout = () => {
   const router = useRouter();
-  const user = useUser((state) => state.user);
-
   const logout = () => {
-    const auth = getAuth();
     signOut(auth)
       .then(() => {
         console.log("Sign-out successful.");
-        useUser.setState({ isAuth: true }, true);
-        router.push("/");
+        useUser.setState({ user: null }, true);
+        router.replace("/");
       })
       .catch((err) => {
         console.log(err.message);
-        useUser.setState({ isAuth: false }, true);
-        router.push("/");
+        useUser.setState({ user: null }, true);
+        router.replace("/");
       });
   };
   return logout;

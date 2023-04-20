@@ -1,9 +1,9 @@
 import NextLink from "next/link";
-import { Flex, Link, Icon, Box } from "../../common/chakraui/ChakraUI";
+import { Box, Flex, Icon, Link } from "../../common/chakraui/ChakraUI";
 
 import AppIcon from "../atoms/AppIcon";
-import LinkMenu from "../organisms/LinkMenu";
 import HeaderLoginContent from "../organisms/HeaderLoginContent";
+import LinkMenu from "../organisms/LinkMenu";
 
 export default function HomeMenu({ currentPage, handleLinkClick }) {
   return (

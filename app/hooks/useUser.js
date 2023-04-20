@@ -1,20 +1,25 @@
-import { getAuth } from "firebase/auth";
-import { useRouter } from "next/navigation";
+"use client";
 
-export const useUser = () => {
+import { notFound } from "next/navigation";
+import { getauth } from "../auth/firebase";
+import { useIsAuth } from "../store/auth";
+import { useUser } from "../store/user";
+
+export const useUserHook = () => {
   try {
-    const auth = getAuth();
+    const auth = getauth();
+
     const user = auth.currentUser;
 
     if (user !== null) {
       const email = user.email;
-      const accessToken = user.accessToken;
+      const uid = user.uid;
       const userName = user.displayName;
       const photoURL = user.photoURL;
       const userInfo = {
         userName,
         email,
-        accessToken,
+        uid,
         photoURL,
       };
 
@@ -24,7 +29,8 @@ export const useUser = () => {
     }
   } catch (err) {
     console.log(err);
-    const router = useRouter();
-    router.push("/");
+    useIsAuth.setState({ isAuth: false }, true);
+    useUser.setState({ user: null }, true);
+    notFound();
   }
 };
