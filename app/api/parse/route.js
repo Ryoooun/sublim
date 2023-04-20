@@ -1,11 +1,8 @@
-import { NextResponse } from "next/server";
+import termextract from "@/app/lib/js/termextract-kuromojijs";
 import { load } from "cheerio";
 import kuromoji from "kuromoji";
-import termextract from "@/app/lib/js/termextract-kuromojijs";
-import { cwd, env } from "node:process";
-import module from "node:module";
+import { NextResponse } from "next/server";
 import path from "node:path";
-import * as fs from "fs";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);

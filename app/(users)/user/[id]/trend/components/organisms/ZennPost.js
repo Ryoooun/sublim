@@ -32,13 +32,13 @@ export async function ZennPost(params) {
   //     parseBody: body,
   //   };
   // };
+  const IS_SERVER = typeof window === "undefined";
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
-      const parse = await fetch(
-        `http://localhost:3000/api/parse?url=https://zenn.dev${obj.path}`
-
-        // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
-      ).then((res) => res.json());
+      const url = IS_SERVER
+        ? `https://sublim-git-firebasetorestapi-ryoooun.vercel.app/api/parse?url=https://zenn.dev${obj.path}`
+        : `http://localhost:3000/api/parse?url=https://zenn.dev${obj.paht}`;
+      const parse = await fetch(url).then((res) => res.json());
       return {
         id: obj.id,
         title: obj.title,

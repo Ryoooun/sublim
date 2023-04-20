@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { load } from "cheerio";
 import { URL } from "url";
 
 export default async function getData() {
@@ -23,16 +22,26 @@ export default async function getData() {
     }
   ).catch((err) => console.error(err));
   const postsArray = await res.json();
+
+  const IS_SERVER = typeof window === "undefined";
+  // async function getURL(path) {
+  //   const baseURL = IS_SERVER
+  //     ? "https://sublim-git-firebasetorestapi-ryoooun.vercel.app/api/parse?url="
+  //     : window.location.origin;
+  //   return new URL(path, baseURL).toString();
+  // }
+
   const postsDetailArray = await Promise.all(
     postsArray.map(async (post) => {
       const tags = post.tags.map((tag) => tag?.name);
-      const parse = await fetch(
-        new URL(
-          `http://localhost:3000/api/parse?url=${post.url}`
+      // const url = await getURL(post.url);
+      const url = IS_SERVER
+        ? `https://sublim-git-firebasetorestapi-ryoooun.vercel.app/api/parse?url=${post.url}`
+        : `http://localhost:3000/api/parse?url=${post.url}`;
 
-          // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
-        )
-      ).then((res) => res.json());
+      const parse = await fetch(url).then((res) => res.json());
+
+      // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
       // const url = post.url;
       // const res = await fetch(url).catch((err) => console.log(err));
       // const text = await res.text();
