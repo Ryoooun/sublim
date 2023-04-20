@@ -1,5 +1,6 @@
 import {
-  browserSessionPersistence,
+  // browserSessionPersistence,
+  browserLocalPersistence,
   GoogleAuthProvider,
   setPersistence,
   signInWithPopup,
@@ -38,7 +39,7 @@ export default function useAuthSetPersistence() {
   };
 
   const setP = () => {
-    setPersistence(auth, browserSessionPersistence)
+    setPersistence(auth, browserLocalPersistence)
       .then(() => {
         console.log("setSession");
         handleSignWithPopup();

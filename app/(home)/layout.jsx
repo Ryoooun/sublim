@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import { useURLStore } from "../store/urlOrigin";
 import HomeMenu from "./template/HomeMenu";
-
+import { useUserHook } from "../hooks/useUser";
 export default function HomeLayout({ children }) {
-  const setOriginUrl = useURLStore((state) => state.setOriginUrl);
   const originUrl = useURLStore((state) => state.originUrl);
   const [currentPage, setCurrentPage] = useState("/");
 

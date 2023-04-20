@@ -1,12 +1,14 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import { auth } from "../auth/firebase";
+import { getauth } from "../auth/firebase";
 import { useIsAuth } from "../store/auth";
 import { useUser } from "../store/user";
 
 export const useUserHook = () => {
   try {
+    const auth = getauth();
+
     const user = auth.currentUser;
 
     if (user !== null) {
