@@ -61,7 +61,7 @@ const cardTransition = {
 const cardVariants = {
   on: {
     width: "100vw",
-    height: "30vh",
+    height: "18rem",
   },
   onPc: {
     height: "38vh",
@@ -70,7 +70,7 @@ const cardVariants = {
   },
   off: {
     marginBottom: "1rem",
-    height: "20vh",
+    height: "10rem",
     padding: "1rem",
     minWidth: "100%",
     borderRadius: "1.25rem",
@@ -158,7 +158,9 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                     fontFamily="mono">{`@${post.user.id}`}</Text>
                   <a href={post.url} target="_blank">
                     <Heading fontSize="sm" _hover={{ color: "brand.700" }}>
-                      {post.title.slice(0, 45)}
+                      {post.title.length > 40
+                        ? `${post.title.slice(0, 40)}...`
+                        : `${post.title}`}
                     </Heading>
                   </a>
                   {post.id === selectId && (
@@ -174,7 +176,7 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                         height={
                           post.id === selectId && isLargerThen50em
                             ? "24vh"
-                            : "12vh"
+                            : "9rem"
                         }
                         overflow="scroll">
                         {post.id === selectId &&

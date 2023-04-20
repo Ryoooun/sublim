@@ -45,14 +45,14 @@ const closeButtonStyle = css({
 });
 
 const tagStyle = css({
-  backgroundColor: "#bfbfbf",
+  backgroundColor: "#898989",
   // maxWidth: "90%",
   padding: "0.125rem 0.5rem",
   borderRadius: "0.5rem",
   color: "#fff",
   fontWeight: "bold",
   textAlign: "center",
-  fontSize: "1rem",
+  fontSize: "0.7rem",
 });
 
 const popoverStyle = {
