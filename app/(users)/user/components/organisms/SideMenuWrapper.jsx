@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m, LazyMotion, domAnimation } from "framer-motion";
 import React from "react";
 
 const isLargerThen50emVariants = {
@@ -52,19 +52,23 @@ export default React.memo(function SideMenuWrapper({
   children,
 }) {
   return (
-    <motion.nav
-      animate={isOpen ? "open" : "closed"}
-      variants={
-        isLargerThen50em ? isLargerThen50emVariants : isSmallerThen50remVariants
-      }
-      style={{
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        margin: "0",
-        padding: "0",
-      }}>
-      {children}
-    </motion.nav>
+    <LazyMotion features={domAnimation}>
+      <m.nav
+        animate={isOpen ? "open" : "closed"}
+        variants={
+          isLargerThen50em
+            ? isLargerThen50emVariants
+            : isSmallerThen50remVariants
+        }
+        style={{
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          margin: "0",
+          padding: "0",
+        }}>
+        {children}
+      </m.nav>
+    </LazyMotion>
   );
 });

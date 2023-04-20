@@ -11,7 +11,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import NextImage from "next/image";
 import { memo, useState } from "react";
 import "../../../../components/organisms/scroll.css";
-import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
+import dynamic from "next/dynamic";
+// import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -99,6 +100,10 @@ const tagStyle = css({
   color: "#fff",
   textAlign: "center",
 });
+
+const WordBookmarkPopOver = dynamic(() =>
+  import("../molecules/WordBookmarkPopOver")
+);
 
 export default memo(function QiitaPostList({ qiitaItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");

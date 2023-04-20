@@ -8,10 +8,11 @@ import {
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import NextImage from "next/image";
 import { memo, useState } from "react";
 import "../../../../components/organisms/scroll.css";
-import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
+// import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -99,6 +100,10 @@ const tagStyle = css({
   textAlign: "center",
 });
 
+const WordBookmarkPopOver = dynamic(() =>
+  import("../molecules/WordBookmarkPopOver")
+);
+
 export default memo(function ZennPostList({ zennItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [selectId, setSelectId] = useState(null);
@@ -162,7 +167,11 @@ export default memo(function ZennPostList({ zennItems }) {
                         justifyItems="center"
                         mt="2"
                         gap="2"
-                        height={post.id === selectId && "12vh "}
+                        height={
+                          post.id === selectId && isLargerThen50em
+                            ? "24vh"
+                            : "12vh "
+                        }
                         overflow="scroll">
                         {post.id === selectId &&
                           post.parse.map((obj, i) => (
