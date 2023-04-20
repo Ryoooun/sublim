@@ -228,9 +228,9 @@ export default memo(function WordStack({
   const { updateWord } = useWordsDB();
 
   const handleSelectCard = (word) => {
-    if (word.id !== selectId) {
-      setSelectId(word.id);
-      setContents(word.contents);
+    if (word.title !== selectId) {
+      setSelectId(word.title);
+      // setContents(word.contents);
     }
   };
 
@@ -282,12 +282,12 @@ export default memo(function WordStack({
                     borderRadius: "1rem",
                   }}
                   // css={cardStyle}
-                  key={word.id}
+                  key={word.title}
                   variants={cardVariants}
                   initial={false}
                   exit={{ opacity: 0 }}
                   animate={
-                    selectId == word.id
+                    selectId == word.title
                       ? isLargerThen50em
                         ? "onPc"
                         : "on"
@@ -296,7 +296,7 @@ export default memo(function WordStack({
                   transition={cardTransition}
                   onClick={() => handleSelectCard(word)}>
                   <motion.div layout="position">
-                    {selectId !== word.id ? (
+                    {selectId !== word.title ? (
                       <motion.h3
                         layout={true}
                         layoutScroll={true}
@@ -304,7 +304,7 @@ export default memo(function WordStack({
                         variants={titleVariants}
                         transition={cardTransition}
                         animate={
-                          selectId == word.id
+                          selectId == word.title
                             ? isLargerThen50em
                               ? "onPc"
                               : "on"
@@ -321,7 +321,7 @@ export default memo(function WordStack({
                       </motion.h3>
                     ) : null}
                     <AnimatePresence>
-                      {selectId == word.id ? (
+                      {selectId == word.title ? (
                         <motion.div
                           layoutScroll={true}
                           initial={{ opacity: 0 }}
@@ -371,7 +371,7 @@ export default memo(function WordStack({
                                 <TabPanel>
                                   <ReactMarkdown
                                     css={markDownStyle}
-                                    children={word.contents
+                                    children={test
                                       .replace(/  /g, "\n")
                                       .replace(/\| \|/g, "|\n")}
                                     remarkPlugins={[remarkGfm]}
@@ -499,7 +499,7 @@ export default memo(function WordStack({
                                     left="-2"
                                     pl="1rem"
                                     // onClick={handleStopPropagation}
-                                    value={contents}
+                                    value={""}
                                     onChange={handleEditMarkDown}
                                     onBlur={() => handleBlurEditor(word)}
                                   />

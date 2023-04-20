@@ -20,7 +20,7 @@ export default function WordStackHeader({
   setSelectId,
 }) {
   const { words } = useWordsDB();
-
+  console.log(words);
   const handleChange = (e) => {
     if (RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(e.target.value[0])) {
     } else {

@@ -2,11 +2,14 @@ import { useCallback } from "react";
 
 import {
   addDoc,
+  arrayUnion,
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   serverTimestamp,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore/lite";
@@ -26,34 +29,70 @@ export default function useWordsDB() {
   const [user] = useAuthState(auth);
 
   // コレクション読み込みを行うハンドラ
-  const getWords = useCallback(() => {
+  const getWords = useCallback(async () => {
     if (user) {
-      const WordsRef = collection(db, "posts", user.uid, "Words");
-      getDocs(WordsRef).then((querySnapshot) => {
+      const refRef = doc(db, "posts", user.uid, "References", "WordReferences");
+      const docSnap = await getDoc(refRef);
+      console.log(docSnap);
+      if (docSnap.exists()) {
         useWordsStore.setState(
           {
-            words: querySnapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            })),
+            words: docSnap.get("references"),
           },
           true
         );
-      });
+      }
     }
   }, []);
 
   const setWord = useCallback(async (word) => {
     const WordsRef = collection(db, "posts", user.uid, "Words");
     try {
-      if (words.filter((w) => w.title.includes(word)).length > 0) {
-        throw new Error("already registered.");
+      if (words.length !== 0) {
+        if (words.filter((w) => w.title.includes(word)).length > 0) {
+          throw new Error("already registered.");
+        }
       }
       const docRef = await addDoc(WordsRef, {
         title: word,
         contents: "",
         timestamp: serverTimestamp(),
+        isBookmark: false,
       });
+
+      const referenceRef = doc(
+        db,
+        "posts",
+        user.uid,
+        "References",
+        "WordReferences"
+      );
+
+      const docSnap = await getDoc(referenceRef);
+      if (docSnap.exists()) {
+        await updateDoc(referenceRef, {
+          references: arrayUnion({
+            title: word,
+            ref: docRef,
+            isBookmark: false,
+          }),
+        });
+        console.log(referenceRef);
+      } else {
+        await setDoc(
+          doc(db, "posts", user.uid, "References", "WordReferences"),
+          { references: [] }
+        );
+        await updateDoc(referenceRef, {
+          references: arrayUnion({
+            title: word,
+            ref: docRef,
+            isBookmark: false,
+            timestamp: serverTimestamp(),
+          }),
+        });
+      }
+
       if (docRef) {
         getWords();
         return { code: 1, id: docRef.id, message: "単語を新規登録しました。" };

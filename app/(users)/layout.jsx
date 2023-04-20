@@ -21,9 +21,9 @@ function UserLayout({ children }) {
   const { getWords, words } = useWordsDB();
   const { checkIndexedDB, testIndexedDB } = useIndexedDB();
   useEffect(() => {
-    checkIndexedDB();
-    testIndexedDB();
-    console.log("hello");
+    // checkIndexedDB();
+    // testIndexedDB();
+    // console.log("hello");
     // if (bookmarks.length === 0) {
     //   getBookmark();
     // }
