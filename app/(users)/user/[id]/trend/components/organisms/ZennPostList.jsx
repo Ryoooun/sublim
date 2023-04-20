@@ -1,52 +1,21 @@
 /**@jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import {
-  SimpleGrid,
   Avatar,
   Text,
   Heading,
   Flex,
   Box,
-  Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import { memo, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { memo } from "react";
 import { ZennPost } from "./ZennPost";
 import { useState } from "react";
-import useWord from "@/app/hooks/useWord";
+
 import "../../../../components/organisms/scroll.css";
 import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
-
-const closeButtonStyle = css({
-  display: "block",
-  position: "absolute",
-  top: "1rem",
-  right: "1rem",
-  width: "1.5rem ",
-  height: "1.5rem",
-  border: "2px solid #333d",
-  borderRadius: "50%",
-  transition: "all 1s",
-  "&::before,&::after": {
-    content: '""',
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    width: "1rem",
-    height: "2px",
-    backgroundColor: "#333d",
-  },
-  "::before": {
-    transform: "translate(-50%, -50%) rotate(45deg)",
-  },
-  "::after": {
-    transform: "translate(-50%, -50%) rotate(-45deg)",
-  },
-  ":hover": {
-    transform: "rotate(360deg)",
-  },
-});
+import NextImage from "next/image";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -169,6 +138,7 @@ export default memo(function ZennPostList({ zennItems }) {
                 onClick={() => handleClickCard(post)}>
                 <motion.div style={{ whiteSpace: "normal" }}>
                   <Avatar
+                    as={NextImage}
                     name={post.user.username}
                     src={post.user.avatarSmallUrl}
                     size="md"

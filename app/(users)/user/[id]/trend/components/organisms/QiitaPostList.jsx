@@ -1,50 +1,20 @@
 /**@jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import {
-  SimpleGrid,
   Avatar,
   Text,
   Heading,
   Flex,
   Box,
-  Divider,
   useMediaQuery,
 } from "@/app/common/chakraui/ChakraUI";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
-import React, { memo, useEffect, useState, lazy, Suspense } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { memo, useState } from "react";
 import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
 
 import "../../../../components/organisms/scroll.css";
-
-const closeButtonStyle = css({
-  display: "block",
-  position: "absolute",
-  top: "1rem",
-  right: "1rem",
-  width: "1.5rem ",
-  height: "1.5rem",
-  border: "2px solid #333d",
-  borderRadius: "50%",
-  transition: "all 1s",
-  "&::before,&::after": {
-    content: '""',
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    width: "1rem",
-    height: "2px",
-    backgroundColor: "#333d",
-  },
-  "::before": {
-    transform: "translate(-50%, -50%) rotate(45deg)",
-  },
-  "::after": {
-    transform: "translate(-50%, -50%) rotate(-45deg)",
-  },
-  ":hover": {
-    transform: "rotate(360deg)",
-  },
-});
+import "../../../../components/organisms/scroll.css";
+import NextImage from "next/image";
 
 const scroll = css({
   msOverflowStyle: "none",
@@ -129,8 +99,6 @@ const tagStyle = css({
   textAlign: "center",
 });
 
-import "../../../../components/organisms/scroll.css";
-
 export default memo(function QiitaPostList({ qiitaItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [selectId, setSelectId] = useState(null);
@@ -170,6 +138,7 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                 onClick={() => handleClickCard(post)}>
                 <motion.div style={{ whiteSpace: "normal" }}>
                   <Avatar
+                    as={NextImage}
                     name={post.user.id}
                     src={post.user.profile_image_url}
                     size="md"
@@ -192,7 +161,11 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                         justifyItems="center"
                         mt="2"
                         gap="2"
-                        height={post.id === selectId && "12vh"}
+                        height={
+                          post.id === selectId && isLargerThen50em
+                            ? "24vh"
+                            : "12vh"
+                        }
                         overflow="scroll">
                         {post.id === selectId &&
                           post.parse.map((obj, i) => (
