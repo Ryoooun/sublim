@@ -53,10 +53,13 @@ export async function GET(request) {
           text: word.replace(/['\"\(\)\[\]{}_//]/g, ""),
           value: data.importance,
         });
+        if (array.length === 25) {
+          break;
+        }
       }
     }
 
-    return array.slice(0, 100);
+    return array;
   });
 
   // const require = module.createRequire(import.meta.url);
@@ -80,6 +83,7 @@ export async function GET(request) {
     // Cwdfiles,
     // joinPath,
     // joinPathFiles,
+    length: json.length,
     json,
   });
   // const path = process.cwd();
