@@ -32,6 +32,7 @@ import {
   UnorderedList,
 } from "@/app/common/chakraui/ChakraUI";
 import useSWR, { useSWRConfig } from "swr";
+import { useState } from "react";
 const markDownStyle = css({
   width: "max(90vw, 300px)",
   height: "60vh",
@@ -55,12 +56,14 @@ export default function MarkdownForm({
     return getContents(title);
   });
   const { mutate } = useSWRConfig();
+  const [focus, setFocus] = useState(false);
 
   const handleEditMarkDown = (e) => {
     setContents(e.target.value);
   };
 
   const handleBlurEditor = async (word) => {
+    setFocus(false);
     // console.log(word.contents, "=>", contents);
     try {
       if (data !== contents) {
@@ -83,11 +86,21 @@ export default function MarkdownForm({
     <div
       // layout="size"
       // layoutScroll={true}
-      style={{
-        width: "90vw",
-        height: "80vh",
-        overflow: "scroll",
-      }}>
+      style={
+        focus
+          ? {
+              position: "absolute",
+              width: "90vw",
+              height: "80vh",
+              overflow: "scroll",
+            }
+          : {
+              position: "static",
+              width: "90vw",
+              height: "80vh",
+              overflow: "scroll",
+            }
+      }>
       <Tabs variant="enclosed" w={isLargerThen50em ? "70vw" : "90vw"}>
         <TabList onClick={handleStopPropagation}>
           <Tab>
@@ -100,7 +113,12 @@ export default function MarkdownForm({
         <TabPanels>
           <TabPanel pl="0">
             <ReactMarkdown
-              css={markDownStyle}
+              css={css({
+                width: `${isLargerThen50em ? "80vw" : "90vw"}`,
+                height: "60vh",
+                whiteSpace: "normal",
+                overflowY: "scroll",
+              })}
               children={
                 data ? data.replace(/  /g, "\n").replace(/\| \|/g, "|\n") : ""
               }
@@ -184,10 +202,11 @@ export default function MarkdownForm({
           <TabPanel pl="0">
             <Textarea
               variant="outline"
-              w="90vw"
+              w={isLargerThen50em ? "80vw" : "90vw"}
               h="60vh"
               pos="relative"
               value={contents}
+              onFocus={() => setFocus(true)}
               onChange={(e) => handleEditMarkDown(e)}
               onBlur={() => handleBlurEditor(word)}
             />

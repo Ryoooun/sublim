@@ -135,6 +135,36 @@ const closeButtonStyle = css({
   },
 });
 
+const closeButtonStylePC = css({
+  display: "block",
+  position: "absolute",
+  top: "3vh",
+  right: "4vw",
+  width: "1.5rem ",
+  height: "1.5rem",
+  border: "2px solid #333d",
+  borderRadius: "50%",
+  transition: "all 1s",
+  "&::before,&::after": {
+    content: '""',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "1rem",
+    height: "2px",
+    backgroundColor: "#333d",
+  },
+  "::before": {
+    transform: "translate(-50%, -50%) rotate(45deg)",
+  },
+  "::after": {
+    transform: "translate(-50%, -50%) rotate(-45deg)",
+  },
+  ":hover": {
+    transform: "rotate(360deg)",
+  },
+});
+
 const cardStyle = css({
   fontWeight: "bold",
   color: "black",
@@ -158,7 +188,7 @@ const cardVariants = {
     display: "block",
     height: "100vh",
     position: "fixed",
-    // width: "100vw",
+    width: "100vw",
     borderRadius: "0",
     left: "0",
     top: "0",
@@ -175,11 +205,11 @@ const cardVariants = {
   },
   onPc: {
     display: "block",
-    width: "85vw",
-    height: "95vh",
+    width: "95vw",
+    height: "100vh",
     position: "fixed",
-    top: "2rem",
-    left: "10rem",
+    top: "0rem",
+    left: "5rem",
     zIndex: "20",
     backgroundImage: "none",
     backgroundColor: "#ffffffea",
@@ -321,7 +351,11 @@ export default memo(function WordStack({
                           exit={{ opacity: 0, transition: { duration: 0.2 } }}>
                           <EditableText title={word.title} words={words} />
                           <motion.button
-                            css={closeButtonStyle}
+                            css={
+                              isLargerThen50em
+                                ? closeButtonStylePC
+                                : closeButtonStyle
+                            }
                             onClick={() => {
                               setSelectId(null);
                               setContents("");
