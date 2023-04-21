@@ -33,7 +33,7 @@ export default function EditableText({ title, words }) {
   const handleSubmit = async (word) => {
     console.log(oldTitle, "=>", word);
     try {
-      await updateWord(oldTitle, { field: "title", content: word });
+      await updateWord(oldTitle, "title", word);
       console.log("updated");
     } catch (e) {
       console.log(e.message);
@@ -41,7 +41,7 @@ export default function EditableText({ title, words }) {
   };
 
   const handleChanged = (word) => {
-    if (titles.includes(word)) {
+    if (titles.includes(word.toLowerCase())) {
       setTitleAlert(true);
     } else {
       setTitleAlert(false);

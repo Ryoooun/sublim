@@ -25,6 +25,7 @@ export default function WordPageContent({ children }) {
   const [selectId, setSelectId] = useState(null);
 
   const { getWords, words } = useWordsDB();
+
   const handleClick = async () => {
     await getWords();
   };

@@ -10,8 +10,7 @@ export default function page(params) {
   const user = useUserHook();
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   // const { getWords } = useWordsDB();
-  // const { getBookmark } = useBookmarkDB();
-  // getBookmark();
+
   // getWords();
   const LoginUser = useCallback(() => {
     if (user) {

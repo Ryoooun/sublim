@@ -10,12 +10,21 @@ import {
 } from "@/app/common/chakraui/ChakraUI";
 import { useRef } from "react";
 
-export default function BookmarkAlert({ text, isOpen, onClose, handleCancel }) {
+export default function BookmarkAlert({
+  text,
+  isOpen,
+  onClose,
+  handleCancel,
+  setSelectId,
+  updateWord,
+}) {
   const cancelRef = useRef();
 
   const handleSubmit = (e) => {
     handleCancel(e);
+    updateWord(text, "isBookmark", false);
     onClose();
+    setTimeout(() => setSelectId(text), 1000);
   };
 
   return (

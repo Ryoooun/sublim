@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {
   Button,
+  Flex,
   Code,
   Divider,
   Heading,
@@ -37,6 +38,8 @@ import useWordsDB from "@/app/hooks/useWordsDB";
 import dayjs from "dayjs";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { memo, useCallback, useState } from "react";
+import useSWR from "swr";
+import { resolve } from "styled-jsx/css";
 
 const test = `#### 斜体
 
@@ -221,11 +224,14 @@ export default memo(function WordStack({
   setSelectId,
 }) {
   // const [toggle, flag] = useToggle(false);
-
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [contents, setContents] = useState("");
   const { checkIsRegistered } = useWordsDB();
-  const { updateWord } = useWordsDB();
+  const { updateWord, getContents } = useWordsDB();
+  const { data, isLoading } = useSWR(true ? selectId : null, async (title) => {
+    const res = await getContents(title);
+    return res;
+  });
 
   const handleSelectCard = (word) => {
     if (word.title !== selectId) {
@@ -245,7 +251,7 @@ export default memo(function WordStack({
   const handleBlurEditor = async (word) => {
     // console.log(word.contents, "=>", contents);
     try {
-      if (word.contents !== contents) {
+      if (data !== contents) {
         // console.log("changed content");
         await updateWord(word.title, { field: "contents", content: contents });
         setSelectId(word.id);
@@ -258,9 +264,13 @@ export default memo(function WordStack({
   return (
     <LayoutGroup>
       <AnimatePresence mode="popLayout">
-        {words.length > 0 ? (
+        {words.filter((w) => w.isBookmark === false).length > 0 ? (
           words
-            .filter((word) => new RegExp(search, "gi").test(word.title))
+            .filter(
+              (word) =>
+                new RegExp(search, "gi").test(word.title) &&
+                word.isBookmark === false
+            )
             .map((word, i) => {
               return (
                 <motion.div
@@ -321,7 +331,7 @@ export default memo(function WordStack({
                       </motion.h3>
                     ) : null}
                     <AnimatePresence>
-                      {selectId == word.title ? (
+                      {selectId == word.title && !isLoading ? (
                         <motion.div
                           layoutScroll={true}
                           initial={{ opacity: 0 }}
@@ -371,9 +381,13 @@ export default memo(function WordStack({
                                 <TabPanel>
                                   <ReactMarkdown
                                     css={markDownStyle}
-                                    children={test
-                                      .replace(/  /g, "\n")
-                                      .replace(/\| \|/g, "|\n")}
+                                    children={
+                                      data
+                                        ? data
+                                        : "編集画面から学習を始めましょう！"
+                                            .replace(/  /g, "\n")
+                                            .replace(/\| \|/g, "|\n")
+                                    }
                                     remarkPlugins={[remarkGfm]}
                                     linkTarget={"_blank"}
                                     components={{
@@ -499,8 +513,8 @@ export default memo(function WordStack({
                                     left="-2"
                                     pl="1rem"
                                     // onClick={handleStopPropagation}
-                                    value={""}
-                                    onChange={handleEditMarkDown}
+                                    value={data}
+                                    onChange={(e) => handleEditMarkDown(e)}
                                     onBlur={() => handleBlurEditor(word)}
                                   />
                                 </TabPanel>
@@ -514,12 +528,33 @@ export default memo(function WordStack({
                 </motion.div>
               );
             })
+        ) : Object.keys(words).length > 0 ? (
+          <Flex
+            justifyContent="center"
+            flexDirection="column"
+            fontWeight="bold"
+            whiteSpace="normal">
+            <Text>新規単語を追加して学習を始めましょう!</Text>
+            <Text>
+              ブックマークしている単語から学習を始めることもできます。
+            </Text>
+          </Flex>
         ) : (
-          <motion.div style={{ textAlign: "center" }}>
-            <Button w="10rem" onClick={getWords}>
-              Reload
-            </Button>
-          </motion.div>
+          <Flex
+            justifyContent="center"
+            flexDirection="column"
+            fontWeight="bold"
+            whiteSpace="normal">
+            <Text>新規単語を追加して学習を始めましょう!</Text>
+            <Text>
+              Trendのページで単語をブックマークして 学習を始めることもできます。
+            </Text>
+            <motion.div style={{ textAlign: "center" }}>
+              <Button w="10rem" onClick={getWords}>
+                Reload
+              </Button>
+            </motion.div>
+          </Flex>
         )}
       </AnimatePresence>
     </LayoutGroup>

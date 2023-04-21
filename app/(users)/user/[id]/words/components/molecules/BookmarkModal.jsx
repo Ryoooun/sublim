@@ -10,12 +10,11 @@ import {
   Tr,
   useDisclosure,
 } from "@/app/common/chakraui/ChakraUI";
-import useBookmarkDB from "@/app/hooks/useBookmarkDB";
 import useWordsDB from "@/app/hooks/useWordsDB";
 import { css } from "@emotion/react";
 import dayjs from "dayjs";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BookmarkAlert from "../atoms/BookmarkAlert";
 
 const closeButtonStyle = css({
@@ -50,7 +49,7 @@ const closeButtonStyle = css({
 
 const tagStyle = css({
   backgroundColor: "transparent",
-  fontSize: "1rem",
+  fontSize: "0.8rem",
   padding: "0.25rem 0.5rem",
   borderRadius: "0.5rem",
   color: "#3fcb72",
@@ -92,21 +91,14 @@ const overlay = {
   },
 };
 
-export default function BookmarkModal({ text }) {
+export default function BookmarkModal({ text, setSelectId }) {
   const value = text.slice();
   const [word, setWord] = useState(value);
   const [toggle, setToggle] = useState(false);
-  const [registered, setRegistered] = useState([]);
-  const { getBookmark, bookmarks } = useBookmarkDB();
-  const { words } = useWordsDB();
+
+  const { words, updateWord } = useWordsDB();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
-
-  useEffect(() => {
-    if (bookmarks.length === 0) {
-      getBookmark();
-    }
-  }, []);
 
   const isError =
     word.length == 0
@@ -120,7 +112,6 @@ export default function BookmarkModal({ text }) {
 
   const handleCancel = (e) => {
     e.stopPropagation();
-    setRegistered([]);
     setToggle(false);
   };
 
@@ -168,8 +159,8 @@ export default function BookmarkModal({ text }) {
                 fontSize="sm"
                 fontWeight="thin"
                 textAlign="right"
-                color={bookmarks.length > 9 && "red.400"}>
-                {bookmarks.length}words
+                color={Object.keys(words).length > 9 && "red.400"}>
+                {words.filter((w) => w.isBookmark === true).length}words
               </Text>
             </Text>
             <Flex direction="row" justifyContent="flex-end">
@@ -183,42 +174,42 @@ export default function BookmarkModal({ text }) {
             </Flex>
             <TableContainer overflowY="scroll" height="50vh">
               <Table variant="simple">
-                {/* <Thead>
-                  <Tr>
-                    <Th>Title</Th>
-                    <Th isNumeric>Date</Th>
-                  </Tr>
-                </Thead> */}
                 <Tbody>
-                  {bookmarks.map((obj) => {
-                    return (
-                      <Tr key={obj.id}>
-                        <Td
-                          onClick={(e) => {
-                            handleClickTitle(e);
-                          }}>
-                          {obj.title}
-                        </Td>
-                        <Td isNumeric>
-                          <Text
-                            as="time"
-                            fontSize="xs"
-                            color="gray.500"
-                            dateTime={dayjs(obj.timestamp.toDate()).format(
-                              "YYYY-MM-DDTHH:mm"
-                            )}>
-                            {dayjs(obj.timestamp.toDate()).format("YYYY-MM-DD")}
-                          </Text>
-                          <BookmarkAlert
-                            text={title}
-                            isOpen={isOpen}
-                            onClose={onClose}
-                            handleCancel={handleCancel}
-                          />
-                        </Td>
-                      </Tr>
-                    );
-                  })}
+                  {words
+                    .filter((w) => w.isBookmark)
+                    .map((obj) => {
+                      return (
+                        <Tr key={obj.title}>
+                          <Td
+                            onClick={(e) => {
+                              handleClickTitle(e);
+                            }}>
+                            {obj.title}
+                          </Td>
+                          <Td isNumeric>
+                            <Text
+                              as="time"
+                              fontSize="xs"
+                              color="gray.500"
+                              dateTime={dayjs(obj.timestamp.toDate()).format(
+                                "YYYY-MM-DDTHH:mm"
+                              )}>
+                              {dayjs(obj.timestamp.toDate()).format(
+                                "YYYY-MM-DD"
+                              )}
+                            </Text>
+                            <BookmarkAlert
+                              updateWord={updateWord}
+                              setSelectId={setSelectId}
+                              text={title}
+                              isOpen={isOpen}
+                              onClose={onClose}
+                              handleCancel={handleCancel}
+                            />
+                          </Td>
+                        </Tr>
+                      );
+                    })}
                 </Tbody>
               </Table>
             </TableContainer>

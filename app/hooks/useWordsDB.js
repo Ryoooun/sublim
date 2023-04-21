@@ -8,7 +8,6 @@ import {
   getDoc,
   getDocs,
   query,
-  serverTimestamp,
   setDoc,
   updateDoc,
   where,
@@ -33,7 +32,6 @@ export default function useWordsDB() {
     if (user) {
       const refRef = doc(db, "posts", user.uid, "References", "WordReferences");
       const docSnap = await getDoc(refRef);
-      console.log(docSnap);
       if (docSnap.exists()) {
         useWordsStore.setState(
           {
@@ -42,11 +40,27 @@ export default function useWordsDB() {
           true
         );
       }
+    } else {
+      console.log("no user info. can not get words");
     }
   }, []);
 
-  const setWord = useCallback(async (word) => {
+  const getContents = useCallback(async (title) => {
+    const ref = await words.find((obj) => obj.title == title).ref;
+    if (user && ref != undefined) {
+      const docSnap = await getDoc(ref);
+      if (docSnap.exists()) {
+        let oldContents = await docSnap.get("contents");
+        return oldContents;
+      }
+    } else {
+      console.log("no user info. can not get words");
+    }
+  }, []);
+
+  const setWord = useCallback(async (word, isBookmark) => {
     const WordsRef = collection(db, "posts", user.uid, "Words");
+    const now = new Date();
     try {
       if (words.length !== 0) {
         if (words.filter((w) => w.title.includes(word)).length > 0) {
@@ -56,8 +70,8 @@ export default function useWordsDB() {
       const docRef = await addDoc(WordsRef, {
         title: word,
         contents: "",
-        timestamp: serverTimestamp(),
-        isBookmark: false,
+        timestamp: now,
+        isBookmark,
       });
 
       const referenceRef = doc(
@@ -74,10 +88,10 @@ export default function useWordsDB() {
           references: arrayUnion({
             title: word,
             ref: docRef,
-            isBookmark: false,
+            isBookmark: isBookmark,
+            timestamp: now,
           }),
         });
-        console.log(referenceRef);
       } else {
         await setDoc(
           doc(db, "posts", user.uid, "References", "WordReferences"),
@@ -87,14 +101,14 @@ export default function useWordsDB() {
           references: arrayUnion({
             title: word,
             ref: docRef,
-            isBookmark: false,
-            timestamp: serverTimestamp(),
+            isBookmark: isBookmark,
+            timestamp: now,
           }),
         });
       }
 
       if (docRef) {
-        getWords();
+        await getWords();
         return { code: 1, id: docRef.id, message: "単語を新規登録しました。" };
       }
     } catch (e) {
@@ -105,31 +119,66 @@ export default function useWordsDB() {
         };
       }
       console.log(e.message);
-      getWords();
+
       return { code: -1, message: "単語の登録に失敗しました。" };
     }
   }, []);
 
-  const updateWord = useCallback(async (key, data) => {
-    const collRef = collection(db, "posts", user.uid, "Words");
-    const q = query(collRef, where("title", "==", key));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (document) => {
-      const wordDocumentRef = doc(db, "posts", user.uid, "Words", document.id);
-      await updateDoc(wordDocumentRef, { [data.field]: data.content });
-    });
-    getWords();
+  // const updateWord = useCallback(async (key, data) => {
+  //   const collRef = collection(db, "posts", user.uid, "Words");
+  //   const q = query(collRef, where("title", "==", key));
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach(async (document) => {
+  //     const wordDocumentRef = doc(db, "posts", user.uid, "Words", document.id);
+  //     await updateDoc(wordDocumentRef, { [data.field]: data.content });
+  //   });
+  //   getWords();
+  // }, []);
+
+  const checkIsRegistered = useCallback((word) => {
+    const result = words.filter(
+      (w) => w.title.toLowerCase() === word.toLowerCase()
+    );
+    return result;
   }, []);
 
-  const checkIsRegistered = useCallback(
-    (word) => {
-      const result = words.filter(
-        (w) => w.title.toLowerCase() === word.toLowerCase()
-      );
-      return result;
+  const updateWord = useCallback(
+    async (word, key, value) => {
+      const ref = await words.find((obj) => obj.title == word).ref;
+      if (user && ref != undefined) {
+        await updateDoc(ref, {
+          key: value,
+        });
+        const docRef = doc(
+          db,
+          "posts",
+          user.uid,
+          "References",
+          "WordReferences"
+        );
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const oldReferences = docSnap.get("references");
+          const target = oldReferences.findIndex((obj) => obj.title === word);
+          oldReferences[target][key] = value;
+          await setDoc(docRef, {
+            references: oldReferences,
+          });
+          await getWords();
+        }
+      } else {
+        console.log("no user info. can not get words");
+      }
     },
     [words]
   );
 
-  return { getWords, setWord, updateWord, checkIsRegistered, words };
+  return {
+    getWords,
+    setWord,
+    getContents,
+    updateWord,
+    checkIsRegistered,
+    words,
+  };
 }

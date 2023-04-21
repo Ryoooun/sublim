@@ -12,7 +12,7 @@ import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 import { motion } from "framer-motion";
 import AddNewCollectionButton from "../atoms/AddNewStackButton";
 import BookmarkModal from "../molecules/BookmarkModal";
-
+import BookmarkBadge from "../atoms/BookmarkBadge";
 export default function WordStackHeader({
   isLargerThen50em,
   search,
@@ -20,7 +20,7 @@ export default function WordStackHeader({
   setSelectId,
 }) {
   const { words } = useWordsDB();
-  console.log(words);
+
   const handleChange = (e) => {
     if (RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(e.target.value[0])) {
     } else {
@@ -29,8 +29,8 @@ export default function WordStackHeader({
   };
   return (
     <Box
-      mb="4"
-      py="10"
+      // mb="4"
+      pt="10"
       // w={isLargerThen50em ? "78vw" : "81vw"}
       backdropFilter="auto"
       backdropBlur="2px"
@@ -46,7 +46,9 @@ export default function WordStackHeader({
         <Heading ml="2" mb="4">
           Words
         </Heading>
-        <Text fontWeight="thin">{words.length} words</Text>
+        <Text fontWeight="thin">
+          {words.filter((w) => w.isBookmark === false).length} words
+        </Text>
       </Flex>
       <InputGroup>
         <InputLeftElement
@@ -67,8 +69,14 @@ export default function WordStackHeader({
         />
         <AddNewCollectionButton setSelectId={setSelectId} />
       </InputGroup>
-      <Flex justifyContent="flex-end">
-        <BookmarkModal text={"学習予定から学習を始める"} />
+      <Flex justifyContent="flex-end" alignItems="center">
+        <BookmarkModal
+          text={"学習予定から学習を始める"}
+          setSelectId={setSelectId}
+        />
+        <BookmarkBadge
+          count={words.filter((w) => w.isBookmark === true).length}
+        />
       </Flex>
     </Box>
   );

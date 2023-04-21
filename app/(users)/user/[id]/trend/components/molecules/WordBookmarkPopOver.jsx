@@ -9,7 +9,7 @@ import {
   Text,
   useToast,
 } from "@/app/common/chakraui/ChakraUI";
-import useBookmarkDB from "@/app/hooks/useBookmarkDB";
+import useWordsDB from "@/app/hooks/useWordsDB";
 import { css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -91,16 +91,17 @@ const overlay = {
 
 export default function WordBookmarkPopOver({ text }) {
   const value = text.slice();
-  const [word, setWord] = useState(value);
+  const [wordValue, setWordValue] = useState(value);
   const [toggle, setToggle] = useState(false);
   const [registered, setRegistered] = useState([]);
-  const { getBookmark, setBookmark, checkIsRegistered } = useBookmarkDB();
+  const { getWords, setWord, checkIsRegistered } = useWordsDB();
+
   const toast = useToast();
   const handleInputChange = (e) => {
-    setWord(e.target.value);
+    setWordValue(e.target.value);
     const result = checkIsRegistered(e.target.value);
-    if (result.length > 0) {
-      setRegistered(result);
+    if (Object.keys(result).length > 0) {
+      setRegistered(result.map((r) => r.title));
     } else {
       setRegistered([]);
     }
@@ -108,17 +109,17 @@ export default function WordBookmarkPopOver({ text }) {
 
   useEffect(() => {
     const result = checkIsRegistered(value);
-    if (result.length > 0) {
-      setRegistered(result);
+    if (Object.keys(result).length > 0) {
+      setRegistered(result.map((r) => r.title));
     } else {
       setRegistered([]);
     }
   }, [value]);
 
   const isError =
-    word.length == 0
+    wordValue.length == 0
       ? { result: true, message: "単語を入力してください。" }
-      : RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(word)
+      : RegExp("[!-/:-@[-`{-~｟-､ ]+", "g").test(wordValue)
       ? {
           result: true,
           message: "半角記号および空白文字は含むことができません。",
@@ -127,32 +128,32 @@ export default function WordBookmarkPopOver({ text }) {
 
   const handleSave = async () => {
     if (!isError?.result) {
-      const res = await setBookmark(word);
+      const res = await setWord(wordValue, true);
 
       if (res.code === 1) {
         console.log("finish:", res.message);
-        getBookmark();
+        getWords();
         toast({
-          title: `${value}を登録`,
+          title: `${wordValue}を登録`,
           status: "success",
           isClosable: true,
         });
       } else if (res.code === -1) {
         console.log("error", "=>", res.message);
         toast({
-          title: `${value}登録エラー`,
+          title: `${wordValue}登録エラー`,
           status: "error",
           isClosable: false,
         });
       } else if (res.code === 0) {
         toast({
-          title: `${value}は既に登録されています。`,
+          title: `${wordValue}は既に登録されています。`,
           status: "info",
           isClosable: true,
         });
       }
 
-      setWord("");
+      setWordValue("");
       setToggle(false);
     }
   };
@@ -170,7 +171,7 @@ export default function WordBookmarkPopOver({ text }) {
         onClick={(e) => {
           e.stopPropagation();
           setToggle(!toggle);
-          setWord(text);
+          setWordValue(text);
         }}>
         {text}
       </Button>
@@ -206,15 +207,10 @@ export default function WordBookmarkPopOver({ text }) {
                 color="blackAlpha.700">
                 学習予定に追加
               </Text>
-              {/* <Input
-                value={word}
-                onChange={(e) => setWord(e.target.value)}
-                mt="1rem"
-              /> */}
               <FormControl isInvalid={isError.result}>
                 <Input
                   placeholder="単語"
-                  value={word}
+                  value={wordValue}
                   onChange={handleInputChange}
                 />
                 {!isError?.result ? (
@@ -241,7 +237,7 @@ export default function WordBookmarkPopOver({ text }) {
                 <Button
                   colorScheme="whatsapp"
                   isLoading={isError?.result}
-                  loadingText="Checking"
+                  loadingText="チェック中"
                   isDisabled={isError?.result || registered.length > 0}
                   onClick={(e) => {
                     e.stopPropagation();

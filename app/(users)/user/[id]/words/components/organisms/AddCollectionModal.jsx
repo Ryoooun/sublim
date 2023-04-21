@@ -64,7 +64,7 @@ export default function AddCollectionModal({
   // ここにPost処理をかく。
   const handleSave = async () => {
     if (!isError?.result) {
-      const res = await setWord(value);
+      const res = await setWord(value, false);
       console.log(res);
       if (res.code === 1) {
         setSelectId(res.id);
@@ -154,7 +154,7 @@ export default function AddCollectionModal({
                         color="blue.400"
                         fontSize="lg"
                         mr="2"
-                        onClick={() => handleLinkRegistered(r.id)}>
+                        onClick={() => handleLinkRegistered(r.title)}>
                         {r.title}
                       </Text>
                       が既に登録されています。
