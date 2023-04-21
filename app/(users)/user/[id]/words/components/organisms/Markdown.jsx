@@ -109,7 +109,7 @@ export default function Markdown() {
           />
         </TabPanel>
         <TabPanel>
-          <Textarea value={value} onChange={handleInputChange} size="lg" />
+          <Textarea value={value} onChange={handleInputChange} />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -169,7 +169,7 @@ const cardVariants = {
     // backgroundColor: "#f00",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
-    padding: "2rem",
+    padding: "1.5rem",
     lineHeight: "inherit",
     textAlign: "left",
   },
@@ -335,7 +335,7 @@ export default memo(function WordStack({
                               "YYYY-MM-DD"
                             )}
                           </motion.time>
-                          {/* <motion.p>{word.contents}</motion.p> */}
+
                           <MarkdownForm
                             word={word}
                             handleStopPropagation={handleStopPropagation}
@@ -367,6 +367,7 @@ export default memo(function WordStack({
         ) : (
           <Flex
             justifyContent="center"
+            textAlign="center"
             flexDirection="column"
             fontWeight="bold"
             whiteSpace="normal">
@@ -374,7 +375,7 @@ export default memo(function WordStack({
             <Text>
               Trendのページで単語をブックマークして 学習を始めることもできます。
             </Text>
-            <motion.div style={{ textAlign: "center" }}>
+            <motion.div style={{ textAlign: "center", marginTop: "2rem" }}>
               <Button w="10rem" onClick={getWords}>
                 Reload
               </Button>

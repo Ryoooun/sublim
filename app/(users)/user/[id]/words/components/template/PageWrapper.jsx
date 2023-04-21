@@ -9,7 +9,7 @@ export default memo(function PageWrapper({ children }) {
   return (
     <Box
       overflow="hidden"
-      w={isLargerThen50em ? "100vw" : "100vw"}
+      w={isLargerThen50em ? "90vw" : "100vw"}
       h="full"
       bg="white"
       px={isLargerThen50em ? "4rem" : "5"}

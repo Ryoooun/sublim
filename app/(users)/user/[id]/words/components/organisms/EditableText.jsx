@@ -87,6 +87,7 @@ export default function EditableText({ title, words }) {
     <>
       <Editable
         w="75%"
+        pl="1rem"
         gap="1rem"
         display="flex"
         flexDirection="row"

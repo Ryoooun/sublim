@@ -26,13 +26,9 @@ export default function WordPageContent({ children }) {
 
   const { getWords, words } = useWordsDB();
 
-  const handleClick = async () => {
-    await getWords();
-  };
-
   return (
     <Container
-      maxW={isLargerThen50em ? "80vw" : "100vw"}
+      maxW={isLargerThen50em ? "100vw" : "100vw"}
       maxH="100vh"
       overflow="hidden"
       whiteSpace="nowrap">

@@ -33,11 +33,10 @@ import {
 } from "@/app/common/chakraui/ChakraUI";
 import useSWR, { useSWRConfig } from "swr";
 const markDownStyle = css({
-  // whiteSpace: "break-spaces",
-  width: "max(75vw, 300px)",
+  width: "max(90vw, 300px)",
   height: "60vh",
+  whiteSpace: "normal",
   overflowY: "scroll",
-  // paddingRight: "2rem",
 });
 
 export default function MarkdownForm({
@@ -89,7 +88,7 @@ export default function MarkdownForm({
         height: "80vh",
         overflow: "scroll",
       }}>
-      <Tabs variant="enclosed" w={isLargerThen50em ? "70vw" : "80vw"}>
+      <Tabs variant="enclosed" w={isLargerThen50em ? "70vw" : "90vw"}>
         <TabList onClick={handleStopPropagation}>
           <Tab>
             <AiFillEye />
@@ -99,7 +98,7 @@ export default function MarkdownForm({
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel pl="0">
             <ReactMarkdown
               css={markDownStyle}
               children={
@@ -182,15 +181,12 @@ export default function MarkdownForm({
               }}
             />
           </TabPanel>
-          <TabPanel>
+          <TabPanel pl="0">
             <Textarea
               variant="outline"
-              w={isLargerThen50em ? "70vw" : "80vw"}
+              w="90vw"
               h="60vh"
               pos="relative"
-              left="-2"
-              pl="1rem"
-              // onClick={handleStopPropagation}
               value={contents}
               onChange={(e) => handleEditMarkDown(e)}
               onBlur={() => handleBlurEditor(word)}

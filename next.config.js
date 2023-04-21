@@ -17,13 +17,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withBundleAnalyzer({
   images: {
-    // domains: [
-    //   "qiita-user-contents.imgix.net",
-    //   "qiita-image-store.s3.ap-northeast-1.amazonaws.com",
-    //   "avatars3.githubusercontent.com",
-    //   "s3-ap-northeast-1.amazonaws.com",
-    //   "lh3.googleusercontent.com",
-    // ],
     remotePatterns: [
       {
         protocol: "https",
