@@ -45,18 +45,19 @@ export default function useWordsDB() {
     }
   }, []);
 
-  const getContents = useCallback(async (title) => {
+  const getContents = async (title) => {
     const ref = await words.find((obj) => obj.title == title).ref;
     if (user && ref != undefined) {
       const docSnap = await getDoc(ref);
       if (docSnap.exists()) {
-        let oldContents = await docSnap.get("contents");
-        return oldContents;
+        // let oldContents = docSnap.get("contents");
+        return docSnap.get("contents");
+        // return oldContents;
       }
     } else {
       console.log("no user info. can not get words");
     }
-  }, []);
+  };
 
   const setWord = useCallback(async (word, isBookmark) => {
     const WordsRef = collection(db, "posts", user.uid, "Words");
@@ -147,24 +148,26 @@ export default function useWordsDB() {
       const ref = await words.find((obj) => obj.title == word).ref;
       if (user && ref != undefined) {
         await updateDoc(ref, {
-          key: value,
+          [key]: value,
         });
-        const docRef = doc(
-          db,
-          "posts",
-          user.uid,
-          "References",
-          "WordReferences"
-        );
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const oldReferences = docSnap.get("references");
-          const target = oldReferences.findIndex((obj) => obj.title === word);
-          oldReferences[target][key] = value;
-          await setDoc(docRef, {
-            references: oldReferences,
-          });
-          await getWords();
+        if (key !== "contents") {
+          const docRef = doc(
+            db,
+            "posts",
+            user.uid,
+            "References",
+            "WordReferences"
+          );
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const oldReferences = docSnap.get("references");
+            const target = oldReferences.findIndex((obj) => obj.title === word);
+            oldReferences[target][key] = value;
+            await setDoc(docRef, {
+              references: oldReferences,
+            });
+            await getWords();
+          }
         }
       } else {
         console.log("no user info. can not get words");

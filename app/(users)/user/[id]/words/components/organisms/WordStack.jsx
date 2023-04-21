@@ -25,6 +25,7 @@ import {
   Tr,
   UnorderedList,
   useMediaQuery,
+  Skeleton,
 } from "@/app/common/chakraui/ChakraUI";
 import { css } from "@emotion/react";
 import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
@@ -38,8 +39,7 @@ import useWordsDB from "@/app/hooks/useWordsDB";
 import dayjs from "dayjs";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { memo, useCallback, useState } from "react";
-import useSWR from "swr";
-import { resolve } from "styled-jsx/css";
+import MarkdownForm from "./MarkdownForm";
 
 const test = `#### 斜体
 
@@ -226,12 +226,7 @@ export default memo(function WordStack({
   // const [toggle, flag] = useToggle(false);
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [contents, setContents] = useState("");
-  const { checkIsRegistered } = useWordsDB();
   const { updateWord, getContents } = useWordsDB();
-  const { data, isLoading } = useSWR(true ? selectId : null, async (title) => {
-    const res = await getContents(title);
-    return res;
-  });
 
   const handleSelectCard = (word) => {
     if (word.title !== selectId) {
@@ -244,33 +239,19 @@ export default memo(function WordStack({
     e.stopPropagation();
   }, []);
 
-  const handleEditMarkDown = (e) => {
-    setContents(e.target.value);
-  };
-
-  const handleBlurEditor = async (word) => {
-    // console.log(word.contents, "=>", contents);
-    try {
-      if (data !== contents) {
-        // console.log("changed content");
-        await updateWord(word.title, { field: "contents", content: contents });
-        setSelectId(word.id);
-      } else console.log("not change");
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
-
   return (
     <LayoutGroup>
       <AnimatePresence mode="popLayout">
         {words.filter((w) => w.isBookmark === false).length > 0 ? (
           words
-            .filter(
-              (word) =>
+            .filter((word) => {
+              if (
                 new RegExp(search, "gi").test(word.title) &&
                 word.isBookmark === false
-            )
+              ) {
+                return word;
+              }
+            })
             .map((word, i) => {
               return (
                 <motion.div
@@ -331,7 +312,7 @@ export default memo(function WordStack({
                       </motion.h3>
                     ) : null}
                     <AnimatePresence>
-                      {selectId == word.title && !isLoading ? (
+                      {selectId == word.title ? (
                         <motion.div
                           layoutScroll={true}
                           initial={{ opacity: 0 }}
@@ -355,172 +336,16 @@ export default memo(function WordStack({
                             )}
                           </motion.time>
                           {/* <motion.p>{word.contents}</motion.p> */}
-                          <motion.div
-                            layout="size"
-                            layoutScroll={true}
-                            style={{
-                              width: "90vw",
-                              height: "80vh",
-                              overflow: "scroll",
-                            }}>
-                            <Tabs
-                              variant="enclosed"
-                              as={motion.div}
-                              layout
-                              layoutScroll
-                              w={isLargerThen50em ? "70vw" : "80vw"}>
-                              <TabList onClick={handleStopPropagation}>
-                                <Tab>
-                                  <AiFillEye />
-                                </Tab>
-                                <Tab>
-                                  <MdEdit />
-                                </Tab>
-                              </TabList>
-                              <TabPanels>
-                                <TabPanel>
-                                  <ReactMarkdown
-                                    css={markDownStyle}
-                                    children={
-                                      data
-                                        ? data
-                                        : "編集画面から学習を始めましょう！"
-                                            .replace(/  /g, "\n")
-                                            .replace(/\| \|/g, "|\n")
-                                    }
-                                    remarkPlugins={[remarkGfm]}
-                                    linkTarget={"_blank"}
-                                    components={{
-                                      h1: ({ node, ...props }) => (
-                                        <Heading
-                                          fontSize="3xl"
-                                          borderBottom="1px solid #ccc"
-                                          pb="0.5rem"
-                                          mb="1rem"
-                                          {...props}
-                                        />
-                                      ),
-                                      h2: ({ node, ...props }) => (
-                                        <Heading
-                                          fontSize="2xl"
-                                          my="1rem"
-                                          {...props}
-                                        />
-                                      ),
-                                      h3: ({ node, ...props }) => (
-                                        <Heading
-                                          fontSize="xl"
-                                          my="1rem"
-                                          {...props}
-                                        />
-                                      ),
-                                      h4: ({ node, ...props }) => (
-                                        <Heading
-                                          fontSize="lg"
-                                          my="1rem"
-                                          {...props}
-                                        />
-                                      ),
-                                      h5: ({ node, ...props }) => (
-                                        <Heading
-                                          fontSize="md"
-                                          my="1rem"
-                                          {...props}
-                                        />
-                                      ),
-                                      h6: ({ node, ...props }) => (
-                                        <Heading
-                                          fontSize="sm"
-                                          color="gray.400"
-                                          my="1rem"
-                                          {...props}
-                                        />
-                                      ),
-                                      table: ({ node, ...props }) => (
-                                        <TableContainer maxW="100%">
-                                          <Table {...props} />
-                                        </TableContainer>
-                                      ),
-                                      thead: ({ node, ...props }) => (
-                                        <Thead {...props} />
-                                      ),
-                                      tr: ({ node, ...props }) => (
-                                        <Tr {...props} />
-                                      ),
-                                      th: ({ node, ...props }) => (
-                                        <Th {...props} />
-                                      ),
-                                      tbody: ({ node, ...props }) => (
-                                        <Tbody {...props} />
-                                      ),
-                                      td: ({ node, ...props }) => (
-                                        <Td fontSize="sm" {...props} />
-                                      ),
-                                      a: ({ node, ...props }) => (
-                                        <Link
-                                          isExternal
-                                          color="brand.500"
-                                          {...props}
-                                        />
-                                      ),
-                                      img: ({ node, ...props }) => (
-                                        <Image
-                                          boxSizing="border-box"
-                                          border="3px solid #fff"
-                                          maxW="50vw"
-                                          m="2rem auto"
-                                          fit="cover"
-                                          {...props}
-                                        />
-                                      ),
-                                      blockquote: ({ node, ...props }) => (
-                                        <Text
-                                          {...props}
-                                          borderLeft="5px solid #ccc"
-                                          mb="1rem"
-                                          ml="1rem"
-                                          mt="1rem"
-                                          pl="1rem"
-                                        />
-                                      ),
-                                      hr: ({ node, ...props }) => (
-                                        <Divider {...props} my="1rem" />
-                                      ),
-                                      code: ({ node, ...props }) => (
-                                        <Code variant="subtle" {...props} />
-                                      ),
-                                      ol: ({ node, ...props }) => (
-                                        <OrderedList {...props} />
-                                      ),
-                                      ul: ({ node, ...props }) => (
-                                        <UnorderedList {...props} />
-                                      ),
-                                      li: ({ node, ...props }) => (
-                                        <ListItem
-                                          listStylePosition="inside"
-                                          {...props}
-                                        />
-                                      ),
-                                    }}
-                                  />
-                                </TabPanel>
-                                <TabPanel>
-                                  <Textarea
-                                    variant="outline"
-                                    w={isLargerThen50em ? "70vw" : "80vw"}
-                                    h="60vh"
-                                    pos="relative"
-                                    left="-2"
-                                    pl="1rem"
-                                    // onClick={handleStopPropagation}
-                                    value={data}
-                                    onChange={(e) => handleEditMarkDown(e)}
-                                    onBlur={() => handleBlurEditor(word)}
-                                  />
-                                </TabPanel>
-                              </TabPanels>
-                            </Tabs>
-                          </motion.div>
+                          <MarkdownForm
+                            word={word}
+                            handleStopPropagation={handleStopPropagation}
+                            isLargerThen50em={isLargerThen50em}
+                            selectId={selectId}
+                            contents={contents}
+                            setContents={setContents}
+                            getContents={getContents}
+                            updateWord={updateWord}
+                          />
                         </motion.div>
                       ) : null}
                     </AnimatePresence>
