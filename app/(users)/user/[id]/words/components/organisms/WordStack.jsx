@@ -188,7 +188,7 @@ const cardVariants = {
     display: "block",
     height: "100vh",
     position: "fixed",
-    width: "100vw",
+    // width: "100vw",
     borderRadius: "0",
     left: "0",
     top: "0",
