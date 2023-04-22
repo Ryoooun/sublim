@@ -86,21 +86,11 @@ export default function MarkdownForm({
     <div
       // layout="size"
       // layoutScroll={true}
-      style={
-        focus
-          ? {
-              position: "absolute",
-              width: "90vw",
-              height: "80vh",
-              overflow: "scroll",
-            }
-          : {
-              position: "static",
-              width: "90vw",
-              height: "80vh",
-              overflow: "scroll",
-            }
-      }>
+      style={{
+        width: "90vw",
+        height: "80vh",
+        overflow: "scroll",
+      }}>
       <Tabs variant="enclosed" w={isLargerThen50em ? "70vw" : "90vw"}>
         <TabList onClick={handleStopPropagation}>
           <Tab>
