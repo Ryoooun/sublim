@@ -195,7 +195,7 @@ const cardVariants = {
     zIndex: "20",
     whiteSpace: "wrap",
     backgroundImage: "none",
-    backgroundColor: "#ffffffea",
+    backgroundColor: "#ffffff",
     // backgroundColor: "#f00",
     WebkitBackdropFilter: "blur(10px)",
     backdropFilter: "blur(10px)",
