@@ -1,5 +1,5 @@
 "use client";
-import { Flex, CircularProgress } from "@/app/common/chakraui/ChakraUI";
+import { Box, Flex, CircularProgress } from "@/app/common/chakraui/ChakraUI";
 
 import useWord from "@/app/hooks/useWord";
 import { memo, useState } from "react";
