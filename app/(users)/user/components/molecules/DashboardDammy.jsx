@@ -15,7 +15,7 @@ export default memo(function DashboardDammy(params) {
         .map((_, index) => (
           <Card key={index} mb="2">
             <CardHeader>
-              <Heading>Dashboard</Heading>
+              <Heading>Test</Heading>
               <Divider w="full" />
             </CardHeader>
             <CardBody>

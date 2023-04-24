@@ -16,7 +16,7 @@ export default React.memo(function LinkMenu({ currentPage, handleLinkClick }) {
   const menuContents = [
     { id: 0, title: "Home", path: "/" },
     { id: 1, title: "About", path: "/about" },
-    { id: 2, title: "Test", path: "/test" },
+    // { id: 2, title: "Test", path: "/test" },
   ];
 
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
@@ -66,14 +66,14 @@ export default React.memo(function LinkMenu({ currentPage, handleLinkClick }) {
               Sublimについて
             </Link>
           </MenuItem>
-          <MenuItem>
+          {/* <MenuItem>
             <Link
               as={NextLink}
               href="/test"
               _hover={{ textDecoration: "none" }}>
               Test
             </Link>
-          </MenuItem>
+          </MenuItem> */}
         </MenuList>
       </Menu>
     );

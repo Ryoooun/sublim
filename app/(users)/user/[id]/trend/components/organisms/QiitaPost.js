@@ -5,11 +5,11 @@ export default async function getData() {
   console.time("Qiita");
   const apiUrl = process.env.NEXT_PUBLIC_QIITA_API_URL;
 
-  const limitDate = JSON.stringify(dayjs().subtract(4, "days")["$d"])
+  const limitDate = JSON.stringify(dayjs().subtract(10, "days")["$d"])
     .split("T")[0]
     .replace('"', "");
-  const stocks = "30";
-  const par_page = "10";
+  const stocks = "20";
+  const par_page = "20";
   const res = await fetch(
     `${apiUrl}?page=1&per_page=${par_page}&query=created%3A%3E${limitDate}+stocks%3A%3E${stocks}`,
     {

@@ -11,7 +11,8 @@ export default memo(function PageWrapper({ children }) {
       w={isLargerThen50em ? "93vw" : "100vw"}
       bg="white"
       // px={isLargerThen50em ? "4rem" : "5"}
-      py={isLargerThen50em ? "0" : "10"}
+      py={isLargerThen50em ? "10" : "10"}
+      px={isLargerThen50em ? "10" : "5"}
       pb="0">
       {children}
     </Box>
