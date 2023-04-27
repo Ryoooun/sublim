@@ -35,9 +35,14 @@ export default async function getData() {
     postsArray.map(async (post) => {
       const tags = post.tags.map((tag) => tag?.name);
       // const url = await getURL(post.url);
-      const url = `/api/parse?url=${post.url}`;
+      // const url = `/api/parse?url=${post.url}`;
 
-      const parse = await fetch(url).then((res) => res.json());
+      const parse = await fetch(
+        new URL(
+          `/api/parse?url=${post.url}`,
+          "https://sublim-ryoooun.vercel.app"
+        )
+      ).then((res) => res.json());
 
       // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
       // const url = post.url;
