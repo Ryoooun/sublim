@@ -35,9 +35,7 @@ export default async function getData() {
     postsArray.map(async (post) => {
       const tags = post.tags.map((tag) => tag?.name);
       // const url = await getURL(post.url);
-      const url = IS_SERVER
-        ? `https://sublim-ryoooun.vercel.app/api/parse?url=${post.url}`
-        : `http://localhost:3000/api/parse?url=${post.url}`;
+      const url = `https://sublim-ryoooun.vercel.app/api/parse?url=${post.url}`;
 
       const parse = await fetch(url).then((res) => res.json());
 
