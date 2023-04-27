@@ -35,7 +35,7 @@ export async function ZennPost(params) {
   const IS_SERVER = typeof window === "undefined";
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
-      const url = `https://sublim-ryoooun.vercel.app/api/parse?url=https://zenn.dev${obj.path}`;
+      const url = `/api/parse?url=https://zenn.dev${obj.path}`;
       const parse = await fetch(url).then((res) => res.json());
       return {
         id: obj.id,
