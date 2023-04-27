@@ -37,12 +37,12 @@ export default async function getData() {
       // const url = await getURL(post.url);
       // const url = `/api/parse?url=${post.url}`;
 
-      const parse = await fetch(
-        new URL(
-          `/api/parse?url=${post.url}`,
-          "https://sublim-ryoooun.vercel.app"
-        )
-      ).then((res) => res.json());
+      // const parse = await fetch(
+      //   new URL(
+      //     `/api/parse?url=${post.url}`,
+      //     "https://sublim-ryoooun.vercel.app"
+      //   )
+      // ).then((res) => res.json());
 
       // "https://sublim-git-firebasetorestapi-ryoooun.vercel.app"
       // const url = post.url;
@@ -71,7 +71,7 @@ export default async function getData() {
           likes: post.likes_count,
           stocks: post.stocks_count,
         },
-        parse: parse.json,
+        // parse: parse.json,
         // ogData: {
         //   ogImageUrl,
         //   ogDescription,

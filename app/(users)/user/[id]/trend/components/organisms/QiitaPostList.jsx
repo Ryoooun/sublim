@@ -9,7 +9,7 @@ import {
 import { css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import NextImage from "next/image";
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import "../../../../components/organisms/scroll.css";
 import dynamic from "next/dynamic";
 // import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
@@ -101,9 +101,11 @@ const tagStyle = css({
   textAlign: "center",
 });
 
-const WordBookmarkPopOver = dynamic(() =>
-  import("../molecules/WordBookmarkPopOver")
-);
+// const WordBookmarkPopOver = dynamic(() =>
+//   import("../molecules/WordBookmarkPopOver")
+// );
+
+const PostTextList = dynamic(() => import("./PostTextList"));
 
 export default memo(function QiitaPostList({ qiitaItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
@@ -179,19 +181,22 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                             : "9rem"
                         }
                         overflow="scroll">
-                        {post.id === selectId &&
-                          post.parse.map((obj, i) => (
-                            <WordBookmarkPopOver text={obj.text} key={i} />
-                            // <motion.span
-                            //   css={tagStyle}
-                            //   key={i}
-                            //   onClick={(e) => {
-                            //     e.stopPropagation();
-                            //     alert(obj.text);
-                            //   }}>
-                            //   {obj.text}
-                            // </motion.span>
-                          ))}
+                        {
+                          post.id === selectId && (
+                            <PostTextList url={post.url} />
+                          )
+                          // post.parse.map((obj, i) => (
+                          //   <WordBookmarkPopOver text={obj.text} key={i} />
+                          // <motion.span
+                          //   css={tagStyle}
+                          //   key={i}
+                          //   onClick={(e) => {
+                          //     e.stopPropagation();
+                          //     alert(obj.text);
+                          //   }}>
+                          //   {obj.text}
+                          // </motion.span>
+                        }
                       </Flex>
                     </>
                   )}

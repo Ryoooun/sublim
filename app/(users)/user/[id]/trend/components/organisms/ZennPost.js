@@ -36,12 +36,12 @@ export async function ZennPost(params) {
   const rawJson = await Promise.all(
     fetchRawData.map(async (obj) => {
       // const url = `/api/parse?url=https://zenn.dev${obj.path}`;
-      const parse = await fetch(
-        new URL(
-          `/api/parse?url=https://zenn.dev${obj.path}`,
-          "https://sublim-ryoooun.vercel.app"
-        )
-      ).then((res) => res.json());
+      // const parse = await fetch(
+      //   new URL(
+      //     `/api/parse?url=https://zenn.dev${obj.path}`,
+      //     "https://sublim-ryoooun.vercel.app"
+      //   )
+      // ).then((res) => res.json());
       return {
         id: obj.id,
         title: obj.title,
@@ -50,7 +50,7 @@ export async function ZennPost(params) {
           username: obj.user.username,
           avatarSmallUrl: obj.user.avatarSmallUrl,
         },
-        parse: parse.json,
+        // parse: parse.json,
       };
     })
   );

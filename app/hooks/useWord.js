@@ -2,15 +2,13 @@ import useSWR from "swr";
 
 const fetcher = (id) => fetch(id).then((r) => r.json());
 
-function useWord({ url }) {
+function useWord(url) {
   // const data = await fetch(`/api/parse?url=${url}`);
-  const { data } = useSWR(`/api/parse?url=${url}`, fetcher);
-
-  return {
-    post: data,
-    // isLoading: isLoading,
-    // isError: error,
-  };
+  const { data, isLoading } = useSWR(`/api/parse?url=${url}`, fetcher);
+  console.log(url);
+  return { data, isLoading };
+  // isLoading: isLoading,
+  // isError: error,
 }
 
 export default useWord;
