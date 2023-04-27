@@ -101,9 +101,7 @@ const tagStyle = css({
   textAlign: "center",
 });
 
-const WordBookmarkPopOver = dynamic(() =>
-  import("../molecules/WordBookmarkPopOver")
-);
+const PostTextList = dynamic(() => import("./PostTextList"));
 
 export default memo(function ZennPostList({ zennItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
@@ -162,25 +160,14 @@ export default memo(function ZennPostList({ zennItems }) {
                   </a>
                   {post.id === selectId && (
                     <>
-                      <Flex
-                        as={motion.div}
-                        layout
-                        css={scroll}
-                        flexWrap="wrap"
-                        justifyItems="center"
-                        mt="2"
-                        gap="2"
-                        height={
-                          post.id === selectId && isLargerThen50em
-                            ? "24vh"
-                            : "9rem "
-                        }
-                        overflow="scroll">
-                        {post.id === selectId &&
-                          post.parse.map((obj, i) => (
-                            <WordBookmarkPopOver text={obj.text} key={i} />
-                          ))}
-                      </Flex>
+                      {post.id === selectId && (
+                        <PostTextList
+                          url={post.path}
+                          isLargerThen50em={isLargerThen50em}
+                          pId={post.id}
+                          sId={selectId}
+                        />
+                      )}
                     </>
                   )}
                 </motion.div>

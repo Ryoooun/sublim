@@ -13,7 +13,7 @@ import { memo, useState, useEffect } from "react";
 import "../../../../components/organisms/scroll.css";
 import dynamic from "next/dynamic";
 // import WordBookmarkPopOver from "../molecules/WordBookmarkPopOver";
-
+import PostTextList from "./PostTextList";
 const scroll = css({
   msOverflowStyle: "none",
   scrollbarWidth: "none",
@@ -105,7 +105,7 @@ const tagStyle = css({
 //   import("../molecules/WordBookmarkPopOver")
 // );
 
-const PostTextList = dynamic(() => import("./PostTextList"));
+// const PostTextList = dynamic(() => import("./PostTextList"));
 
 export default memo(function QiitaPostList({ qiitaItems }) {
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
@@ -167,37 +167,27 @@ export default memo(function QiitaPostList({ qiitaItems }) {
                   </a>
                   {post.id === selectId && (
                     <>
-                      <Flex
-                        as={motion.div}
-                        layout
-                        css={scroll}
-                        flexWrap="wrap"
-                        justifyItems="center"
-                        mt="2"
-                        gap="2"
-                        height={
-                          post.id === selectId && isLargerThen50em
-                            ? "24vh"
-                            : "9rem"
-                        }
-                        overflow="scroll">
-                        {
-                          post.id === selectId && (
-                            <PostTextList url={post.url} />
-                          )
-                          // post.parse.map((obj, i) => (
-                          //   <WordBookmarkPopOver text={obj.text} key={i} />
-                          // <motion.span
-                          //   css={tagStyle}
-                          //   key={i}
-                          //   onClick={(e) => {
-                          //     e.stopPropagation();
-                          //     alert(obj.text);
-                          //   }}>
-                          //   {obj.text}
-                          // </motion.span>
-                        }
-                      </Flex>
+                      {
+                        post.id === selectId && (
+                          <PostTextList
+                            url={post.url}
+                            isLargerThen50em={isLargerThen50em}
+                            pId={post.id}
+                            sId={selectId}
+                          />
+                        )
+                        // post.parse.map((obj, i) => (
+                        //   <WordBookmarkPopOver text={obj.text} key={i} />
+                        // <motion.span
+                        //   css={tagStyle}
+                        //   key={i}
+                        //   onClick={(e) => {
+                        //     e.stopPropagation();
+                        //     alert(obj.text);
+                        //   }}>
+                        //   {obj.text}
+                        // </motion.span>
+                      }
                     </>
                   )}
                 </motion.div>
