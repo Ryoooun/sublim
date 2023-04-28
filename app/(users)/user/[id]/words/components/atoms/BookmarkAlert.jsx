@@ -9,7 +9,7 @@ import {
   Text,
 } from "@/app/common/chakraui/ChakraUI";
 import { useRef } from "react";
-
+import useWordsDB from "@/app/hooks/useWordsDB";
 export default function BookmarkAlert({
   text,
   isOpen,
@@ -19,7 +19,7 @@ export default function BookmarkAlert({
   updateWord,
 }) {
   const cancelRef = useRef();
-
+  const { deleteWordDoc } = useWordsDB();
   const handleSubmit = (e) => {
     handleCancel(e);
     updateWord(text, "isBookmark", false);
@@ -57,6 +57,14 @@ export default function BookmarkAlert({
               </Button>
               <Button onClick={onClose} ref={cancelRef}>
                 キャンセル
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={() => {
+                  deleteWordDoc(text);
+                  onClose();
+                }}>
+                削除
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

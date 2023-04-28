@@ -4,6 +4,7 @@ import {
   addDoc,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -176,11 +177,43 @@ export default function useWordsDB() {
     [words]
   );
 
+  const deleteWordDoc = useCallback(
+    async (word) => {
+      console.log(word);
+      const ref = await words.find((obj) => obj.title == word).ref;
+      if (user && ref != undefined) {
+        await deleteDoc(ref);
+        const refRef = doc(
+          db,
+          "posts",
+          user.uid,
+          "References",
+          "WordReferences"
+        );
+        const docSnap = await getDoc(refRef);
+        if (docSnap.exists()) {
+          const oldReferences = docSnap.get("references");
+          const newReferences = oldReferences.filter(
+            (obj) => obj.title !== word
+          );
+          await setDoc(refRef, {
+            references: newReferences,
+          });
+          await getWords();
+        }
+      } else {
+        console.log("no user info. can not get words");
+      }
+    },
+    [words]
+  );
+
   return {
     getWords,
     setWord,
     getContents,
     updateWord,
+    deleteWordDoc,
     checkIsRegistered,
     words,
   };

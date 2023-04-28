@@ -95,6 +95,7 @@ export default function BookmarkModal({ text, setSelectId }) {
   const value = text.slice();
   const [word, setWord] = useState(value);
   const [toggle, setToggle] = useState(false);
+  const [editFlag, setEditFlag] = useState(false);
 
   const { words, updateWord } = useWordsDB();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -163,11 +164,6 @@ export default function BookmarkModal({ text, setSelectId }) {
                 {words.filter((w) => w.isBookmark === true).length}words
               </Text>
             </Text>
-            <Flex direction="row" justifyContent="flex-end">
-              <Text color="blue.400" textAlign="right">
-                Edit
-              </Text>
-            </Flex>
             <Flex direction="row" justifyContent="space-around">
               <Text>TITLE</Text>
               <Text>DATE</Text>
@@ -180,6 +176,7 @@ export default function BookmarkModal({ text, setSelectId }) {
                     .map((obj) => {
                       return (
                         <Tr key={obj.title}>
+                          {editFlag && <Td>□</Td>}
                           <Td
                             onClick={(e) => {
                               handleClickTitle(e);

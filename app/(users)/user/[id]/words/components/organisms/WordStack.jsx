@@ -1,37 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import {
   Button,
+  IconButton,
   Flex,
-  Code,
-  Divider,
-  Heading,
-  Image,
-  Link,
-  ListItem,
-  OrderedList,
-  Tab,
-  Table,
-  TableContainer,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Tbody,
-  Td,
   Text,
-  Textarea,
-  Th,
-  Thead,
-  Tr,
-  UnorderedList,
   useMediaQuery,
-  Skeleton,
 } from "@/app/common/chakraui/ChakraUI";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { css } from "@emotion/react";
-import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
-import { MdEdit } from "@react-icons/all-files/md/MdEdit";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import remarkGfm from "remark-gfm";
 
 import EditableText from "./EditableText";
 
@@ -256,7 +232,7 @@ export default memo(function WordStack({
   // const [toggle, flag] = useToggle(false);
   const [isLargerThen50em] = useMediaQuery("(min-width: 50em)");
   const [contents, setContents] = useState("");
-  const { updateWord, getContents } = useWordsDB();
+  const { updateWord, getContents, deleteWordDoc } = useWordsDB();
 
   const handleSelectCard = (word) => {
     if (word.title !== selectId) {
@@ -350,6 +326,19 @@ export default memo(function WordStack({
                           // transition={cardTransition}
                           exit={{ opacity: 0, transition: { duration: 0.2 } }}>
                           <EditableText title={word.title} words={words} />
+
+                          <IconButton
+                            pos="absolute"
+                            right="30"
+                            colorScheme="red"
+                            aria-label="Delete Word"
+                            icon={<DeleteIcon />}
+                            onClick={() => {
+                              deleteWordDoc(word.title);
+                              setSelectId(null);
+                            }}
+                          />
+
                           <motion.button
                             css={
                               isLargerThen50em
