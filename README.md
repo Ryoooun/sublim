@@ -1,38 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+<img src="https://komogomo.vercel.app/img/sublim.jpg">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# SUBLIM -トレンド記事から単語学習を進めるアプリ-
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## アプリについて
+[SUBLIM](https://sublim-ryoooun.vercel.app/)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### 概要と経緯
+ 人間が知識を得ること、またそれを論理的に構造化して他者と共有するためには言語化の能力が欠かせません。特に学習の初心者ほど自身の学習をコーディングや制作活動以外に言葉として表現・コミュニケーションをとることは難しいこともあります。このアプリは言語化の能力を高めるために、語彙と見聞を広げることにフォーカスし、初学者のより良い学習を助けることを目標に開発をしました。自分自身の課題が開発の原点ですが、周りの初学者の意見を聞いていても改めて言語化能力について課題意識を感じている人が多く、それを解決するにはどうしたら良いかという軸で初めてポートフォリオとして制作しました。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### サービスと機能
+- QiitaとZennのトレンドの記事から「重要っぽい」ワードを抽出。
+- 気になったワードはすぐにブックマークして、マークダウンで後から学習。
+- 指定したURLの本文を解析し、「重要っぽい」ワードをクラウドマップ出力。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+以上の機能を現在、実装しています。また今後学習を深めて、
 
-## Learn More
+- ユーザーに対して、他のユーザーの学習した内容を元にした学習単語の提案機能
+- 他のユーザーとの緩やかな交流機能
+といったような機能を実装できればと考えています。
 
-To learn more about Next.js, take a look at the following resources:
+## 設計
+今回使用したのは以下の技術およびサービスです。
+- UIライブラリ
+  - React.js
+- フロントエンドフレームワーク
+  - Next.js
+- 状態管理ライブラリ
+  - zustand
+- 認証機能,データベース機能
+  - Firebase
+- ホスティング
+  - Vercel
+- スタイリング・アニメーション
+  - Emotion
+  - Framer-motion
+  - ChakraUI
+   
+SPAの構築を学習していたためコンポーネント・ルーティングにはReact.jsおよびNext.jsを選択しました。またホスティングサービスはNext.jsの開発元であるVercelを利用しており、Next.jsのVer13で追加されたAPPディレクトリ構成です。認証機能とデータベースにはFirebase/FirestoreのSDK V9を使用しました。また、トレンドの記事の取得はそれぞれAPIを介して取得しています。
+認証機能とデータベースにはFirebase/FirestoreのSDK V9を使用しました。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 各画面の詳細と工夫した点
+### ダッシュボード
+この画面は学習活動を管理するダッシュボードです。データベースから学習活動を読み取りグラフに表示しています。もっとゲーミフィケーションを意識したモチベーションを高めるUIを構想しており、ありきたりですがトロフィーや学習領域のグラフ化なども良いかと思っています。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### トレンド探索
+ この画面はQiitaとZennからトレンドになっている記事を取得し表示しており、今流行っている内容や話題になっているトピックについてざっくり知ることができるイメージで作りました。自分自身が学習していてブックマークが増えすぎて管理できず、後で読もうが積み重なった結果、ブックマークがなかなかカオスな状況になることがあったため、どうにか工夫できないのかと考え、学習の最小単位である単語の状態で記録・管理できれば後からでも一覧として学習を進めやすいのではないかと思いました。記事から外部リンクとして記事を見ることができ、このアプリのコアな部分である「重要っぽそうな」ワードを抽出してこのページから登録することもできるようにしました。「重要っぽそうな」ワードの抽出には、形態素解析を行う「kuromoji.js」と日本語専門用語抽出ライブラリの「termextact-kuromojijs」を使用しており、流れとしては、
+1.cheerioでリンク先の記事をパースし本文の取得する
+1.本文をkuromojiで形態素解析する
+1.形態素解析されたデータをtermextact-kuromojijsで重要度を評価する
+1.表示用にデータを整形し、コンポーネントに渡す
+となっています。辞書データの兼ね合いから、Next.jsのAPIルートの機能でAPIとして記事データをやりとりさせています。抽出部分を調整し、より学習に繋がりやすい単語を抽出するようにしましたが、ここはまだまだ工夫が要される部分かなと感じています。
 
-## Deploy on Vercel
+### エディタ機能
+ 「Notionでいいじゃん」と言われればその通りなのですが、メモ帳くらいの感覚でラフに単語をメモしたいと思っていたため、React.jsでマークダウンエディタを実装しました。使用したのは「react-markdown」で、プラグインとして「remark-gfm」を導入し、マークダウン記法を拡張しています。また、ChakraUIの要素に変換するようにcomponentsオプションでそれぞれの変換先要素を指定しているのが工夫しているところです。データベースであるFirestoreを初めて使用したのですが、ドキュメント型データベースのコレクション、ドキュメント、フィールドの設計になれず、開発中にもかかわらず検証などを回しているとあっという間に無料枠を脅かすほどの読み込み回数をマークしてしまいました。改めてデータベースの構造を変更し、読み込み時には参照を保持した１つのオブジェクトだけを読み込み、直接データへアクセスするようにすることで、劇的に読み込み回数を減らすことができました。（元が無計画だったともいう）SQLiteの使用経験しかなかったので、改めてNoSQLについて学習しようと思いました。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ワードクラウド出力
+ 自身がワードクラウドが好きというのと、いつか学習した内容をワードクラウドで管理できたり、クラウドをシェアして学習を広げられたら素敵やん。という思いで追加した、現状おまけ感のある機能です。ここにもkuromojiを利用して形態素解析を行なっており、URLに指定したページの本文のみを抜き出してリソースにしています。クラウドでデータをやりとりするのは、雲と雨をイメージしています。余談ですが、アプリの名前である『SUBLIM』は、状態変化の昇華を意味する「sublimation」から来ています。言葉という雨が初心者の知識に恵みを与えて、それがやがて雲となって共有されていく。というポエミーさ全開のコンセプトがあります。
+ 
+## 経験と感想
+### コンポーネントの設計
+ コンポーネントの粒度にはアトミックデザインを採用し、zustandで状態管理をしながら、データを扱うコンポーネントとビュジュアルを扱うコンポーネントと分け、    それぞれの関心を分離しようと試みました。しかしながら実装途中であれこれと変更を加えたために一部粒度にばらつきが生まれてしまいました。画面遷移図は設計していたのですが、改めて初期の設計の大切さを感じました。Storybookによるコンポーネントの管理についても今後学習して、設計に応じたコンポーネントの実装ができるようになりたいです。
+ 
+### パフォーマンス改善
+ React.jsのreact-domやアニメーションのために使用していたFramer-motion、FirebaseのAuth、Firestoreパッケージなど、無作為に使用していたためパフォーマンスが気になりました。パフォーマンス改善のこと初めにまずは分析。Next.jsでは@next/bundle-analyzerでバンドルサイズを計測することができます。計測してみるとGzipで2MB超えと実装している機能に対して悲惨な状況になりました。Framer-motionはより軽量なパッケージ版をインポートし、FIrebaseとFirestoreもそれぞれ最低限の機能をもつ軽量パッケージに切り替えることで、全体のバンドルサイズのかなりウェイト占めていた部分を減らすことができました。
+      
+  本来であれば、ReactではなくPreactで実装していればよかったのでしょうが、Reactに依存している部分も多く、そこは一旦保留に。
+次にLighthouseでレポートを確認。次世代フォーマットへの対応が指摘されているほか、FP・FMPもかなり時間がかかっていることがわかりました。
+次世代フォーマットはNext/imageを使用することで解決しました。描画とコンテンツのロードのボトルネックの解消のために、React.jsとNext.jsのサスペンスと動的インポートによるコンポーネント切り替えと遅延ロードを行い、描画に関してかなりの速度アップがされ、Ligthouseもかろうじてグリーンラインに乗り始めました。初めてのアプリケーション開発。とりあえず動くものを！をみたいなテンションで開発し始めたため、当然の結果となりましたが、その改善のプロセスを身をもって体感することができたので良い経験になりました。（ポジティブ）
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## まとめ
+ まだまだやりたいこと、手を加えたいことはありますが、ポートフォリオの一つのため一旦ことで休止。当然ですが、インプットしたことを制作物にするだけでかなり理解が深まることを感じました。また、別のアプリケーションを制作していてもこの経験が生きてきます。今後、今よりもっと理解が深まった頃にサービスとして世に出してあげたいという思いでいっぱいです。
+      
+今？無限読み込みとかされただけでクラウドサービスの爆死待ったなしなので、それらの対応が十分にできるまでは恐ろしくて世に出せません。この辺も「ただ使える」ことと「サービスとして使用できる」の違いを痛感しています。cloudflareなどでCDNとしてキャッシュしてあげればその辺にも対応できそうな気はしています。もしくは一旦データベース機能をIndexedDB使うようにしても良いかもですね。
+
+[該当のブログ記事はこちら](https://komogomo.vercel.app/sublim)
+
